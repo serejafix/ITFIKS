@@ -1,0 +1,162 @@
+﻿<Window x:Class="DZ_WPF_STAMINA.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DZ_WPF_STAMINA"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="810" MinHeight="450" MinWidth="810" MaxHeight="450" MaxWidth="810" KeyUp="Window_KeyUp" KeyDown="Window_KeyDown">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.1*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.15*"/>
+            <RowDefinition Height="0.12*"/>
+            <RowDefinition Height="0.15*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <WrapPanel HorizontalAlignment="Right" Grid.Row="1" Grid.Column="2" >
+            <Button x:Name="start" Content="Start" Width="182" Margin="3"/>
+            <Button x:Name="stop" Content="Stop" Width="182" Margin="3"/>
+        </WrapPanel>
+        <DockPanel Grid.Row="0" Grid.Column="2">
+            <TextBox  Text="Difficulty: " FontSize="18" HorizontalAlignment="Left" Margin="6"/>
+            <Slider x:Name="slider"  Width="90" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <CheckBox  Height="20" Margin="5"/>
+            <TextBox x:Name="case" Text="Case Sensetive" Margin="5" VerticalAlignment="Center" FontSize="18"/>
+        </DockPanel>
+        <DockPanel  Grid.Row="0">
+            <TextBox  Text="Speed:" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBox IsReadOnly="True" Text="0" FontSize="18" Width="25" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBox  Text="chars/min" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        </DockPanel>
+        <TextBox x:Name="TextBox" Grid.Row="2" Grid.ColumnSpan="2"/>
+        <Grid Grid.Row="3" Grid.ColumnSpan="2" x:Name="Buts">
+            <Grid.Resources>
+                <Style x:Key="FocusVisual">
+                    <Setter Property="Control.Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+                <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+                <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+                <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+                <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+                <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+                <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+                <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+                <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+                <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+                    <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+                    <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Setter Property="Padding" Value="1"/>
+                    <Setter Property="FontSize" Value="22"/>
+                    <Setter Property="Margin" Value="3"/>
+                    <Setter Property="Height" Value="50"/>
+                    <Setter Property="Width" Value="48"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border x:Name="border" CornerRadius="20" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                                    <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsDefaulted" Value="true">
+                                        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                        <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="true">
+                                        <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                        <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="false">
+                                        <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                        <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                        <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Grid.Resources>
+            <WrapPanel  Grid.Row="3" Grid.ColumnSpan="3" Background="Firebrick" >
+                <Button Background="RoyalBlue" FontSize="35" x:Name="Oem3" Content="`" />
+                <Button Background="RoyalBlue" x:Name="D1" Content="1" FontSize="35" />
+                <Button Background="RoyalBlue" FontSize="35" x:Name="D2" Content="2" />
+                <Button Background="Violet" FontSize="35" x:Name="D3" Content="3"/>
+                <Button Background="GreenYellow" FontSize="35" x:Name="D4" Content="4" />
+                <Button Background="Orange" FontSize="35" x:Name="D5" Content="5" />
+                <Button Background="Orange" FontSize="35" x:Name="D6" Content="6" />
+                <Button Background="Green" FontSize="35" x:Name="D7" Content="7" />
+                <Button Background="Green" FontSize="35" x:Name="D8" Content="8" />
+                <Button Background="RoyalBlue" FontSize="35" x:Name="D9" Content="9" />
+                <Button Background="Violet" FontSize="35" x:Name="D0" Content="0"/>
+                <Button Background="GreenYellow" FontSize="30" x:Name="OemMinus" Content="-"  />
+                <Button Background="GreenYellow" FontSize="30" x:Name="OemPlus" Content="="/>
+                <Button Background="Gray" FontSize="14" x:Name="Back" Content="backspace" Width="85"/>
+                <Button Background="Gray" FontSize="24" x:Name="OemTab" Content="tab" Width="75"/>
+                <Button Background="RoyalBlue" FontSize="22" x:Name="Q" Content="q" />
+                <Button Background="Violet" FontSize="22" x:Name="W" Content="w" />
+                <Button Background="GreenYellow"  x:Name="E" Content="e"/>
+                <Button Background="Orange"  x:Name="R" Content="r" />
+                <Button  Background="Orange"  x:Name="T" Content="t"/>
+                <Button Background="Green" x:Name="Y" Content="y"  Width="48"/>
+                <Button Background="Green"  x:Name="U" Content="u"/>
+                <Button Background="RoyalBlue"  x:Name="I" Content="i"/>
+                <Button Background="Violet" x:Name="O" Content="o"/>
+                <Button Background="GreenYellow"  x:Name="P" Content="p"/>
+                <Button Background="GreenYellow"  x:Name="OemOpenBrackets" Content="[" />
+                <Button Background="GreenYellow"  x:Name="OemCloseBrackets" Content="]" />
+                <Button Background="GreenYellow"  x:Name="Oem5" Content="\"/>
+                <Button Background="Gray"  FontSize="18" x:Name="Capital" Content="caps-Lock" Width="100"/>
+                <Button Background="RoyalBlue"  x:Name="A" Content="a" />
+                <Button Background="Violet"  x:Name="S" Content="s"/>
+                <Button Background="GreenYellow"  x:Name="D" Content="d"/>
+                <Button Background="Orange"  x:Name="F" Content="f"/>
+                <Button Background="Orange"  x:Name="G" Content="g"/>
+                <Button Background="Green"  x:Name="H" Content="h"/>
+                <Button Background="Green"  x:Name="J" Content="j"/>
+                <Button Background="RoyalBlue"  x:Name="K" Content="k"/>
+                <Button Background="Violet"  x:Name="L" Content="l"/>
+                <Button Background="GreenYellow"  x:Name="OemSemicolon" Content=";"/>
+                <Button Background="GreenYellow"  x:Name="OemQuotes" Content="'"/>
+                <Button Background="Gray"   x:Name="OemEnter" Content="enter" Width="86"/>
+                <Button Background="Gray"   x:Name="LeftShift" Content="shift" Width="120"/>
+                <Button Background="RoyalBlue"  x:Name="Z" Content="z" />
+                <Button Background="Violet"  x:Name="X" Content="x"/>
+                <Button Background="GreenYellow" x:Name="C" Content="c"/>
+                <Button Background="Orange"  x:Name="V" Content="v" />
+                <Button Background="Orange"  x:Name="B" Content="b" />
+                <Button Background="Green"  x:Name="N" Content="n" />
+                <Button Background="Green"  x:Name="M" Content="m"/>
+                <Button Background="RoyalBlue"  x:Name="OemComma" Content=","/>
+                <Button Background="Violet" x:Name="OemPeriod" Content="."/>
+                <Button Background="GreenYellow"  x:Name="OemQuestion" Content="/"/>
+                <Button Background="Gray"  x:Name="RightShift" Content="shift"  Width="120"/>
+                <Button Background="Gray" x:Name="LeftCtrl" Content="ctrl"  Width="72"/>
+                <Button Background="Gray"  x:Name="LWin" Content="win"  Width="72"/>
+                <Button Background="Gray"  x:Name="LAlt" Content="alt"  Width="72"/>
+                <Button Background="SeaShell"  x:Name="Space" Content="space"  Width="320"/>
+                <Button Background="Gray"  x:Name="RAlt" Content="alt"  Width="72"/>
+                <Button Background="Gray"  x:Name="RWin" Content="win"  Width="72"/>
+                <Button Background="Gray" x:Name="RightCtrl" Content="ctrl"  Width="72"/>
+            </WrapPanel>
+        </Grid>
+    </Grid>
+</Window>
