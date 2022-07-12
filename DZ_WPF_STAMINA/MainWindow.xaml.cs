@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace DZ_WPF_STAMINA
 {
@@ -20,12 +21,24 @@ namespace DZ_WPF_STAMINA
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Random random;
+        private DispatcherTimer timer = null;
+        private int failCount = 0;
+        private int timerCount = 0;
         public MainWindow()
         {
             InitializeComponent();
-        }
-        bool capslock = true;
+            random = new Random();
+            timer = new DispatcherTimer();
 
+           timer.Tick += timer_Tick;
+
+           timer.Interval = new TimeSpan(0, 0, 0, 0, 1000);
+        }
+
+       
+        private string baseString =
+            "QWERTYUIOPASDFGHJKLZXCVBNM~!@#$%^&*()_+{}|:\"<>?1234567890[],./\\`-=;'qwertyuiopasdfghjklzxcvbnm";
         public void KeysToUP()
         {
             this.OemOpenBrackets.Content = "{";
@@ -101,7 +114,7 @@ namespace DZ_WPF_STAMINA
                             {
                                 (but as Button).Opacity = 0.5;
                                 TextBox.Focusable = true;
-                                Keyboard.Focus(TextBox);
+                                Keyboard.Focus(TextBoxInput);
                             }
                             if (e.Key == Key.Capital)
                             {
@@ -154,6 +167,101 @@ namespace DZ_WPF_STAMINA
                 }
             }
            
+        }
+
+        private void stop_Click(object sender, RoutedEventArgs e)
+        {
+            start.IsEnabled = true;
+            stop.IsEnabled = false;
+            slider.IsEnabled = true;
+            checkCase.IsEnabled = true;
+            TextBox.Text = "";
+            TextBoxInput.Text = "";
+            failscount.Text = "";
+            SpeedCount.Text = "";
+        }
+
+        private void start_Click(object sender, RoutedEventArgs e)
+        {
+            stop.IsEnabled = true;
+            slider.IsEnabled = false;
+            @case.IsReadOnly = false;
+            checkCase.IsEnabled = false;
+            start.IsEnabled = false;
+            TextBox.Text = "";
+            TextBoxInput.Text = "";
+
+            createString(Int32.Parse(DifficultyValue.Text), baseString, (bool)checkCase.IsChecked);
+
+            TextBoxInput.IsReadOnly = false;
+            failscount.Text = "0";
+            timer.Start();
+        }
+        private void createString(int charNumber, string baseString, bool isCase)
+        {
+            string baseChars = "";
+
+            int startIndex = (isCase) ? 0 : 47;
+
+            // Выбрать заданное кол-во случайных символов из исходной строки, начиная с 0 индекса, если включен регистр символов,
+            // и с 47 индекса, если регистр символов не включен.
+            for (int i = 0; i < charNumber; i++)
+            {
+                baseChars += baseString[random.Next(startIndex, baseString.Length)];
+            }
+
+            // К выбранным символам добавить пробел. Добавляется здесь, а не в исходной строке, для более частого выбора
+            // (т.к. находясь в исходной строке из 94 символов выпадает крайне редко).
+            baseChars += " ";
+
+            for (int i = 0; i < 70; i++)
+            {
+                this.TextBox.Text += baseChars[random.Next(0, baseChars.Length)];
+            }
+        }
+        private void SliderChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            int sliderValue = (int)slider.Value;
+            DifficultyValue.Text = sliderValue.ToString();
+        }
+        void computeSpeed()
+        {
+            SpeedCount.Text = Math.Round((double)TextBoxInput.Text.Length / timerCount * 60).ToString();
+        }
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            timerCount++;
+            computeSpeed();
+        }
+       
+        private void TextBoxInput_TextChanged(object sender, TextChangedEventArgs e)
+       {
+          
+            string check= TextBox.Text.Substring(0, TextBoxInput.Text.Length);
+
+            // Проверить введенную строку на соответствие подстроке.
+            if (TextBoxInput.Text.Equals(check))
+            {
+                computeSpeed();
+                TextBoxInput.Foreground = new SolidColorBrush(Colors.Black);
+            }
+            else
+            {
+                failCount++;
+                // При неравенстве строк цвет шрифта - красный.
+                TextBoxInput.Foreground = new SolidColorBrush(Colors.SkyBlue);
+                failscount.Text = failCount.ToString();
+            }
+            // При равенстве исходной и введенной строк завершить задание.
+            if (TextBoxInput.Text.Length == TextBox.Text.Length)
+            {
+                timer.Stop();
+                computeSpeed();
+                TextBoxInput.IsReadOnly = true;
+                MessageBox.Show($"Задание завершенно!\n Количество символов {this.TextBox.Text.Length}.\n Количество ошибок {this.failscount.Text}.\nДля завершения задания нажмите Stop.",
+                                    "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+
         }
     }
 }
