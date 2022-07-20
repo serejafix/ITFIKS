@@ -18,60 +18,27 @@
                     <Setter Property="VerticalAlignment" Value="Center"/>
                     <Setter Property="Margin" Value="10 5"/>
                 </Style>
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="CadetBlue"/>
+                </Style>
             </UniformGrid.Resources>
+            
             <TextBlock Text="FirstName"/>
-            <TextBox x:Name="edFirstName1">
-                <TextBox.Text>
-                    <Binding Path="FirstName" Mode="TwoWay">
-                        <Binding.ValidationRules>
-                            <local:ContactValidationFirstName/>
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
+            <TextBox x:Name="edFirstNameNew" TextChanged="edFirstNameNew_TextChanged" ToolTip="Введите имя"/>
+            
             <TextBlock Text="LastName"/>
-            <TextBox x:Name="edLastName1">
-                <TextBox.Text>
-                    <Binding Path="LastName" Mode="TwoWay">
-                        <Binding.ValidationRules>
-                            <local:ContactValidationLastName/>
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
+            <TextBox x:Name="edLastNameNew" TextChanged="edLastNameNew_TextChanged" ToolTip="Введите Фамилию"/>
+
 
             <TextBlock Text="Company"/>
-            <TextBox x:Name="edCompany1">
-                <TextBox.Text>
-                    <Binding Path="Company" Mode="TwoWay">
-                        <Binding.ValidationRules>
-                            <local:ContactValidationCompany/>
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
-            <TextBlock Text="Email"/>
+            <TextBox x:Name="edCompanyNew" TextChanged="edCompanyNew_TextChanged" ToolTip="Введите Компанию"/>
 
-            <TextBox x:Name="edEmail1">
-                <TextBox.Text>
-                    <Binding Path="FirstName" Mode="TwoWay">
-                        <Binding.ValidationRules>
-                            <local:ContactValidationEmail/>
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
+            <TextBlock Text="Email"/>
+            <TextBox x:Name="edEmailNew" TextChanged="edEmailNew_TextChanged" ToolTip="Шаблоны ввода: serejafix@gmail.com"/>
+
 
             <TextBlock Text="Number"/>
-            <TextBox x:Name="edNumber1">
-                <TextBox.Text>
-                    <Binding Path="Number" Mode="TwoWay">
-                        <Binding.ValidationRules>
-                            <local:ContactValidationNumber/>
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
+            <TextBox x:Name="edNumberNew" TextChanged="edNumberNew_TextChanged" ToolTip="Шаблоны ввода: +380932628687"/>
 
             <Button x:Name="btAddNew" Content="Add" Click="btAddNew_Click" Margin="5"  VerticalAlignment="Center"/>
             <Button x:Name="btcencelNew" Content="Cencel" Click="btcencelNew_Click" Margin="5"  VerticalAlignment="Center"/>

@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Serialization;
 
 namespace WpfTutorialSamples.DataBinding
 {
@@ -26,6 +27,7 @@ namespace WpfTutorialSamples.DataBinding
 
         public bool bEditchange = true;
 
+        private const string fileName = "Contacts.xml";
         public DataContextSample()
         {
             InitializeComponent();
@@ -33,20 +35,48 @@ namespace WpfTutorialSamples.DataBinding
             contacts = new ObservableCollection<Contact>();
 
             LstContacts.ItemsSource = contacts;
+
             LstContacts.DisplayMemberPath = "FirstName";
+            LoadList();
 
         }
-
+        private void SaveList()
+        {
+            List<Contact> cList = new List<Contact>(contacts);
+            XmlSerializer x = new XmlSerializer(typeof(List<Contact>), new Type[] { typeof(Contact) });
+            TextWriter writer = new StreamWriter(fileName);
+            x.Serialize(writer, cList);
+            cList.Clear();
+        }
         private void btAdd_Click(object sender, RoutedEventArgs e)
         {
-
             WindowNewContact newContact = new WindowNewContact(contacts);
-            newContact.Show();           
+            newContact.Show();
+          
         }
-
+        private bool LoadList()
+        {
+            if (!File.Exists(fileName))
+                return false;
+            try
+            {
+                XmlSerializer x = new XmlSerializer(typeof(List<Contact>), new Type[] { typeof(Contact) });
+                TextReader reader = new StreamReader(fileName);
+                List<Contact> pList = x.Deserialize(reader) as List<Contact>;
+                foreach (Contact contact in pList)
+                {
+                    contacts.Add(contact);
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
         private void btEdit_Click(object sender, RoutedEventArgs e)
         {
-            
+           
             if (bEditchange)
             {
                 edFirstName.IsReadOnly = false;
@@ -73,6 +103,11 @@ namespace WpfTutorialSamples.DataBinding
             {
                 contacts.Remove(LstContacts.SelectedItem as Contact);
             }
+        }
+
+        private void btSave_Click(object sender, RoutedEventArgs e)
+        {
+            SaveList();
         }
     }
 }
