@@ -28,6 +28,7 @@ namespace WpfTutorialSamples.DataBinding
         public bool bEditchange = true;
 
         private const string fileName = "Contacts.xml";
+
         public DataContextSample()
         {
             InitializeComponent();
@@ -37,6 +38,7 @@ namespace WpfTutorialSamples.DataBinding
             LstContacts.ItemsSource = contacts;
 
             LstContacts.DisplayMemberPath = "FirstName";
+
             LoadList();
 
         }
@@ -51,8 +53,7 @@ namespace WpfTutorialSamples.DataBinding
         private void btAdd_Click(object sender, RoutedEventArgs e)
         {
             WindowNewContact newContact = new WindowNewContact(contacts);
-            newContact.Show();
-          
+            newContact.Show();          
         }
         private bool LoadList()
         {

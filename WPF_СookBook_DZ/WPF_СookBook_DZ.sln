@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31321.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF_СookBook_DZ", "WPF_СookBook_DZ.csproj", "{DBDD3511-0F13-43DC-9420-8327920D65E8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DBDD3511-0F13-43DC-9420-8327920D65E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBDD3511-0F13-43DC-9420-8327920D65E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBDD3511-0F13-43DC-9420-8327920D65E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBDD3511-0F13-43DC-9420-8327920D65E8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3C9F2EFC-E977-482D-9C4A-216D57C85794}
+	EndGlobalSection
+EndGlobal

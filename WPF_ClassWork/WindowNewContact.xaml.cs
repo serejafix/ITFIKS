@@ -32,19 +32,19 @@ namespace WPF_ClassWork
         {
             Regex RegexNumber = new Regex("^\\+?[1-9][0-9]{11,14}$");
             return RegexNumber.IsMatch(s);
-        }
-        
+        }        
     }
     public partial class WindowNewContact : Window
     {
         private bool result = true;
+
         private ObservableCollection<Contact> contact;
+
         private const string fileName = "Contacts.xml";
+
         public WindowNewContact(ObservableCollection<Contact> contacts)
         {
-
-            this.contact = contacts;
-            
+            this.contact = contacts;     
             InitializeComponent();
             edFirstNameNew.Focus();
         }
@@ -60,6 +60,7 @@ namespace WPF_ClassWork
             {
                 contact.Add(new Contact() { FirstName = edFirstNameNew.Text, LastName = edLastNameNew.Text, Company = edCompanyNew.Text, Email = edEmailNew.Text, Number = edNumberNew.Text });
                 //SaveList();
+                //contact.Add(new Contact() )
             }
 
         }

@@ -1,0 +1,95 @@
+﻿<Window x:Class="WPF_СookBook_DZ.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_СookBook_DZ"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.Background>
+
+        <ImageBrush ImageSource="/Resources/горячими-покрашенный-блюдами-значок-нарисованный-рукой-элемент-125347825.jpg" />
+    </Window.Background>
+    <Window.Resources>
+        
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="CadetBlue"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </Window.Resources>
+    <!--DataContext="{Binding ElementName=LstRecept,Path=SelectedItem}"-->
+    <Grid DataContext="{Binding ElementName=LstRecept, Path=SelectedItem}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+        </Grid.RowDefinitions>
+        <StackPanel >
+            <TextBlock Text="Рецепты!" FontSize="24" HorizontalAlignment="Center"/>
+        </StackPanel>
+        <ListBox x:Name="LstRecept" Margin="10" Grid.Column="0" Grid.Row="1">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding PicturePath}" Width="100" Height="75"></Image>
+                        <TextBlock Text="{Binding Name}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+            <UniformGrid Grid.Column="1" Columns="2" Margin="5" Grid.Row="1" >
+            <UniformGrid.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="Margin" Value="10 5"/>
+                </Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="Margin" Value="10 5"/>
+                </Style>
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="CadetBlue"/>
+                </Style>
+            </UniformGrid.Resources>
+            <ListBox x:Name="lstIngr" Margin="5" ItemsSource="{Binding ElementName=LstRecept,Path=SelectedItem.lstIngr}" DisplayMemberPath="Name"/>
+            <ListBox x:Name="lstIngrSteps" Margin="5" ItemsSource="{Binding ElementName=LstRecept,Path=SelectedItem.lstIngr}" DisplayMemberPath="Name"/>
+            <TextBlock Text="Количество блюд"/>
+            <TextBox x:Name="edServingsCount"  ToolTip="Введите Количество блюд" Text="{Binding ServingsCount}" IsEnabled="False" />
+
+            <TextBlock Text="Время готовки"/>
+            <TextBox x:Name="edCookingTime"  ToolTip="Введите время готовки" Text="{Binding CookingTime}" IsEnabled="False"/>
+        </UniformGrid>
+        <Button x:Name="bttDelete" Content="Удалить рецепт!"  Margin="5"  VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Click="bttDelete_Click"/>
+        <Button x:Name="btnExit" Content="Сохранить и выйти!" Click="btAddSaveAndExit_Click" Margin="5"  VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" />
+        <Button x:Name="btAddNew" Content="Добавить новый рецепт!" Click="btAddNew_Click" Margin="5"  VerticalAlignment="Center" Grid.Row="2" Grid.RowSpan="2"/>
+        <UniformGrid Grid.Column="2" Columns="2" Margin="5">
+            <UniformGrid.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="Margin" Value="10 5"/>
+                </Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="Margin" Value="10 5"/>
+                </Style>
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="CadetBlue"/>
+                </Style>
+            </UniformGrid.Resources>
+        </UniformGrid>
+        
+        <UniformGrid Grid.Row="1" Grid.Column="2">
+            
+        </UniformGrid>
+        <TextBlock Text="Ингридиенты!" Margin="5" FontSize="14" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" Foreground="Black"/>
+        <TextBlock Text="Шаги приготовления!" Margin="5" FontSize="12" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+    </Grid>
+    
+</Window>
