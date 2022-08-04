@@ -89,6 +89,7 @@ namespace WPF_СookBook_DZ
         private void btAddSaveAndExit_Click(object sender, RoutedEventArgs e)
         {
             SaveList();
+            this.Close();
         }
     }
 }
