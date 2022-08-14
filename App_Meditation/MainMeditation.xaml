@@ -1,0 +1,215 @@
+﻿<Window x:Class="App_Meditation.MainMeditation"
+
+
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:App_Meditation"
+        mc:Ignorable="d"
+        Title="MainMeditation" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid>
+
+        <Grid.Resources>
+            <Style  TargetType="TabItem">
+                <Setter Property="Background" Value="CornflowerBlue"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="Margin" Value="0 0 5 0"/>
+                <Setter Property="Width" Value="100"/>
+                <Setter Property="Padding" Value="12"/>
+            </Style>
+            <Style TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="Arial Black"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Margin" Value="18"/>
+                <Setter Property="Foreground" Value="Black"/>
+            </Style>
+        </Grid.Resources>
+        <TabControl>
+
+
+            <TabItem Header="О Медитация">
+                <TabControl TabStripPlacement="Left">
+                    <TabItem Header="Это" Height="120">
+
+                        <Grid>
+                            <Grid.Background>
+                                <ImageBrush ImageSource="Image/1618590858_46-funart_pro-p-oboi-fon-fon-bezhevii-gradient-48.jpg"></ImageBrush>
+                            </Grid.Background>
+                            <StackPanel>
+                                <TextBlock Text="Что такое медитация?" HorizontalAlignment="Center" FontSize="24"/>
+                                <TextBlock Text="В глубоком смысле медитация — это инструмент духовных учений буддизма,"/>
+                                <TextBlock Text="который помогает очистить сознание и научиться управлять им."/>
+                                <TextBlock Text="В Это позволяет достичь внутреннего состояния спокойствия ума и тела при"/>
+                                <TextBlock Text="осознанности и внимательности. Существуют разные медитативные практики."/>
+                                <TextBlock Text="Одни направлены на расслабление и безоценочное наблюдение "/>
+                                <TextBlock Text=" настоящего момента бытия. "/>
+
+                            </StackPanel>
+
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="С чего начать" Height="120">
+                        <Grid>
+                            <Grid.Background>
+
+                                <ImageBrush ImageSource="/Image/1625240119_62-kartinkin-com-p-fon-blyur-krasivie-foni-63.jpg"></ImageBrush>
+                            </Grid.Background>
+                            <StackPanel>
+
+                                <TextBlock  Text="Практика медитации: с чего начать новичку?" HorizontalAlignment="Center"/>
+                                <TextBlock Text=" Рекомендуем начинать с коротких практик длинной в 3-5 минут."/>
+                                <TextBlock Text="Потому что на первых порах вы можете быстро заскучать и, как результат,"/>
+                                <TextBlock Text="будете приступать к медитации без особой охоты. А потом и вовсе прекратите "/>
+                                <TextBlock Text="упражняться.Это распространенная ошибка всех начинающих. В среднем"/>
+                                <TextBlock Text="занятие у опытныхпрактиков может длиться 10-15 минут, Но это"/>
+                                <TextBlock Text="конечно, не предел..."/>
+                            </StackPanel>
+
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Правила" Height="120">
+                        <Grid>
+                            <Grid.Background>
+                                <ImageBrush ImageSource="/Image/Backgrounds_Blue_green_gradient_107697_.png"></ImageBrush>
+                            </Grid.Background>
+                            <StackPanel  >
+                                <TextBlock Text="Как правильно медитировать?" HorizontalAlignment="Center"  />
+                                <TextBlock Text="Правильный выбор техники зависит от личных предпочтений."/>
+                                <TextBlock Text="Медитируют как с открытыми глазами, так и с закрытыми. Заниматься можно "/>
+                                <TextBlock Text="сидя, стоя, лёжа и даже при ходьбе. В классическом варианте сидячей  обязательное и неизменное условие. "/>
+                                <TextBlock Text="медитации многие ошибочно полагают, что поза лотоса — это упражняться." Foreground="CadetBlue"/>
+                                <TextBlock Text="Это распространенная ошибка всех начинающих. " Foreground="CadetBlue"/>
+                                <TextBlock Text="В среднем На самом деле, она не для всех является удобной." Foreground="CornflowerBlue"/>
+                            </StackPanel>
+
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+            <TabItem Header="Медитация">
+                <TabControl TabStripPlacement="Left">
+                    <TabItem Header="Утро" Height="120">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="12*"/>
+                                <RowDefinition Height="23*"/>
+                                <RowDefinition Height="50"/>
+                            </Grid.RowDefinitions>
+                            <Grid.Background>
+                                <ImageBrush ImageSource="c:\users\fiks\source\repos\itfiks\itfiks\app_meditation\Image\meditation-4157199_round2_standardsizing-7f47dee543b74e3282f6604e8e9ef126.webp"></ImageBrush>
+                            </Grid.Background>
+                            <WrapPanel Grid.Row="2" HorizontalAlignment="Center" Margin="5">
+                                <Button x:Name="Play" Grid.Row="1" Height="40" Width="40" Click="Play_Click"
+                                        >
+                                    <Image Source="/IconPlayer/external-audio-doodle-audio-video-game-freebies-bomsymbols--10.png"/>
+                                </Button>
+                                <Button x:Name="Pause" Grid.Row="1" Height="40" Width="40" Click="Pause_Click" MouseDoubleClick="Pause_MouseDoubleClick">
+                                    <Image Source="/IconPlayer/external-audio-doodle-audio-video-game-freebies-bomsymbols--35.png" ToolTip="Один раз-пауза,два раза-стоп"/>
+                                </Button>
+                                <Button x:Name="Back" Grid.Row="1" Height="40" Width="40" Click="Back_Click" ToolTip="Перемотать на 10 секунд назад">
+                                    <Image Source="/IconPlayer/external-audio-doodle-audio-video-game-freebies-bomsymbols--33.png" />
+                                </Button>
+
+                                <Button x:Name="Forward" Grid.Row="1" Height="40" Width="40" Click="Forward_Click" ToolTip="Перемотать на 10 секунд вперед">
+                                    <Image Source="/IconPlayer/external-audio-doodle-audio-video-game-freebies-bomsymbols--30.png" />
+                                </Button>
+
+                                <MediaElement x:Name="media"  Source="c:\users\fiks\source\repos\itfiks\itfiks\app_meditation\music\утро.mp3" LoadedBehavior="Manual" />
+                                <Slider x:Name="STime" Height="20" Width="150"
+                                        Minimum="0" Maximum="1" TickFrequency="0.1" TickPlacement="TopLeft" Value="{Binding ElementName=media, Path=Volume, Mode=TwoWay}"/>
+                            </WrapPanel>
+
+                            <TextBlock x:Name="Time" FontSize="25" HorizontalAlignment="Center"/>
+                            <TextBlock Foreground="White" Grid.Row="1"  x:Name="CitataUtro" HorizontalAlignment="Center" FontSize="12" Text="Самое главное в медитации — ты становишься ближе к своей подлинной сути."/>
+
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="День" Height="120">
+                        <Grid >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="12*"/>
+                                <RowDefinition Height="23*"/>
+                                <RowDefinition Height="50"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid.Background>
+
+                                <ImageBrush ImageSource="/Image/mental-health-illustration-concept-self-meditation-mental-growth-yoga-mindfulness-free-vector.jpg"></ImageBrush>
+
+                            </Grid.Background>
+
+                            <WrapPanel Grid.Row="2" HorizontalAlignment="Center" Margin="174,5">
+                                <Button x:Name="PlayDay" Grid.Row="1" Height="40" Width="40" Click="PlayDay_Click"
+                                        >
+                                    <Image Source="/IconPlayer/external-audio-doodle-audio-video-game-freebies-bomsymbols--10.png"/>
+                                </Button>
+                                <Button x:Name="PauseDay" Grid.Row="1" Height="40" Width="40" Click="PauseDay_Click" MouseDoubleClick="PauseDay_MouseDoubleClick">
+                                    <Image Source="/IconPlayer/external-audio-doodle-audio-video-game-freebies-bomsymbols--35.png" ToolTip="Один раз-пауза,два раза-стоп"/>
+                                </Button>
+                                <Button x:Name="BackDay" Grid.Row="1" Height="40" Width="40" Click="BackDay_Click" ToolTip="Перемотать на 10 секунд назад">
+                                    <Image Source="/IconPlayer/external-audio-doodle-audio-video-game-freebies-bomsymbols--33.png" />
+                                </Button>
+
+                                <Button x:Name="ForwardDay" Grid.Row="1" Height="40" Width="40" Click="ForwarDay_Click" ToolTip="Перемотать на 10 секунд вперед">
+                                    <Image Source="/IconPlayer/external-audio-doodle-audio-video-game-freebies-bomsymbols--30.png" />
+                                </Button>
+                                <MediaElement x:Name="mediaDay"  Source="c:\users\fiks\source\repos\itfiks\itfiks\app_meditation\music\день.mp3" LoadedBehavior="Manual" />
+                                <Slider x:Name="STimeDay" Height="20" Width="150" 
+                                         TickPlacement="TopLeft" Minimum="0" Maximum="1" TickFrequency="0.1"  Value="{Binding ElementName=mediaDay, Path=Volume, Mode=TwoWay}"/>
+                            </WrapPanel>
+
+
+                            <TextBlock x:Name="TimeDay" FontSize="25" HorizontalAlignment="Center"/>
+                            <TextBlock  Grid.Row="1" x:Name="CitataDay" FontSize="14" HorizontalAlignment="Center"  Text="Я лишь созерцаю сокровенное сердце осенней луны..."/>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Ночь" Height="120">
+                        <Grid >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="12*"/>
+                                <RowDefinition Height="23*"/>
+                                <RowDefinition Height="50"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid.Background>
+
+
+                                <ImageBrush ImageSource="c:\users\fiks\source\repos\itfiks\itfiks\app_meditation\image\медитация.webp"></ImageBrush>
+
+                            </Grid.Background>
+
+                            <WrapPanel Grid.Row="2" HorizontalAlignment="Center" Margin="174,5">
+                                <Button x:Name="PlayNight" Grid.Row="1" Height="40" Width="40" Click="PlayNight_Click"
+                                        >
+                                    <Image Source="/IconPlayer/external-audio-doodle-audio-video-game-freebies-bomsymbols--10.png"/>
+                                </Button>
+                                <Button x:Name="PauseNight" Grid.Row="1" Height="40" Width="40" Click="PauseNight_Click" MouseDoubleClick="PauseNight_MouseDoubleClick">
+                                    <Image Source="/IconPlayer/external-audio-doodle-audio-video-game-freebies-bomsymbols--35.png" ToolTip="Один раз-пауза,два раза-стоп"/>
+                                </Button>
+                                <Button x:Name="BackNight" Grid.Row="1" Height="40" Width="40" Click="BackNight_Click" ToolTip="Перемотать на 10 секунд назад">
+                                    <Image Source="/IconPlayer/external-audio-doodle-audio-video-game-freebies-bomsymbols--33.png" />
+                                </Button>
+
+                                <Button x:Name="ForwardNight" Grid.Row="1" Height="40" Width="40" Click="ForwarNight_Click" ToolTip="Перемотать на 10 секунд вперед">
+                                    <Image Source="/IconPlayer/external-audio-doodle-audio-video-game-freebies-bomsymbols--30.png" />
+                                </Button>
+
+
+                                <MediaElement x:Name="mediaNight"  Source="c:\users\fiks\source\repos\itfiks\itfiks\app_meditation\music\день.mp3" LoadedBehavior="Manual" />
+                                <Slider  Height="20" Width="150"
+                                        Minimum="0" Maximum="1" TickFrequency="0.1" TickPlacement="TopLeft" Value="{Binding ElementName=mediaNight, Path=Volume, Mode=TwoWay}"/>
+                            </WrapPanel>
+
+                            <TextBlock x:Name="TimeNight" FontSize="25" HorizontalAlignment="Center"/>
+                            <TextBlock Foreground="SeaShell" Grid.Row="1" x:Name="Citata"  HorizontalAlignment="Center" FontSize="12" Text="Говорят, что молитва — это когда ты говоришь с Богом, а медитация — когда слушаешь Бога."/>
+
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
