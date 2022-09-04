@@ -245,7 +245,7 @@ namespace DZ_WF_Stationery
         private void button11_Click(object sender, EventArgs e)
         {
             
-                 command = new SqlCommand("AvgforType", connection);
+            command = new SqlCommand("AvgforType", connection);
             command.CommandType = CommandType.StoredProcedure;
             var dataAdapter = new SqlDataAdapter(command);
             var commandBuilder = new SqlCommandBuilder(dataAdapter);

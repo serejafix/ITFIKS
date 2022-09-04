@@ -111,7 +111,7 @@ namespace DZ_Sql_VegetablesAndFruit
             Console.WriteLine($"\nОвощи count: {count}");
         }
         static void CountType0(SqlConnection connection, string counts)
-        {
+        {                       
             SqlCommand command = new SqlCommand(counts, connection);
             int count = (int)command.ExecuteScalar();
             Console.WriteLine($"\nФрукты count: {count}");

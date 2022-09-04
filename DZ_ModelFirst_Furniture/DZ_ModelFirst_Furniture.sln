@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31321.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DZ_ModelFirst_Furniture", "DZ_ModelFirst_Furniture.csproj", "{9DE14B02-B2DB-43F7-9A12-808F360525FA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9DE14B02-B2DB-43F7-9A12-808F360525FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DE14B02-B2DB-43F7-9A12-808F360525FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DE14B02-B2DB-43F7-9A12-808F360525FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DE14B02-B2DB-43F7-9A12-808F360525FA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B6046096-95E2-4CDD-8849-818A7359C77F}
+	EndGlobalSection
+EndGlobal
