@@ -197,7 +197,7 @@ namespace DZ_LINQ_Countries_
                           orderby c.Area
                           select c;
             var areaMax = AreaMax.Take(1);
-
+              
             foreach (var item in areaMax)
             {
                 Console.WriteLine(item.Name);
