@@ -21,6 +21,7 @@ namespace DZ_DatabaseFirst_DBgames
             InitializeComponent();
 
             gamesEntitiesDB = new GamesEntities();
+
         }
 
         private void btn_searchByName_Click(object sender, EventArgs e)
