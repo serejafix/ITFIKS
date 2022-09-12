@@ -12,18 +12,19 @@ namespace DZ_ModelFirst_Furniture
     using System;
     using System.Collections.Generic;
     
-    public partial class Buyer
+    public partial class Client
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Buyer()
+        public Client()
         {
-            this.ProductSales = new HashSet<ProductSale>();
+            this.ProductSale = new HashSet<ProductSale>();
         }
     
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Fio { get; set; }
+        public double PhoneNumber { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductSale> ProductSales { get; set; }
+        public virtual ICollection<ProductSale> ProductSale { get; set; }
     }
 }

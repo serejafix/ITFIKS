@@ -15,8 +15,12 @@ namespace DZ_ModelFirst_Furniture
     public partial class ProductSale
     {
         public int Id { get; set; }
-        public string BuyerId { get; set; }
+        public double Price { get; set; }
+        public System.DateTime DateSale { get; set; }
+        public int ClientId { get; set; }
+        public int ProductId { get; set; }
     
-        public virtual Buyer Buyer { get; set; }
+        public virtual Client Client { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

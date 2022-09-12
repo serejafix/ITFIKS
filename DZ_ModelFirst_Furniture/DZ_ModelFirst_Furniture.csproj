@@ -55,8 +55,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Buyer.cs">
-      <DependentUpon>test.tt</DependentUpon>
+    <Compile Include="Client.cs">
+      <DependentUpon>ModelFurniture.tt</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -64,29 +64,37 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="FurnitureModel.Designer.cs">
+    <Compile Include="FurnitureCodeGen.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FurnitureModel.edmx</DependentUpon>
+      <DependentUpon>FurnitureCodeGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelFurniture.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelFurniture.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelFurniture.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelFurniture.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelFurniture.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelFurniture.edmx</DependentUpon>
     </Compile>
     <Compile Include="Product.cs">
-      <DependentUpon>test.tt</DependentUpon>
+      <DependentUpon>ModelFurniture.tt</DependentUpon>
     </Compile>
     <Compile Include="ProductSale.cs">
-      <DependentUpon>test.tt</DependentUpon>
+      <DependentUpon>ModelFurniture.tt</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="test.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>test.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="test.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>test.tt</DependentUpon>
-    </Compile>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -96,12 +104,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EntityDeploy Include="FurnitureModel.edmx">
+    <EntityDeploy Include="ModelFurniture.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>FurnitureModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>ModelFurniture.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="FurnitureModel.edmx.diagram">
-      <DependentUpon>FurnitureModel.edmx</DependentUpon>
+    <None Include="ModelFurniture.edmx.diagram">
+      <DependentUpon>ModelFurniture.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -118,19 +126,25 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="test.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>test.Context.cs</LastGenOutput>
-      <DependentUpon>FurnitureModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="test.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>test.cs</LastGenOutput>
-      <DependentUpon>FurnitureModel.edmx</DependentUpon>
-    </Content>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Content Include="FurnitureCodeGen.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>FurnitureCodeGen.cs</LastGenOutput>
+      <DependentUpon>ModelFurniture.edmx</DependentUpon>
+    </Content>
+    <Content Include="ModelFurniture.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModelFurniture.Context.cs</LastGenOutput>
+      <DependentUpon>ModelFurniture.edmx</DependentUpon>
+    </Content>
+    <Content Include="ModelFurniture.edmx.sql" />
+    <Content Include="ModelFurniture.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModelFurniture.cs</LastGenOutput>
+      <DependentUpon>ModelFurniture.edmx</DependentUpon>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

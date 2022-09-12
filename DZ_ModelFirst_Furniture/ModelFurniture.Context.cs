@@ -13,10 +13,10 @@ namespace DZ_ModelFirst_Furniture
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class FurnitureModelContainer : DbContext
+    public partial class FurnitureDb : DbContext
     {
-        public FurnitureModelContainer()
-            : base("name=FurnitureModelContainer")
+        public FurnitureDb()
+            : base("name=FurnitureDb")
         {
         }
     
@@ -25,8 +25,8 @@ namespace DZ_ModelFirst_Furniture
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Product> ProductSet { get; set; }
-        public virtual DbSet<Buyer> BuyerSet { get; set; }
-        public virtual DbSet<ProductSale> ProductSaleSet { get; set; }
+        public virtual DbSet<Client> Clients { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<ProductSale> ProductSales { get; set; }
     }
 }
