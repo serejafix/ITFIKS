@@ -80,7 +80,6 @@ namespace DZ_ModelFirst_Furniture
         }
         private void btn_Exec3_Click(object sender, EventArgs e)
         {
-
             var queary2 = from p in db.Products
                          from ps in db.ProductSales
                          where
