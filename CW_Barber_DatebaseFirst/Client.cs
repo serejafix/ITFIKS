@@ -25,7 +25,6 @@ namespace CW_Barber_DatebaseFirst
         public int PhoneNumber { get; set; }
         public string Email { get; set; }
         public System.DateTime DateAdmission { get; set; }
-        public int PostionId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ArchiveVisit> ArchiveVisits { get; set; }

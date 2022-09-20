@@ -4,159 +4,212 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище BarberShopModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="ArchiveVisits">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ClientId" Type="int" Nullable="false" />
-          <Property Name="BarberId" Type="int" Nullable="false" />
-          <Property Name="Date" Type="date" Nullable="false" />
-          <Property Name="Price" Type="money" Nullable="false" />
-          <Property Name="Rating" Type="int" Nullable="false" />
-          <Property Name="Feedback" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="ServiceId" Type="int" />
-        </EntityType>
-        <EntityType Name="Barbers">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FIO" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Gender" Type="bit" Nullable="false" />
-          <Property Name="PhoneNumber" Type="int" Nullable="false" />
-          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Birthday" Type="date" Nullable="false" />
-          <Property Name="DateAdmission" Type="date" Nullable="false" />
-          <Property Name="PostionId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Client">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FIO" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="PhoneNumber" Type="int" Nullable="false" />
-          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="DateAdmission" Type="date" Nullable="false" />
-          <Property Name="PostionId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Positions">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Schedule">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BarberId" Type="int" Nullable="false" />
-          <Property Name="FreeDate" Type="date" Nullable="false" />
-          <Property Name="FreeTime" Type="time" Precision="7" Nullable="false" />
-        </EntityType>
-        <EntityType Name="servicesList">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Price" Type="money" Nullable="false" />
-          <Property Name="Time" Type="time" Precision="7" Nullable="false" />
-        </EntityType>
-        <Association Name="FK__ArchiveVi__Barbe__44FF419A">
-          <End Role="Barbers" Type="Self.Barbers" Multiplicity="1" />
-          <End Role="ArchiveVisits" Type="Self.ArchiveVisits" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Barbers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ArchiveVisits">
-              <PropertyRef Name="BarberId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__ArchiveVi__Clien__440B1D61">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="ArchiveVisits" Type="Self.ArchiveVisits" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ArchiveVisits">
-              <PropertyRef Name="ClientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Barbers__Postion__4222D4EF">
-          <End Role="Positions" Type="Self.Positions" Multiplicity="1" />
-          <End Role="Barbers" Type="Self.Barbers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Positions">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Barbers">
-              <PropertyRef Name="PostionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Schedule__Barber__4316F928">
-          <End Role="Barbers" Type="Self.Barbers" Multiplicity="1" />
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Barbers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Schedule">
-              <PropertyRef Name="BarberId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ArchiveVisits_servicesList">
-          <End Role="servicesList" Type="Self.servicesList" Multiplicity="0..1" />
-          <End Role="ArchiveVisits" Type="Self.ArchiveVisits" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="servicesList">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ArchiveVisits">
-              <PropertyRef Name="ServiceId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="Хранилище BarberShopModelContainer">
-          <EntitySet Name="ArchiveVisits" EntityType="Self.ArchiveVisits" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Barbers" EntityType="Self.Barbers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Positions" EntityType="Self.Positions" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="servicesList" EntityType="Self.servicesList" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__ArchiveVi__Barbe__44FF419A" Association="Self.FK__ArchiveVi__Barbe__44FF419A">
-            <End Role="Barbers" EntitySet="Barbers" />
-            <End Role="ArchiveVisits" EntitySet="ArchiveVisits" />
-          </AssociationSet>
-          <AssociationSet Name="FK__ArchiveVi__Clien__440B1D61" Association="Self.FK__ArchiveVi__Clien__440B1D61">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="ArchiveVisits" EntitySet="ArchiveVisits" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Barbers__Postion__4222D4EF" Association="Self.FK__Barbers__Postion__4222D4EF">
-            <End Role="Positions" EntitySet="Positions" />
-            <End Role="Barbers" EntitySet="Barbers" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Schedule__Barber__4316F928" Association="Self.FK__Schedule__Barber__4316F928">
-            <End Role="Barbers" EntitySet="Barbers" />
-            <End Role="Schedule" EntitySet="Schedule" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ArchiveVisits_servicesList" Association="Self.FK_ArchiveVisits_servicesList">
-            <End Role="servicesList" EntitySet="servicesList" />
-            <End Role="ArchiveVisits" EntitySet="ArchiveVisits" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+    <Schema Namespace="BarberShopModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="BarberShopModelStoreContainer">
+    <EntitySet Name="ArchiveVisits" EntityType="BarberShopModel.Store.ArchiveVisits" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Barbers" EntityType="BarberShopModel.Store.Barbers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Clients" EntityType="BarberShopModel.Store.Clients" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Positions" EntityType="BarberShopModel.Store.Positions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Schedules" EntityType="BarberShopModel.Store.Schedules" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="servicesLists" EntityType="BarberShopModel.Store.servicesLists" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BarberServices" EntityType="BarberShopModel.Store.BarberServices" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK__ArchiveVi__Barbe__44FF419A" Association="BarberShopModel.Store.FK__ArchiveVi__Barbe__44FF419A">
+      <End Role="Barbers" EntitySet="Barbers" />
+      <End Role="ArchiveVisits" EntitySet="ArchiveVisits" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ArchiveVi__Clien__440B1D61" Association="BarberShopModel.Store.FK__ArchiveVi__Clien__440B1D61">
+      <End Role="Client" EntitySet="Clients" />
+      <End Role="ArchiveVisits" EntitySet="ArchiveVisits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ArchiveVisits_servicesList" Association="BarberShopModel.Store.FK_ArchiveVisits_servicesList">
+      <End Role="servicesList" EntitySet="servicesLists" />
+      <End Role="ArchiveVisits" EntitySet="ArchiveVisits" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Barbers__Postion__4222D4EF" Association="BarberShopModel.Store.FK__Barbers__Postion__4222D4EF">
+      <End Role="Positions" EntitySet="Positions" />
+      <End Role="Barbers" EntitySet="Barbers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Schedule__Barber__4316F928" Association="BarberShopModel.Store.FK__Schedule__Barber__4316F928">
+      <End Role="Barbers" EntitySet="Barbers" />
+      <End Role="Schedule" EntitySet="Schedules" />
+    </AssociationSet>
+    <AssociationSet Name="BarberBarberService" Association="BarberShopModel.Store.BarberBarberService">
+      <End Role="Barber" EntitySet="Barbers" />
+      <End Role="BarberService" EntitySet="BarberServices" />
+    </AssociationSet>
+    <AssociationSet Name="servicesListBarberService" Association="BarberShopModel.Store.servicesListBarberService">
+      <End Role="servicesList" EntitySet="servicesLists" />
+      <End Role="BarberService" EntitySet="BarberServices" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ArchiveVisits">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClientId" Type="int" Nullable="false" />
+    <Property Name="BarberId" Type="int" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="Price" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Rating" Type="int" Nullable="false" />
+    <Property Name="Feedback" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="ServiceId" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Barbers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FIO" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Gender" Type="bit" Nullable="false" />
+    <Property Name="PhoneNumber" Type="int" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Birthday" Type="datetime" Nullable="false" />
+    <Property Name="DateAdmission" Type="datetime" Nullable="false" />
+    <Property Name="PostionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Clients">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FIO" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="PhoneNumber" Type="int" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="DateAdmission" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Positions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Schedules">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BarberId" Type="int" Nullable="false" />
+    <Property Name="FreeDate" Type="datetime" Nullable="false" />
+    <Property Name="FreeTime" Type="time" Nullable="false" Precision="7" />
+  </EntityType>
+  <EntityType Name="servicesLists">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Price" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Time" Type="time" Nullable="false" Precision="7" />
+  </EntityType>
+  <EntityType Name="BarberServices">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BarberId" Type="int" Nullable="false" />
+    <Property Name="ServiceId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__ArchiveVi__Barbe__44FF419A">
+    <End Role="Barbers" Type="BarberShopModel.Store.Barbers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ArchiveVisits" Type="BarberShopModel.Store.ArchiveVisits" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Barbers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ArchiveVisits">
+        <PropertyRef Name="BarberId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ArchiveVi__Clien__440B1D61">
+    <End Role="Client" Type="BarberShopModel.Store.Clients" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ArchiveVisits" Type="BarberShopModel.Store.ArchiveVisits" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ArchiveVisits">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ArchiveVisits_servicesList">
+    <End Role="servicesList" Type="BarberShopModel.Store.servicesLists" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ArchiveVisits" Type="BarberShopModel.Store.ArchiveVisits" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="servicesList">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ArchiveVisits">
+        <PropertyRef Name="ServiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Barbers__Postion__4222D4EF">
+    <End Role="Positions" Type="BarberShopModel.Store.Positions" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Barbers" Type="BarberShopModel.Store.Barbers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Positions">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Barbers">
+        <PropertyRef Name="PostionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Schedule__Barber__4316F928">
+    <End Role="Barbers" Type="BarberShopModel.Store.Barbers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Schedule" Type="BarberShopModel.Store.Schedules" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Barbers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Schedule">
+        <PropertyRef Name="BarberId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BarberBarberService">
+    <End Role="Barber" Type="BarberShopModel.Store.Barbers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="BarberService" Type="BarberShopModel.Store.BarberServices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Barber">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BarberService">
+        <PropertyRef Name="BarberId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="servicesListBarberService">
+    <End Role="servicesList" Type="BarberShopModel.Store.servicesLists" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="BarberService" Type="BarberShopModel.Store.BarberServices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="servicesList">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BarberService">
+        <PropertyRef Name="ServiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BarberShopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -191,6 +244,7 @@
           <NavigationProperty Name="ArchiveVisits" Relationship="Self.FK__ArchiveVi__Barbe__44FF419A" FromRole="Barbers" ToRole="ArchiveVisits" />
           <NavigationProperty Name="Position" Relationship="Self.FK__Barbers__Postion__4222D4EF" FromRole="Barbers" ToRole="Positions" />
           <NavigationProperty Name="Schedules" Relationship="Self.FK__Schedule__Barber__4316F928" FromRole="Barbers" ToRole="Schedule" />
+          <NavigationProperty Name="BarberServices" Relationship="BarberShopModel.BarberBarberService" FromRole="Barber" ToRole="BarberService" />
         </EntityType>
         <EntityType Name="Client">
           <Key>
@@ -201,7 +255,6 @@
           <Property Name="PhoneNumber" Type="Int32" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DateAdmission" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="PostionId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ArchiveVisits" Relationship="Self.FK__ArchiveVi__Clien__440B1D61" FromRole="Client" ToRole="ArchiveVisits" />
         </EntityType>
         <EntityType Name="Position">
@@ -231,9 +284,12 @@
           <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="Time" Type="Time" Nullable="false" Precision="7" />
           <NavigationProperty Name="ArchiveVisits" Relationship="Self.FK_ArchiveVisits_servicesList" FromRole="servicesList" ToRole="ArchiveVisits" />
+          <NavigationProperty Name="BarberServices" Relationship="BarberShopModel.servicesListBarberService" FromRole="servicesList" ToRole="BarberService" />
         </EntityType>
         <Association Name="FK__ArchiveVi__Barbe__44FF419A">
-          <End Role="Barbers" Type="Self.Barber" Multiplicity="1" />
+          <End Role="Barbers" Type="Self.Barber" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ArchiveVisits" Type="Self.ArchiveVisit" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Barbers">
@@ -245,7 +301,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__ArchiveVi__Clien__440B1D61">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ArchiveVisits" Type="Self.ArchiveVisit" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
@@ -257,7 +315,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ArchiveVisits_servicesList">
-          <End Role="servicesList" Type="Self.servicesList" Multiplicity="0..1" />
+          <End Role="servicesList" Type="Self.servicesList" Multiplicity="0..1" >
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ArchiveVisits" Type="Self.ArchiveVisit" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="servicesList">
@@ -269,7 +329,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Barbers__Postion__4222D4EF">
-          <End Role="Positions" Type="Self.Position" Multiplicity="1" />
+          <End Role="Positions" Type="Self.Position" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Barbers" Type="Self.Barber" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Positions">
@@ -281,7 +343,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Schedule__Barber__4316F928">
-          <End Role="Barbers" Type="Self.Barber" Multiplicity="1" />
+          <End Role="Barbers" Type="Self.Barber" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Barbers">
@@ -319,84 +383,138 @@
             <End Role="Barbers" EntitySet="Barbers" />
             <End Role="Schedule" EntitySet="Schedules" />
           </AssociationSet>
+          <EntitySet Name="BarberServices" EntityType="BarberShopModel.BarberService" />
+          <AssociationSet Name="BarberBarberService" Association="BarberShopModel.BarberBarberService">
+            <End Role="Barber" EntitySet="Barbers" />
+            <End Role="BarberService" EntitySet="BarberServices" />
+          </AssociationSet>
+          <AssociationSet Name="servicesListBarberService" Association="BarberShopModel.servicesListBarberService">
+            <End Role="servicesList" EntitySet="servicesLists" />
+            <End Role="BarberService" EntitySet="BarberServices" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="BarberService">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BarberId" Type="Int32" Nullable="false" />
+          <Property Name="ServiceId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Barber" Relationship="BarberShopModel.BarberBarberService" FromRole="BarberService" ToRole="Barber" />
+          <NavigationProperty Name="servicesList" Relationship="BarberShopModel.servicesListBarberService" FromRole="BarberService" ToRole="servicesList" />
+        </EntityType>
+        <Association Name="BarberBarberService">
+          <End Type="BarberShopModel.Barber" Role="Barber" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BarberShopModel.BarberService" Role="BarberService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Barber">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BarberService">
+              <PropertyRef Name="BarberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="servicesListBarberService">
+          <End Type="BarberShopModel.servicesList" Role="servicesList" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BarberShopModel.BarberService" Role="BarberService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="servicesList">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BarberService">
+              <PropertyRef Name="ServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище BarberShopModelContainer" CdmEntityContainer="BarberShopEntities">
-          <EntitySetMapping Name="ArchiveVisits">
-            <EntityTypeMapping TypeName="BarberShopModel.ArchiveVisit">
-              <MappingFragment StoreEntitySet="ArchiveVisits">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
-                <ScalarProperty Name="BarberId" ColumnName="BarberId" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Rating" ColumnName="Rating" />
-                <ScalarProperty Name="Feedback" ColumnName="Feedback" />
-                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Barbers">
-            <EntityTypeMapping TypeName="BarberShopModel.Barber">
-              <MappingFragment StoreEntitySet="Barbers">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="FIO" ColumnName="FIO" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
-                <ScalarProperty Name="DateAdmission" ColumnName="DateAdmission" />
-                <ScalarProperty Name="PostionId" ColumnName="PostionId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Clients">
-            <EntityTypeMapping TypeName="BarberShopModel.Client">
-              <MappingFragment StoreEntitySet="Client">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="FIO" ColumnName="FIO" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="DateAdmission" ColumnName="DateAdmission" />
-                <ScalarProperty Name="PostionId" ColumnName="PostionId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Positions">
-            <EntityTypeMapping TypeName="BarberShopModel.Position">
-              <MappingFragment StoreEntitySet="Positions">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Schedules">
-            <EntityTypeMapping TypeName="BarberShopModel.Schedule">
-              <MappingFragment StoreEntitySet="Schedule">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="BarberId" ColumnName="BarberId" />
-                <ScalarProperty Name="FreeDate" ColumnName="FreeDate" />
-                <ScalarProperty Name="FreeTime" ColumnName="FreeTime" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="servicesLists">
-            <EntityTypeMapping TypeName="BarberShopModel.servicesList">
-              <MappingFragment StoreEntitySet="servicesList">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Time" ColumnName="Time" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BarberShopModelStoreContainer" CdmEntityContainer="BarberShopEntities">
+    <EntitySetMapping Name="ArchiveVisits">
+      <EntityTypeMapping TypeName="IsTypeOf(BarberShopModel.ArchiveVisit)">
+        <MappingFragment StoreEntitySet="ArchiveVisits">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="BarberId" ColumnName="BarberId" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Rating" ColumnName="Rating" />
+          <ScalarProperty Name="Feedback" ColumnName="Feedback" />
+          <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Barbers">
+      <EntityTypeMapping TypeName="IsTypeOf(BarberShopModel.Barber)">
+        <MappingFragment StoreEntitySet="Barbers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FIO" ColumnName="FIO" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+          <ScalarProperty Name="DateAdmission" ColumnName="DateAdmission" />
+          <ScalarProperty Name="PostionId" ColumnName="PostionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clients">
+      <EntityTypeMapping TypeName="IsTypeOf(BarberShopModel.Client)">
+        <MappingFragment StoreEntitySet="Clients">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FIO" ColumnName="FIO" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="DateAdmission" ColumnName="DateAdmission" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Positions">
+      <EntityTypeMapping TypeName="IsTypeOf(BarberShopModel.Position)">
+        <MappingFragment StoreEntitySet="Positions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Schedules">
+      <EntityTypeMapping TypeName="IsTypeOf(BarberShopModel.Schedule)">
+        <MappingFragment StoreEntitySet="Schedules">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BarberId" ColumnName="BarberId" />
+          <ScalarProperty Name="FreeDate" ColumnName="FreeDate" />
+          <ScalarProperty Name="FreeTime" ColumnName="FreeTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="servicesLists">
+      <EntityTypeMapping TypeName="IsTypeOf(BarberShopModel.servicesList)">
+        <MappingFragment StoreEntitySet="servicesLists">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BarberServices">
+      <EntityTypeMapping TypeName="IsTypeOf(BarberShopModel.BarberService)">
+        <MappingFragment StoreEntitySet="BarberServices">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BarberId" ColumnName="BarberId" />
+          <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -410,11 +528,28 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
-    <Diagrams></Diagrams>
+    <Diagrams>
+      <Diagram DiagramId="2a8400808ffd487ba77182b1f7c2405c" Name="Diagram1" ZoomLevel="76">
+        <EntityTypeShape EntityType="BarberShopModel.ArchiveVisit" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BarberShopModel.Barber" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BarberShopModel.Client" Width="1.5" PointX="3.625" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BarberShopModel.Position" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BarberShopModel.Schedule" Width="1.5" PointX="1" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BarberShopModel.servicesList" Width="1.5" PointX="6.625" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="BarberShopModel.BarberService" Width="1.5" PointX="8.25" PointY="5.25" IsExpanded="true" />
+        <AssociationConnector Association="BarberShopModel.FK__ArchiveVi__Barbe__44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="BarberShopModel.FK__ArchiveVi__Clien__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="BarberShopModel.FK_ArchiveVisits_servicesList" ManuallyRouted="false" />
+        <AssociationConnector Association="BarberShopModel.FK__Barbers__Postion__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="BarberShopModel.FK__Schedule__Barber__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="BarberShopModel.BarberBarberService" ManuallyRouted="false" />
+        <AssociationConnector Association="BarberShopModel.servicesListBarberService" ManuallyRouted="false" />
+      </Diagram>
+    </Diagrams>
   </Designer>
 </edmx:Edmx>

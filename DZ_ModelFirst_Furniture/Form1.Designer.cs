@@ -319,7 +319,7 @@ namespace DZ_ModelFirst_Furniture
             this.btn_Execute.TabIndex = 31;
             this.btn_Execute.Text = "Execute";
             this.btn_Execute.UseVisualStyleBackColor = true;
-            
+            this.btn_Execute.Click += new System.EventHandler(this.btn_Execute_Click);
             // 
             // lbl_1
             // 

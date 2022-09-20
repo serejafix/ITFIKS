@@ -19,6 +19,7 @@ namespace CW_Barber_DatebaseFirst
         {
             this.ArchiveVisits = new HashSet<ArchiveVisit>();
             this.Schedules = new HashSet<Schedule>();
+            this.BarberServices = new HashSet<BarberService>();
         }
     
         public int Id { get; set; }
@@ -35,5 +36,7 @@ namespace CW_Barber_DatebaseFirst
         public virtual Position Position { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Schedule> Schedules { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BarberService> BarberServices { get; set; }
     }
 }

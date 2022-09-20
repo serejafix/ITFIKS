@@ -59,13 +59,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArchiveVisit.cs">
-      <DependentUpon>ModelBarber.tt</DependentUpon>
+      <DependentUpon>ModelCodGen.tt</DependentUpon>
     </Compile>
     <Compile Include="Barber.cs">
-      <DependentUpon>ModelBarber.tt</DependentUpon>
+      <DependentUpon>ModelCodGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BarberService.cs">
+      <DependentUpon>ModelCodGen.tt</DependentUpon>
     </Compile>
     <Compile Include="Client.cs">
-      <DependentUpon>ModelBarber.tt</DependentUpon>
+      <DependentUpon>ModelCodGen.tt</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -73,31 +76,31 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="ModelBarber.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelBarber.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModelBarber.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelBarber.tt</DependentUpon>
-    </Compile>
     <Compile Include="ModelBarber.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelBarber.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ModelCodGen.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelCodGen.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelCodGen.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelCodGen.tt</DependentUpon>
+    </Compile>
     <Compile Include="Position.cs">
-      <DependentUpon>ModelBarber.tt</DependentUpon>
+      <DependentUpon>ModelCodGen.tt</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Schedule.cs">
-      <DependentUpon>ModelBarber.tt</DependentUpon>
+      <DependentUpon>ModelCodGen.tt</DependentUpon>
     </Compile>
     <Compile Include="servicesList.cs">
-      <DependentUpon>ModelBarber.tt</DependentUpon>
+      <DependentUpon>ModelCodGen.tt</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -115,9 +118,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModelBarber.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="ModelBarber.edmx.diagram">
-      <DependentUpon>ModelBarber.edmx</DependentUpon>
-    </None>
+    <None Include="DB\BarberShop.bak" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -133,19 +134,20 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ModelBarber.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ModelBarber.Context.cs</LastGenOutput>
-      <DependentUpon>ModelBarber.edmx</DependentUpon>
-    </Content>
-    <Content Include="ModelBarber.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelBarber.edmx</DependentUpon>
-      <LastGenOutput>ModelBarber.cs</LastGenOutput>
-    </Content>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Content Include="ModelBarber.edmx.sql" />
+    <Content Include="ModelCodGen.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModelCodGen.Context.cs</LastGenOutput>
+      <DependentUpon>ModelBarber.edmx</DependentUpon>
+    </Content>
+    <Content Include="ModelCodGen.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModelCodGen.cs</LastGenOutput>
+      <DependentUpon>ModelBarber.edmx</DependentUpon>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

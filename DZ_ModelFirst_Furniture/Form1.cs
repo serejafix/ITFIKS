@@ -112,5 +112,10 @@ namespace DZ_ModelFirst_Furniture
             dgv_Query.DataSource = null;
             dgv_Query.DataSource = top5.ToList();
         }
+
+        private void btn_Execute_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

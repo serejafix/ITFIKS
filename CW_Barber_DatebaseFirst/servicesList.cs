@@ -18,6 +18,7 @@ namespace CW_Barber_DatebaseFirst
         public servicesList()
         {
             this.ArchiveVisits = new HashSet<ArchiveVisit>();
+            this.BarberServices = new HashSet<BarberService>();
         }
     
         public int Id { get; set; }
@@ -27,5 +28,7 @@ namespace CW_Barber_DatebaseFirst
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ArchiveVisit> ArchiveVisits { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BarberService> BarberServices { get; set; }
     }
 }
