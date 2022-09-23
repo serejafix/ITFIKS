@@ -103,6 +103,4 @@ namespace DZ_CodeFirst_dbSender
         public int DiscontId { get; set; }
 
     }
-
-
 }
