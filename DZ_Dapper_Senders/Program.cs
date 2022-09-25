@@ -13,6 +13,7 @@ namespace DZ_Dapper_Senders
     {
         private const string connectionStr = @"Data Source=DESKTOP-639J3PH;Initial Catalog=SenderList;Integrated Security=True";
         private static SqlConnection connection = new SqlConnection(connectionStr);
+
         static string sql = string.Empty;
         static string sqlQuery = string.Empty;
         static City city;
@@ -20,6 +21,7 @@ namespace DZ_Dapper_Senders
         static ProductType ProductType;
         static Discont Discont;
         static Client Client;
+
         static void Main(string[] args)
         {
             //PrintMenu();
