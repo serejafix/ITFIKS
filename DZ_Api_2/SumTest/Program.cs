@@ -24,8 +24,7 @@ namespace SumTest
             foreach (var item in lst.Distinct())
             {
                 Console.WriteLine(item + " " + lst.Where(x => x == item).Count() + " раз");
-            }
-            
+            }           
             Console.ReadLine();
         }
         static void Sum(int a,int b)

@@ -25,16 +25,28 @@ namespace DZ_Api_3
         {
             thread = new Thread(() =>
             {
-                Action action = () =>
-                {
+               
+                    if (num_rndStart.Value >= num_rnd_End.Value)
+                        return;
                     if (num_rndStart.Value == 0)
                     {
                         int a = 2;
+                        if (a >= num_rnd_End.Value)
+                            return;
                         for (int i = 0; i < 20; i++)
                         {
-                            int b = random.Next(2, (int)num_rnd_End.Value);
-                            lst_rnd_Tusk1.Items.Add(b);
-                            Thread.Sleep(700);
+                            int b = random.Next(a, (int)num_rnd_End.Value);
+                            Action action = () =>
+                            {
+                                lst_rnd_Tusk1.Items.Add(b);
+                            };
+
+                            if (this.InvokeRequired)
+                                this.Invoke(action);
+                            else
+                                action();
+                        Thread.Sleep(700);
+
                         }
                     }
                     else
@@ -43,30 +55,44 @@ namespace DZ_Api_3
                         {
 
                             int b = random.Next((int)num_rndStart.Value, (int)num_rnd_End.Value);
-                            lst_rnd_Tusk1.Items.Add(b);
-                            Thread.Sleep(700);
+                            Action action = () =>
+                            {
+                                lst_rnd_Tusk1.Items.Add(b);
+                            };
+                            
 
-                        }
+                            if (this.InvokeRequired)
+                                this.Invoke(action);
+                            else
+                                action();
+                        Thread.Sleep(700);
                     }
-                };
-                action();
+                    }
             });            
             thread.Start();
 
             thread1 = new Thread(() =>
                     {
-                        Action action1 = () =>
-                        {
+
+                        if (num_EndFibo.Value == 0)
+                            return;
+
                             int end = (int)num_EndFibo.Value;
                             int j = 1;
+                            
                             for (int i = 1; i <= end; i += j)
                             {
                                 j = i - j;
-                                lst_fibonachi.Items.Add(j);
-                                Thread.Sleep(700);
+                                Action action1 = () =>
+                                {
+                                    lst_fibonachi.Items.Add(j);
+                                };
+                                if (this.InvokeRequired)
+                                    this.Invoke(action1);
+                                else
+                                    action1();
+                                Thread.Sleep(700);     
                             }
-                        };
-                        action1();
                     });
             thread1.Start();
             }
