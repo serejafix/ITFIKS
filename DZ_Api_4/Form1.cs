@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.IO;
 
 namespace DZ_Api_4
 {
@@ -20,8 +21,7 @@ namespace DZ_Api_4
         public Form1()
         {
             InitializeComponent();
-            openFileDialog1.Filter = "Text files(*.txt)|*.txt|All files(*.*)|*.*";
-
+            openFileDialog1.Filter = "Text files(*.txt)|*.txt|All files(*.*)|*.*";    
         }
         #region Задание 1
         private void btn_Start_Click(object sender, EventArgs e)
@@ -42,7 +42,7 @@ namespace DZ_Api_4
                 ProgressBar a = new ProgressBar();
                 a.Value = random.Next(5, 100);
                 a.SetState(random.Next(1, 4));
-                a.Location = new System.Drawing.Point(5, locationX);
+                a.Location = new Point(5, locationX);
                 Controls.Add(a);
                 locationX = locationX + 25;
 
@@ -77,7 +77,7 @@ namespace DZ_Api_4
                 {
                     ProgressBar a = new ProgressBar();
                     a.Value = 100;
-                    a.Location = new System.Drawing.Point(locationY, locationX);
+                    a.Location = new Point(locationY, locationX);
                     Controls.Add(a);
                     locationX = locationX + 25;
                     horseSpped = random.Next(20, 50);
@@ -94,7 +94,6 @@ namespace DZ_Api_4
         }
         #endregion
         #region Задание 3
-        public delegate int Delegate();
         private void btn_startFib_Click(object sender, EventArgs e)
         {
             Action<object> action = Fibonachi;
@@ -132,14 +131,12 @@ namespace DZ_Api_4
         static string fileText;
         private void btn_OpenFIle_Click(object sender, EventArgs e)
         {
-
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
             // получаем выбранный файл
             string filename = openFileDialog1.FileName;
             // читаем файл в строку
             fileText = System.IO.File.ReadAllText(filename);
-
         }
 
         private void txb_Word_TextChanged(object sender, EventArgs e)
@@ -165,11 +162,55 @@ namespace DZ_Api_4
             action.BeginInvoke(random.Next(4, 10), null, null);
         }
         #endregion
+        #region Задание 5
+        
+        static private string folderName;
+        static private string wordName;
+        static private string allText;
+        private void btn_Tusk5_Click(object sender, EventArgs e)
+        {
+            DialogResult result = folderBrowserDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                folderName = folderBrowserDialog1.SelectedPath;
+                lbl_showPath.Text = folderName;
+            }
     }
+        private void txb_wordsForeSearch_TextChanged(object sender, EventArgs e)
+        {
+            wordName = txb_wordsForeSearch.Text;           
+        }
+        static Dictionary<string, int> DiscFileLine = new Dictionary<string, int>();
+       
+        void CountWordsInAllFile(object obj)
+        {
+            foreach (var file in Directory.GetFiles(folderName, "*.txt"))
+            {
+                allText = System.IO.File.ReadAllText(file);
+                String[] words = allText.Split(new char[] { ' ', ',', '\n', '\r' });
+                int counter = 0;
+                foreach (var word in words)
+                {
+                    if (wordName == word.ToLower())
+                        counter++;
+                }
+                string fileN = Path.GetFileName(file);
+                DiscFileLine.Add(fileN, counter);
+            }
+            var discFileWord = from d in DiscFileLine select new { CountWords = d.Value, FileName = d.Key };
+            dataGridView1.DataSource = discFileWord.ToArray();
+        }
+        private void btn_Tusk5Start_Click(object sender, EventArgs e)
+        {
+            if (wordName == null && folderName == null)
+                return;
 
+            Action<object> action1 = CountWordsInAllFile;
 
-
-
+            action1.BeginInvoke(random.Next(4, 10), null, null);          
+        }
+        #endregion
+    }
 
     // Задать цвет ProgressBar
     public static class ModifyProgressBarColor
