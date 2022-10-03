@@ -7,15 +7,31 @@ using System.IO;
 
 namespace tessssss
 {
-    class newclass
+    public class newclass
     {
-        public int MyProperty { get; set; }
+        private string _MyProperty = "";
+        public string MyProperty
+        {
+            get { return _MyProperty; }
+            set { _MyProperty = value; }
+        }
+        public virtual void Ok() { Console.WriteLine(MyProperty); }
+
+    }
+    class doch:newclass
+    {
+        
     }
     class Program
     {
 
         static void Main(string[] args)
         {
+            newclass newclass = new newclass {MyProperty = "super" };
+            newclass.Ok();
+
+            newclass doch = new doch {MyProperty =  "doch" };
+            doch.Ok();
 
             //var files = new List<string>();
             ////@Stan R. suggested an improvement to handle floppy drives...
