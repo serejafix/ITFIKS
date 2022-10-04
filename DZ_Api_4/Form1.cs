@@ -21,7 +21,8 @@ namespace DZ_Api_4
         public Form1()
         {
             InitializeComponent();
-            openFileDialog1.Filter = "Text files(*.txt)|*.txt|All files(*.*)|*.*";    
+            openFileDialog1.Filter = "Text files(*.txt)|*.txt|All files(*.*)|*.*";
+            
         }
         #region Задание 1
         private void btn_Start_Click(object sender, EventArgs e)
@@ -65,32 +66,30 @@ namespace DZ_Api_4
             thread.Start();
         }
         void Tusk2()
-        {
-            listBox1.Items.Clear();
+        {           
             int locationX = 110;
-            int locationY = 100;
+            int locationY = 110;
             int horseSpped;
             int count = 1;
             Action action1 = () =>
-            {
-                for (int i = 0; i < 5; i++)
-                {
-                    ProgressBar a = new ProgressBar();
-                    a.Value = 100;
-                    a.Location = new Point(locationY, locationX);
-                    Controls.Add(a);
-                    locationX = locationX + 25;
-                    horseSpped = random.Next(20, 50);
-                    listBox1.Items.Add(count.ToString() + ".".ToString() + horseSpped.ToString());
-                    count++;
-                }
+            {              
+                ProgressBar a = new ProgressBar();
+                a.Value = 100;
+                a.Location = new Point(locationY, locationX);
+                Controls.Add(a);
+                locationX = locationX + 25;
+                horseSpped = random.Next(20, 50);
+                listBox1.Items.Add(count.ToString() + ".".ToString() + horseSpped.ToString());
+                count++;
             };
-
-            if (this.InvokeRequired)
-                this.Invoke(action1);
-            else
-                action1();
-            Thread.Sleep(1000);
+            for (int i = 0; i < 5; i++)
+            {
+                if (this.InvokeRequired)
+                    this.Invoke(action1);
+                else
+                    action1();
+                Thread.Sleep(1000);
+            }
         }
         #endregion
         #region Задание 3
@@ -108,7 +107,14 @@ namespace DZ_Api_4
             for (int i = 1; i <= end; i += j)
             {
                 j = i - j;
-                lst_Fibo.Items.Add(j);
+                Action act = () =>
+               {
+                   lst_Fibo.Items.Add(j);
+               };
+                if (this.InvokeRequired)
+                    this.Invoke(act);
+                else
+                    act();
                 Thread.Sleep(500);
             }
         }
@@ -140,19 +146,21 @@ namespace DZ_Api_4
         }
 
         private void txb_Word_TextChanged(object sender, EventArgs e)
-        {
-            if (txb_Word.Text == null)
+        {           
+            if (txb_Word.Text == "")
             {
                 btn_OpenFIle.Enabled = false;
+                btn_startCounterWords.Enabled = false;
             }
             else
             {
+                btn_startCounterWords.Enabled = true;
                 btn_OpenFIle.Enabled = true;
             }
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            btn_OpenFIle.Enabled = false;
+            btn_OpenFIle.Enabled = true;
         }
 
         private void btn_startCounterWords_Click(object sender, EventArgs e)
@@ -178,7 +186,17 @@ namespace DZ_Api_4
     }
         private void txb_wordsForeSearch_TextChanged(object sender, EventArgs e)
         {
-            wordName = txb_wordsForeSearch.Text;           
+            wordName = txb_wordsForeSearch.Text;
+            if (txb_wordsForeSearch.Text == "")
+            {
+                btn_Tusk5OpenPath.Enabled = false;
+                btn_Tusk5Start.Enabled = false;
+            }
+            else
+            {
+                btn_Tusk5Start.Enabled = true;
+                btn_Tusk5OpenPath.Enabled = true;
+            }
         }
         static Dictionary<string, int> DiscFileLine = new Dictionary<string, int>();
        
@@ -197,8 +215,17 @@ namespace DZ_Api_4
                 string fileN = Path.GetFileName(file);
                 DiscFileLine.Add(fileN, counter);
             }
-            var discFileWord = from d in DiscFileLine select new { CountWords = d.Value, FileName = d.Key };
-            dataGridView1.DataSource = discFileWord.ToArray();
+            Action actGrid = () =>
+            {
+                var discFileWord = from d in DiscFileLine select new { CountWords = d.Value, FileName = d.Key };
+                dataGridView1.DataSource = discFileWord.ToArray();
+            };
+            if (this.InvokeRequired)
+                this.Invoke(actGrid);
+            else
+                actGrid();
+            Thread.Sleep(500);
+           
         }
         private void btn_Tusk5Start_Click(object sender, EventArgs e)
         {
