@@ -1,0 +1,5 @@
+LIBRARY "dll_vscode"
+EXPORTS
+triangle
+rectangle
+square

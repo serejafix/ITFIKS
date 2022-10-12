@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32901.82
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CW_DllTest", "..\CW_DllTest\CW_DllTest.csproj", "{951133C0-AF48-4A4F-9F5D-2AC31FF4B3A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dll", "..\Dll\Dll.csproj", "{6CEDF37F-2A3E-4D62-BCD2-A0584288D901}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DllCheck", "..\Check\DllCheck.csproj", "{7C3A67FE-D8BA-46D4-B738-2A2F1C4F72D6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{951133C0-AF48-4A4F-9F5D-2AC31FF4B3A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{951133C0-AF48-4A4F-9F5D-2AC31FF4B3A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{951133C0-AF48-4A4F-9F5D-2AC31FF4B3A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{951133C0-AF48-4A4F-9F5D-2AC31FF4B3A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CEDF37F-2A3E-4D62-BCD2-A0584288D901}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CEDF37F-2A3E-4D62-BCD2-A0584288D901}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CEDF37F-2A3E-4D62-BCD2-A0584288D901}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CEDF37F-2A3E-4D62-BCD2-A0584288D901}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C3A67FE-D8BA-46D4-B738-2A2F1C4F72D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C3A67FE-D8BA-46D4-B738-2A2F1C4F72D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C3A67FE-D8BA-46D4-B738-2A2F1C4F72D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C3A67FE-D8BA-46D4-B738-2A2F1C4F72D6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F9BC39F3-1381-440A-BC68-27605D6CD50D}
+	EndGlobalSection
+EndGlobal
