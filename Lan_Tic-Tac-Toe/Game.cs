@@ -50,6 +50,7 @@ namespace Lan_Tic_Tac_Toe
         private BackgroundWorker MessaageReceiver = new BackgroundWorker();
         private TcpClient client;
         private TcpListener server = null;
+
         private void MessaageReceiver_DoWork(object sender, DoWorkEventArgs e)
         {
             if(CheckState())
@@ -365,7 +366,6 @@ namespace Lan_Tic_Tac_Toe
             MessaageReceiver.CancelAsync();
             if (server != null)
                 server.Stop();
-
         }
     }
 }
