@@ -31,16 +31,20 @@ namespace App_Lan_PingPong_UA
         {
             this.components = new System.ComponentModel.Container();
             this.playground = new System.Windows.Forms.Panel();
+            this.rocket2 = new System.Windows.Forms.PictureBox();
             this.ball = new System.Windows.Forms.PictureBox();
             this.rocket = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.playground.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.rocket2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ball)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rocket)).BeginInit();
             this.SuspendLayout();
             // 
             // playground
             // 
+            this.playground.Controls.Add(this.rocket2);
             this.playground.Controls.Add(this.ball);
             this.playground.Controls.Add(this.rocket);
             this.playground.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -48,6 +52,15 @@ namespace App_Lan_PingPong_UA
             this.playground.Name = "playground";
             this.playground.Size = new System.Drawing.Size(800, 450);
             this.playground.TabIndex = 0;
+            // 
+            // rocket2
+            // 
+            this.rocket2.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.rocket2.Location = new System.Drawing.Point(281, 43);
+            this.rocket2.Name = "rocket2";
+            this.rocket2.Size = new System.Drawing.Size(189, 18);
+            this.rocket2.TabIndex = 2;
+            this.rocket2.TabStop = false;
             // 
             // ball
             // 
@@ -61,7 +74,7 @@ namespace App_Lan_PingPong_UA
             // rocket
             // 
             this.rocket.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.rocket.Location = new System.Drawing.Point(311, 351);
+            this.rocket.Location = new System.Drawing.Point(281, 385);
             this.rocket.Name = "rocket";
             this.rocket.Size = new System.Drawing.Size(189, 18);
             this.rocket.TabIndex = 0;
@@ -71,6 +84,10 @@ namespace App_Lan_PingPong_UA
             // 
             this.timer1.Interval = 1;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // timer2
+            // 
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
             // Game
             // 
@@ -83,6 +100,7 @@ namespace App_Lan_PingPong_UA
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Game_FormClosed);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.playground.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.rocket2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ball)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rocket)).EndInit();
             this.ResumeLayout(false);
@@ -95,6 +113,8 @@ namespace App_Lan_PingPong_UA
         public System.Windows.Forms.PictureBox rocket;
         private System.Windows.Forms.PictureBox ball;
         private System.Windows.Forms.Timer timer1;
+        public System.Windows.Forms.PictureBox rocket2;
+        private System.Windows.Forms.Timer timer2;
     }
 }
 

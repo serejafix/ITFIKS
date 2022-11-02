@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32929.386
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lan_DBStreetsFromIndex", "Lan_DBStreetsFromIndex.csproj", "{05C6FCA6-56C0-433F-8434-438C3EE51C32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CLient", "..\CLient\CLient.csproj", "{9B20E656-FAD6-4D2C-A3B2-9630C400CE62}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DB", "DB", "{8F80C50B-6DD8-4383-A3A0-2B4FC915E61C}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\..\..\..\..\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\Backup\IndexFromStreet.bak = ..\..\..\..\..\..\..\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\Backup\IndexFromStreet.bak
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{05C6FCA6-56C0-433F-8434-438C3EE51C32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05C6FCA6-56C0-433F-8434-438C3EE51C32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05C6FCA6-56C0-433F-8434-438C3EE51C32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05C6FCA6-56C0-433F-8434-438C3EE51C32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B20E656-FAD6-4D2C-A3B2-9630C400CE62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B20E656-FAD6-4D2C-A3B2-9630C400CE62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B20E656-FAD6-4D2C-A3B2-9630C400CE62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B20E656-FAD6-4D2C-A3B2-9630C400CE62}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7C7A0357-34D1-4192-9D45-C1B99163E88A}
+	EndGlobalSection
+EndGlobal

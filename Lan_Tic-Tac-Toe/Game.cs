@@ -284,9 +284,8 @@ namespace Lan_Tic_Tac_Toe
             {
                 button9.Text = OpponentChar.ToString();
             }
-
         }
-
+            
         private void button1_Click(object sender, EventArgs e)
         {
             byte[] num = { 1 };
