@@ -24,8 +24,7 @@ namespace App_Lan_PingPong_UA
             {
                 server = new TcpListener(IPAddress.Any, 5732);
                 server.Start();
-                sock = server.AcceptSocket();              
-              
+                sock = server.AcceptSocket();         
                 timer1.Enabled = true;
             }
             else
@@ -56,7 +55,6 @@ namespace App_Lan_PingPong_UA
         private BackgroundWorker MessaageReceiver = new BackgroundWorker();
         private TcpClient client;
         private TcpListener server = null;
-
         private void timer1_Tick(object sender, EventArgs e)
         {
             rocket.Left = Cursor.Position.X - (rocket.Width / 2);

@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+
 namespace CLient
 {
     public partial class Form1 : Form
@@ -57,6 +58,11 @@ namespace CLient
             // закрываем сокет
             socket.Shutdown(SocketShutdown.Both);
             socket.Close();
+        }
+
+        private void textBox_Ip_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

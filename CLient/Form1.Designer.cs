@@ -138,6 +138,7 @@ namespace CLient
             this.textBox_Ip.Size = new System.Drawing.Size(75, 20);
             this.textBox_Ip.TabIndex = 0;
             this.textBox_Ip.Text = "127.0.0.1";
+            this.textBox_Ip.TextChanged += new System.EventHandler(this.textBox_Ip_TextChanged);
             // 
             // Form1
             // 
