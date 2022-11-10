@@ -44,6 +44,7 @@ namespace App_Lan_PingPong_UA
             // 
             // playground
             // 
+            this.playground.BackColor = System.Drawing.SystemColors.Control;
             this.playground.Controls.Add(this.rocket2);
             this.playground.Controls.Add(this.ball);
             this.playground.Controls.Add(this.rocket);
@@ -65,9 +66,11 @@ namespace App_Lan_PingPong_UA
             // ball
             // 
             this.ball.BackColor = System.Drawing.Color.Red;
-            this.ball.Location = new System.Drawing.Point(523, 160);
+            this.ball.ErrorImage = null;
+            this.ball.InitialImage = null;
+            this.ball.Location = new System.Drawing.Point(504, 153);
             this.ball.Name = "ball";
-            this.ball.Size = new System.Drawing.Size(30, 30);
+            this.ball.Size = new System.Drawing.Size(24, 32);
             this.ball.TabIndex = 1;
             this.ball.TabStop = false;
             // 

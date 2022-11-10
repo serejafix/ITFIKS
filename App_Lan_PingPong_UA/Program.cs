@@ -16,7 +16,7 @@ namespace App_Lan_PingPong_UA
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Connect());
+            Application.Run(new MainMenu());
         }
     }
 }

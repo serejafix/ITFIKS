@@ -10,29 +10,28 @@ using System.Windows.Forms;
 
 namespace App_Lan_PingPong_UA
 {
-    public partial class Connect : Form
+    public partial class MainMenu : Form
     {
-        public Connect()
+        public MainMenu()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.FormBorderStyle = FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
         }
 
         private void button_Admin_Click(object sender, EventArgs e)
         {
-            Game newGame = new Game(true);
+            ChoiceMultiplayer multiplayerMenu = new ChoiceMultiplayer();
             Visible = false;
-            if (!newGame.IsDisposed)
-                newGame.ShowDialog();
+            if (!multiplayerMenu.IsDisposed)
+                multiplayerMenu.ShowDialog();
             Visible = true;
         }
 
         private void btn_Connect_Click(object sender, EventArgs e)
         {
-            Game newGame = new Game(false, txb_IP.Text);
-            Visible = false;
-            if (!newGame.IsDisposed)
-                newGame.ShowDialog();
-            Visible = true;
+            
         }
     }
 }

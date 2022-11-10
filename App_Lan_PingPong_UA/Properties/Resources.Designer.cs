@@ -63,10 +63,19 @@ namespace App_Lan_PingPong_UA.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap kisspng_united_states_russia_vladimir_putin_face_kim_jong_un_5abd94370eaea9_4578927315223736870602 {
+        internal static System.Drawing.Bitmap ArrowForButton_ {
             get {
-                object obj = ResourceManager.GetObject("kisspng-united-states-russia-vladimir-putin-face-kim-jong-un-5abd94370eaea9.45789" +
-                        "27315223736870602", resourceCulture);
+                object obj = ResourceManager.GetObject("ArrowForButton_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap image {
+            get {
+                object obj = ResourceManager.GetObject("image", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
