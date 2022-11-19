@@ -30,7 +30,7 @@ namespace App_Lan_PingPong_UA
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChoiceMultiplayer));
-            this.button1 = new System.Windows.Forms.Button();
+            this.button_enterName = new System.Windows.Forms.Button();
             this.label_PlayerName = new System.Windows.Forms.Label();
             this.textBox_EnterName = new System.Windows.Forms.TextBox();
             this.button_BacktoMainMenu = new System.Windows.Forms.Button();
@@ -40,15 +40,15 @@ namespace App_Lan_PingPong_UA
             this.button_Admin = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // button1
+            // button_enterName
             // 
-            this.button1.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.button1.Location = new System.Drawing.Point(267, 75);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "ENTER";
-            this.button1.UseVisualStyleBackColor = false;
+            this.button_enterName.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.button_enterName.Location = new System.Drawing.Point(267, 75);
+            this.button_enterName.Name = "button_enterName";
+            this.button_enterName.Size = new System.Drawing.Size(75, 23);
+            this.button_enterName.TabIndex = 0;
+            this.button_enterName.Text = "ENTER";
+            this.button_enterName.UseVisualStyleBackColor = false;
             // 
             // label_PlayerName
             // 
@@ -67,6 +67,7 @@ namespace App_Lan_PingPong_UA
             this.textBox_EnterName.Name = "textBox_EnterName";
             this.textBox_EnterName.Size = new System.Drawing.Size(137, 20);
             this.textBox_EnterName.TabIndex = 2;
+            this.textBox_EnterName.TextChanged += new System.EventHandler(this.textBox_EnterName_TextChanged);
             // 
             // button_BacktoMainMenu
             // 
@@ -86,6 +87,8 @@ namespace App_Lan_PingPong_UA
             this.textBox_EnterIP.Name = "textBox_EnterIP";
             this.textBox_EnterIP.Size = new System.Drawing.Size(137, 20);
             this.textBox_EnterIP.TabIndex = 6;
+            this.textBox_EnterIP.Text = "192.168.1.124";
+            this.textBox_EnterIP.TextChanged += new System.EventHandler(this.textBox_EnterIP_TextChanged);
             // 
             // label_IP
             // 
@@ -132,10 +135,9 @@ namespace App_Lan_PingPong_UA
             this.Controls.Add(this.button_BacktoMainMenu);
             this.Controls.Add(this.textBox_EnterName);
             this.Controls.Add(this.label_PlayerName);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.button_enterName);
             this.Name = "ChoiceMultiplayer";
             this.Text = "ChoiceMultiplayer";
-            this.Load += new System.EventHandler(this.ChoiceMultiplayer_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -143,7 +145,7 @@ namespace App_Lan_PingPong_UA
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button_enterName;
         private System.Windows.Forms.Label label_PlayerName;
         private System.Windows.Forms.TextBox textBox_EnterName;
         private System.Windows.Forms.Button button_BacktoMainMenu;

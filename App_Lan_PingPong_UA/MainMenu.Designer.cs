@@ -53,8 +53,9 @@ namespace App_Lan_PingPong_UA
             this.Button_SinglePlayer.TabIndex = 4;
             this.Button_SinglePlayer.Text = "SINGLEPLAYER";
             this.Button_SinglePlayer.UseVisualStyleBackColor = false;
+            this.Button_SinglePlayer.Click += new System.EventHandler(this.Button_SinglePlayer_Click);
             // 
-            // Connect
+            // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -64,7 +65,7 @@ namespace App_Lan_PingPong_UA
             this.Controls.Add(this.Button_SinglePlayer);
             this.Controls.Add(this.button_Multiplayer);
             this.ForeColor = System.Drawing.Color.AntiqueWhite;
-            this.Name = "Connect";
+            this.Name = "MainMenu";
             this.Text = "Connect";
             this.ResumeLayout(false);
 

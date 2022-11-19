@@ -22,16 +22,18 @@ namespace App_Lan_PingPong_UA
 
         private void button_Admin_Click(object sender, EventArgs e)
         {
+            this.Visible = false;
             ChoiceMultiplayer multiplayerMenu = new ChoiceMultiplayer();
-            Visible = false;
-            if (!multiplayerMenu.IsDisposed)
-                multiplayerMenu.ShowDialog();
-            Visible = true;
+            multiplayerMenu.ShowDialog();
+            this.Close();
         }
-
-        private void btn_Connect_Click(object sender, EventArgs e)
+        private void Button_SinglePlayer_Click(object sender, EventArgs e)
         {
-            
+            Game newGame = new Game(true,null);
+            Visible = false;
+            if (!newGame.IsDisposed)
+                newGame.ShowDialog();
+            Visible = true;
         }
     }
 }

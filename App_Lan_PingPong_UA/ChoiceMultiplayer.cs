@@ -20,18 +20,12 @@ namespace App_Lan_PingPong_UA
             this.MaximizeBox = false;
         }
 
-        private void ChoiceMultiplayer_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void button_BacktoMainMenu_Click(object sender, EventArgs e)
         {
+            this.Visible = false;
             MainMenu menu = new MainMenu();
-            Visible = false;
-            if (!menu.IsDisposed)
-                menu.ShowDialog();
-            Visible = true;
+            menu.ShowDialog();
+            this.Close();
         }
 
         private void button_Admin_Click(object sender, EventArgs e)
@@ -50,6 +44,39 @@ namespace App_Lan_PingPong_UA
             if (!newGame.IsDisposed)
                 newGame.ShowDialog();
             Visible = true;
+        }
+
+        private void textBox_EnterName_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(textBox_EnterName.Text))
+            {
+                button_enterName.Enabled = false;
+                button_enterName.BackColor = Color.Aquamarine;
+                button_Admin.Enabled = false;
+                button_enterName.BackColor = Color.Aquamarine;
+            }
+            else
+            {
+                button_enterName.Enabled = true;
+                button_enterName.BackColor = Color.CornflowerBlue;
+                button_Admin.Enabled = true;
+                button_enterName.BackColor = Color.CornflowerBlue;
+            }
+        }
+
+        private void textBox_EnterIP_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(textBox_EnterName.Text))
+            {
+                button_EnterIP.Enabled = false;
+                button_EnterIP.BackColor = Color.Aquamarine;
+            }
+            else
+            {
+                button_EnterIP.Enabled = true;
+                button_EnterIP.BackColor = Color.CornflowerBlue;
+            }
+
         }
     }
 }

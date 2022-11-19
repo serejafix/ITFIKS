@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Net;
 
 namespace tessssss
 {
@@ -15,17 +16,21 @@ namespace tessssss
         //static DirectoryInfo[] dirs;
         static void Main(string[] args)
         {
-            string input = "a fiks miks a";
-            //string pattern = @"\bfiks\b";
-            //string replacement = "miks";
-            //string result = Regex.Replace(input, pattern, replacement);
 
-            string[] words = { "fiks", "miks" };
-            int[] counts;
-            for (int g = 0; g < words.Length; g++)
-            {
-                int count = Regex.Matches(input, words[g]).Count;               
-            }
+
+
+  
+            //string input = "a fiks miks a";
+            ////string pattern = @"\bfiks\b";
+            ////string replacement = "miks";
+            ////string result = Regex.Replace(input, pattern, replacement);
+
+            //string[] words = { "fiks", "miks" };
+            //int[] counts;
+            //for (int g = 0; g < words.Length; g++)
+            //{
+            //    int count = Regex.Matches(input, words[g]).Count;               
+            //}
 
             //Console.WriteLine(result);
 
