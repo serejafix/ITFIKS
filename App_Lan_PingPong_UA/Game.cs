@@ -127,7 +127,7 @@ namespace App_Lan_PingPong_UA
             ball.Top += speed_top;
 
 
-            if (ball.Bottom >= rocket.Top && ball.Bottom <= rocket.Bottom && ball.Left >= rocket.Left && ball.Right <= rocket.Right)
+            if (ball.Bottom >= rocket.Top && ball.Bottom <= rocket.Bottom && ball.Left >= rocket.Left && ball.Right <= rocket.Right)    
             {
                 speed_top += 2;
                 speed_left += 2;
