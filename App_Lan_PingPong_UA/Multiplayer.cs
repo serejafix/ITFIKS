@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace App_Lan_PingPong_UA
 {
-    static class Program
+    static class Multiplayer
     {
         /// <summary>
         /// Главная точка входа для приложения.

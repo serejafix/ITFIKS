@@ -29,7 +29,7 @@ namespace App_Lan_PingPong_UA
         }
         private void Button_SinglePlayer_Click(object sender, EventArgs e)
         {
-            Game newGame = new Game(true,null);
+            SinglPlayer newGame = new SinglPlayer();
             Visible = false;
             if (!newGame.IsDisposed)
                 newGame.ShowDialog();

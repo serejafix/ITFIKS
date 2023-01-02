@@ -38,6 +38,8 @@ namespace App_Lan_PingPong_UA
             this.label_IP = new System.Windows.Forms.Label();
             this.button_EnterIP = new System.Windows.Forms.Button();
             this.button_Admin = new System.Windows.Forms.Button();
+            this.label_yourIP = new System.Windows.Forms.Label();
+            this.label_youripv4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button_enterName
@@ -122,12 +124,34 @@ namespace App_Lan_PingPong_UA
             this.button_Admin.UseVisualStyleBackColor = false;
             this.button_Admin.Click += new System.EventHandler(this.button_Admin_Click);
             // 
+            // label_yourIP
+            // 
+            this.label_yourIP.AutoSize = true;
+            this.label_yourIP.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.label_yourIP.Location = new System.Drawing.Point(32, 117);
+            this.label_yourIP.Name = "label_yourIP";
+            this.label_yourIP.Size = new System.Drawing.Size(54, 13);
+            this.label_yourIP.TabIndex = 8;
+            this.label_yourIP.Text = "YOUR IP:";
+            // 
+            // label_youripv4
+            // 
+            this.label_youripv4.AutoSize = true;
+            this.label_youripv4.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.label_youripv4.ForeColor = System.Drawing.Color.Blue;
+            this.label_youripv4.Location = new System.Drawing.Point(95, 117);
+            this.label_youripv4.Name = "label_youripv4";
+            this.label_youripv4.Size = new System.Drawing.Size(0, 13);
+            this.label_youripv4.TabIndex = 9;
+            // 
             // ChoiceMultiplayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(395, 296);
+            this.Controls.Add(this.label_youripv4);
+            this.Controls.Add(this.label_yourIP);
             this.Controls.Add(this.button_Admin);
             this.Controls.Add(this.textBox_EnterIP);
             this.Controls.Add(this.label_IP);
@@ -153,5 +177,7 @@ namespace App_Lan_PingPong_UA
         private System.Windows.Forms.Label label_IP;
         private System.Windows.Forms.Button button_EnterIP;
         private System.Windows.Forms.Button button_Admin;
+        private System.Windows.Forms.Label label_yourIP;
+        private System.Windows.Forms.Label label_youripv4;
     }
 }

@@ -12,205 +12,256 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+// ИГРА ПИНГ ПОНГ, разработанна специально для экзаменационного проекта.
 namespace App_Lan_PingPong_UA
 {
     public partial class Game : Form
     {
-        //static TcpListener listener;
-        public int speed_top = 4;
-        public int speed_left = 4; // скорость мяча
-        public int point = 0;
-        public int pointFirst = 0;
-        public int pointSecond = 0;
-        static Socket sck;
-        static UdpClient udpServer;
-        static UdpClient udpclient;
-        static IPEndPoint remoteEP;
-        static IPEndPoint ep;
-        static TcpClient client;
-        static DialogResult dialogResult;
-        static TcpListener listener;
-        public Game(bool isClient, string ip = null)
+        // часть для игровой логики -> 
+        public int speed_top = 1; // скорость мяча
+        public int speed_left = 1; // скорость мяча
+
+        public int point = 0; // количество ударов ракеткой
+        public int pointFirst = 0; // очки первого игрока
+        public int pointSecond = 0; // очки второго игрока
+
+        static Label lblBonus = new Label();
+        static DialogResult dialogResult; // по забитию трех голов 
+        static Server server;
+        static Client client;
+        static List<Exception> exceptions = new List<Exception>(); // поле если нужно проверить о
+        public Game(bool isHost, string ip = null)
         {
             InitializeComponent();
 
-            if (!isClient)
+            if (isHost)
             {
-                remoteEP = new IPEndPoint(IPAddress.Any, 0);
-                client = new TcpClient();
-                client.Connect(ip, 25655);
-
-                udpclient = new UdpClient();
-                ep = new IPEndPoint(IPAddress.Parse(ip), 1100);
-                udpclient.Connect(ep);
-
-                timer1.Enabled = true;
-                timer1.Interval = 1;
-                timer2.Enabled = false;
-                this.Location = new Point(0, 0);
-                this.Text = "1";
-                rocket.Visible = true;
-                rocket2.Visible = true;
+                try
+                {
+                    server = new Server();
+                    server.StartLisnter();
+                    this.Location = new Point(500, 500);
+                    rocket.Visible = true;
+                    rocket2.Visible = true;              
+                    _ = StartAsync2();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    Close();
+                }   
             }
             else
             {
                 try
                 {
-                    udpServer = new UdpClient(1100);
-                    remoteEP = new IPEndPoint(IPAddress.Any, 1100);
-
-                    listener = new TcpListener(IPAddress.Any, 25655);
-                    listener.Start();
-                    sck = listener.AcceptTcpClient().Client;
-
-                    timer2.Enabled = true;
-                    timer2.Interval = 005;
-                    timer1.Enabled = false;
-                    this.Location = new Point(500, 500);
-                    this.Text = "2";
+                    client = new Client();
+                    client.Start(ip);
+                    this.Location = new Point(0, 0);
                     rocket.Visible = true;
                     rocket2.Visible = true;
+                    _ = StartAsync();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                     Close();
                 }
-            }
-            if (isClient && ip == null)
-            {
-                rocket.Top = playground.Bottom - (playground.Bottom / 10);
-                timer1.Enabled = false;
-                timer2.Enabled = false;
-                timer3.Enabled = true;
-                rocket2.Visible = false;
+              
             }
             Cursor.Hide();
-            this.FormBorderStyle = FormBorderStyle.None;
-            this.TopMost = true;
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.FormBorderStyle = FormBorderStyle.FixedDialog;
-            label_scorefirst.Text = pointFirst.ToString();
-            label_scoreSec.Text = pointSecond.ToString();
-            //this.Bounds = Screen.PrimaryScreen.Bounds;
-            //rocket.Top = playground.Bottom;
-            //rocket2.Top = playground.Bottom - (playground.Bottom);
-            //ball.BackColor = Color.Transparent;
+            this.TopMost = true; // поверх остальных окон
+            this.StartPosition = FormStartPosition.CenterScreen; // старт позиция
+            this.FormBorderStyle = FormBorderStyle.FixedDialog; // неизменность окна
+
+            label_scorefirst.Text = pointFirst.ToString(); // очки 
+            label_scoreSec.Text = pointSecond.ToString(); // очки
+            //timer_AddBonus.Enabled = false; // бонус 
+            //timer_AddBonus.Interval = 20000;// интервал появления бонуса
+            //rocket.Top = playground.Bottom; // позиция ракетки   1
+            rocket.Top = playground.Bottom - (playground.Bottom/10);
+            rocket2.Top = playground.Bottom - (playground.Bottom); // позиция ракетки  2
+            this.KeyPreview = true;
         }
-        private void timer1_Tick(object sender, EventArgs e)
+
+        private async Task StartAsync() => await Task.Run(Player1); // запуск в асинхроне логики первого игрока
+        private async Task StartAsync2() => await Task.Run(Player2); // запуск в асинхроне логики первого 2 игрока
+        private void RocketGoingAboard(PictureBox rockets)
         {
-            // привязка курсора к центру ракетки
-            rocket.Left = Cursor.Position.X - (rocket.Width / 2);
-
-            // зарпет выхода за границы
-            if (rocket.Location.X > 593)
+            Action act= () =>
             {
-                rocket.Location = new Point(593, 531);
-            }
-            if (rocket.Location.X < 3)
+                // зарпет выхода за границы экрана
+                if (rockets.Location.X > 593)
+                {
+                    rockets.Location = new Point(593, 531);
+                }
+                if (rockets.Location.X < 3)
+                {
+                    rockets.Location = new Point(3, 531);
+                }
+            };
+            if (InvokeRequired)
+                Invoke(act);
+            else
+                act();
+        } // зарпет выхода за границы экрана
+        private void Player1()
+        {
+            while (true)
             {
-                rocket.Location = new Point(3, 531);
+                Action act1 = () =>
+                {
+                    // привязка курсора к центру ракетки
+                    rocket.Left = Cursor.Position.X - (rocket.Width / 2);
+                };
+                if (InvokeRequired)
+                    Invoke(act1);
+                else
+                    act1();
+                RocketGoingAboard(rocket); // запрет выхода за границу
+                try
+                {
+                    //отправка позиции ракетки и мячика игрока 1
+                    string ballPosition = $"{ball.Location.X} {ball.Location.Y} {rocket.Location.X} {rocket.Location.Y}";
+                    byte[] ballPos = UTF8Encoding.UTF8.GetBytes(ballPosition);
+                    client.udpclient.Send(ballPos, ballPos.Length);
+                }
+                catch (Exception)
+                {
+                }
+                try
+                {
+                    //принятие позиции ракетки второго игрока
+                    var receivedData = client.udpclient.Receive(ref client.remoteEP);
+                    string rocket2Pos = Encoding.UTF8.GetString(receivedData);
+                    string[] bufferBall = rocket2Pos.Split(' ');
+                    Action act = () =>
+                    {
+                        rocket2.Location = new Point(Convert.ToInt32(bufferBall[0]), Convert.ToInt32(bufferBall[1]));
+                    };
+                    if (InvokeRequired)
+                        Invoke(act);
+                    else
+                        act();
+                    
+                }
+                catch (Exception)
+                {
+
+                }
+
+                ball.Left += speed_left;
+                ball.Top += speed_top;
+
+                if (ball.Top <= rocket2.Bottom && ball.Left >= rocket2.Left && ball.Right <= rocket2.Right)
+                {
+                    //speed_top += 1;
+                    //speed_left += 1;
+                    speed_top = -speed_top;
+                    point += 1;
+                    label_point.Text = point.ToString();
+                }
+
+                CheckPoints(); // проверка на забитие гола
+
+                CheckGetBonusRocket(rocket); // проверка на взятие бонуса
+                CheckGetBonusRocket(rocket2); // проверка на взятие бонуса
+
+                if (ball.Bottom >= rocket.Top && ball.Bottom <= rocket.Bottom && ball.Left >= rocket.Left && ball.Right <= rocket.Right)
+                {
+                    //speed_top += 1;
+                    //speed_left += 1;
+                    speed_top = -speed_top;
+                    point += 1;
+                    label_point.Text = point.ToString();
+                }
+
+                if (ball.Right >= playground.Right)
+                {
+                    speed_left = -speed_left;
+                }
+
+                if (ball.Left <= playground.Left)
+                {
+                    speed_left = -speed_left;
+                }
+                if (pointFirst == 3)
+                {
+                    player1.Enabled = false;
+                    dialogResult = MessageBox.Show("Start again?", "YOU WON!", MessageBoxButtons.YesNo);
+                    StartAgain(dialogResult);
+                }
+                if (pointSecond == 3)
+                {
+                    player1.Enabled = false;
+                    dialogResult = MessageBox.Show("Start again?", "YOU LOSE!", MessageBoxButtons.YesNo);
+                    StartAgain(dialogResult);
+                }
             }
-
-            // отправка позиции ракетки и мячика игрока 1 
-            string ballPosition = $"{ball.Location.X} {ball.Location.Y} {rocket.Location.X} {rocket.Location.Y}";
-            byte[] ballPos = UTF8Encoding.UTF8.GetBytes(ballPosition);
-            udpclient.Send(ballPos, ballPos.Length);
-
-            // принятие позиции ракетки второго игрока
-            var receivedData = udpclient.Receive(ref remoteEP);
-            string rocket2Pos = Encoding.UTF8.GetString(receivedData);
-            string[] bufferBall = rocket2Pos.Split(' ');
-            rocket2.Location = new Point(Convert.ToInt32(bufferBall[0]), Convert.ToInt32(bufferBall[1]));
-
-            ball.Left += speed_left;
-            ball.Top += speed_top;
-
-
-            if (ball.Bottom >= rocket.Top && ball.Bottom <= rocket.Bottom && ball.Left >= rocket.Left && ball.Right <= rocket.Right)    
-            {
-                speed_top += 2;
-                speed_left += 2;
-                speed_top = -speed_top;
-                point += 1;
-                label_point.Text = point.ToString();
-            }
-            if (ball.Left <= playground.Left)
-            {
-                speed_left = -speed_left;
-            }
-
-            if (ball.Right >= playground.Right)
-            {
-                speed_left = -speed_left;
-            }
-
-            //if (ball.Top <= playground.Top)
-            //{
-            //    speed_top = -speed_top;
-            //}
-
-            if (ball.Bottom >= playground.Bottom)
-            {
-                speed_top = -speed_top;
-                timer1.Enabled = false;
-                ball.Location = new Point(392, 155);
-                pointSecond += 1;
-                label_scorefirst.Text = pointSecond.ToString();
-                timer1.Enabled = true;
-            }
-
+        }
+        private void CheckPoints()
+        {
             if (ball.Top <= playground.Top)
             {
                 pointFirst += 1;
                 label_scorefirst.Text = pointFirst.ToString();
             }
-            if (pointFirst == 3)
+
+            if (ball.Bottom >= playground.Bottom)
             {
-                timer1.Enabled = false;
-                dialogResult = MessageBox.Show("Start again?", "YOU WON!", MessageBoxButtons.YesNo);
-                StartAgain(dialogResult);
-            }
-            if (pointSecond == 3)
-            {
-                timer1.Enabled = false;
-                dialogResult = MessageBox.Show("Start again?", "YOU LOSE!", MessageBoxButtons.YesNo);
-                StartAgain(dialogResult);
+                speed_top = -speed_top;
+                player1.Enabled = false;
+                ball.Location = new Point(392, 155);
+                pointSecond += 1;
+                label_scorefirst.Text = pointSecond.ToString();
+                player1.Enabled = true;
             }
         }
         private void AddBonus()
         {
-            Random random = new Random();        
-            Label lblBonus = new Label();
-            lblBonus.Text = "BONUS";
+            Random random = new Random();
             lblBonus.Location = new Point(random.Next(10, 500), random.Next(10, 300));
+            lblBonus.ForeColor = Color.Red;
             this.Controls.Add(lblBonus);
         }
+        private void CheckGetBonusRocket(PictureBox rockets)
+        {
+            if (ball.Top == lblBonus.Bottom && ball.Bottom == lblBonus.Top)
+            {
+                rockets.Width = 784;
+                RocketGoingAboard(rockets);
+                this.Controls.Remove(lblBonus);
+            }
 
+            if (rocket.Width == 784 && ball.Bottom >= rocket.Top && ball.Bottom <= rocket.Bottom && ball.Left >= rocket.Left && ball.Right <= rocket.Right)
+            {
+                rockets.Width = 189;
+            }
+        }
         private void StartAgain(DialogResult won)
         {
-            var receivedData = udpclient.Receive(ref remoteEP);
+            var receivedData = client.udpclient.Receive(ref client.remoteEP);
             string rocket2Pos = Encoding.UTF8.GetString(receivedData);
             string[] bufferBall = rocket2Pos.Split(' ');
             if (won == DialogResult.Yes)
             {
                 if (bufferBall[0] == "YES")
                 {
-                    timer1.Enabled = true;
+                    player1.Enabled = true;
                     label_scorefirst.Text = "";
                     label_scoreSec.Text = "";
                 }
                 else
                 {
                     this.Close();
-                    udpclient.Close();
+                    client.udpclient.Close();
                 }
             }
             else if (won == DialogResult.No)
             {
                 string ballPosition = $"NO";
                 byte[] ballPos = UTF8Encoding.UTF8.GetBytes(ballPosition);
-                udpclient.Send(ballPos, ballPos.Length);
+                client.udpclient.SendAsync(ballPos, ballPos.Length);
             }
         }
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -221,158 +272,116 @@ namespace App_Lan_PingPong_UA
         {
             
         }
-        private void timer2_Tick(object sender, EventArgs e)
+        private void Player2()
         {
-            // привязка курсора к центру ракетки
-            rocket2.Left = Cursor.Position.X - (rocket2.Width / 2);
+            while (true)
+            {
+                Action act1 = () =>
+                {
+                    rocket2.Left = Cursor.Position.X - (rocket2.Width / 2);
+                };
+                    if (InvokeRequired)
+                    Invoke(act1);
+                else
+                    act1();
+                // привязка курсора к центру ракетки
 
-            // зарпет выхода за границы
-            if (rocket.Location.X > 593)
-            {
-                rocket.Location = new Point(593, 12);
-            }
-            if (rocket.Location.X < 3)
-            {
-                rocket.Location = new Point(3, 12);
-            }
 
-            // прием позиции мяча и рокетки->
-            var ballPos = udpServer.Receive(ref remoteEP);
-            string ballPosResult = Encoding.UTF8.GetString(ballPos);
-            string[] bufferBall = ballPosResult.Split(' ');
-            ball.Location = new Point(Convert.ToInt32(bufferBall[0]), Convert.ToInt32(bufferBall[1]));
-            rocket.Location = new Point(Convert.ToInt32(bufferBall[2]), Convert.ToInt32(bufferBall[3]));
+                RocketGoingAboard(rocket2); // запрет выхода за границу
 
-            // отправка позиции ракетки игрока 2
-            string rocket2Position = $"{rocket2.Location.X} {rocket2.Location.Y}";
-            byte[] rocket2Pos = UTF8Encoding.UTF8.GetBytes(rocket2Position);
-            udpServer.Send(rocket2Pos, rocket2Pos.Length, remoteEP);
+                CheckPoints(); // проверка на забитие гола
 
-            if (ball.Bottom >= rocket2.Top && ball.Bottom <= rocket2.Bottom && ball.Left >= rocket2.Left && ball.Right <= rocket2.Right)
-            {
-                speed_top += 2;
-                speed_left += 2;
-                speed_top = -speed_top;
-                point += 1;
-                label_point.Text = point.ToString();
-            }
-            if (ball.Left <= playground.Left)
-            {
-                speed_left = -speed_left;
-            }
-            if (ball.Right >= playground.Right)
-            {
-                speed_left = -speed_left;
-            }
-            if (ball.Top <= playground.Top)
-            {
-                speed_top = -speed_top;
-            }
-            if (ball.Bottom >= playground.Bottom)
-            {
-                pointFirst =+ 1;
-                label_scorefirst.Text = pointFirst.ToString();
-            }
-            if (ball.Top <= playground.Top)
-            {
-                speed_top = -speed_top;
-                timer2.Enabled = false;
-                ball.Location = new Point(392, 155);
-                pointSecond += 1;
-                label_scoreSec.Text = pointSecond.ToString();
-                timer2.Enabled = true;
-            }
-            if (pointSecond == 3)
-            {
-                timer2.Enabled = false;
-                dialogResult = MessageBox.Show("Start again?", "YOU WON!", MessageBoxButtons.YesNo);
-                StartAgainEnemy(dialogResult);
-            }
-            if (pointFirst == 3)
-            {
-                timer2.Enabled = false;
-                dialogResult = MessageBox.Show("Start again?", "YOU LOSE!", MessageBoxButtons.YesNo);
-                StartAgainEnemy(dialogResult);
-            }
+                CheckGetBonusRocket(rocket); // проверка на взятие бонуса
+
+                CheckGetBonusRocket(rocket2); // проверка на взятие бонуса
+                try
+                {
+                    
+                    Action act = () =>
+                    {
+                        //прием позиции мяча и рокетки->
+                        var ballPos = server.udpServer.Receive(ref server.remoteEP);
+                        string ballPosResult = Encoding.UTF8.GetString(ballPos);
+
+                        string[] bufferBall = ballPosResult.Split(' ');
+                        ball.Location = new Point(Convert.ToInt32(bufferBall[0]), Convert.ToInt32(bufferBall[1]));
+                        rocket.Location = new Point(Convert.ToInt32(bufferBall[2]), Convert.ToInt32(bufferBall[3]));
+                    };
+                    if (InvokeRequired)
+                        Invoke(act);
+                    else
+                        act();
+                }
+                catch (Exception)
+                {
+                }
+                try
+                {
+                    //отправка позиции ракетки игрока 2
+                    string rocket2Position = $"{rocket2.Location.X} {rocket2.Location.Y}";
+                    byte[] rocket2Pos = UTF8Encoding.UTF8.GetBytes(rocket2Position);
+                    server.udpServer.Send(rocket2Pos, rocket2Pos.Length, server.remoteEP);
+                }
+                catch (Exception)
+                {
+                }
+                if (ball.Top <= playground.Top)
+                {
+                    //speed_top = -speed_top;
+                    pointFirst++;
+                }
+                if (ball.Bottom <= playground.Bottom)
+                {
+                    pointSecond++;
+                }
+                if (pointFirst == 3)
+                {
+                    player1.Enabled = false;
+                    dialogResult = MessageBox.Show("Start again?", "YOU WON!", MessageBoxButtons.YesNo);
+                    StartAgain(dialogResult);
+                }
+                if (pointSecond == 3)
+                {
+                    player1.Enabled = false;
+                    dialogResult = MessageBox.Show("Start again?", "YOU LOSE!", MessageBoxButtons.YesNo);
+                    StartAgain(dialogResult);
+                }
+            }    
         }
         private void StartAgainEnemy(DialogResult won)
         {           
-            var StartAgainBuff = udpServer.Receive(ref remoteEP);
+            var StartAgainBuff = server.udpServer.Receive(ref server.remoteEP);
             string StartAgainBuffResult = Encoding.UTF8.GetString(StartAgainBuff);
             string[] bufferStart = StartAgainBuffResult.Split(' ');
             if (won == DialogResult.Yes)
             {
                 string StartagainYES = $"YES";
                 byte[] YES = UTF8Encoding.UTF8.GetBytes(StartagainYES);
-                udpServer.Send(YES, YES.Length, remoteEP);
+                server.udpServer.SendAsync(YES, YES.Length, server.remoteEP);
                 if (bufferStart[0] == "YES")
                 {
                     label_scorefirst.Text = "";
                     label_scoreSec.Text = "";
-                    timer2.Enabled = true;
+                    player2.Enabled = true;
 
                 }
                 else
                 {
                     MessageBox.Show("SERVER DISCONECT!");
                     this.Close();
-                    udpServer.Close();
+                    server.udpServer.Close();
                 }
             }
             else if (won == DialogResult.No)
             {
                 string StartagainNO = $"NO";
                 byte[] NO = UTF8Encoding.UTF8.GetBytes(StartagainNO);
-                udpServer.Send(NO, NO.Length, remoteEP);
+                server.udpServer.SendAsync(NO, NO.Length, server.remoteEP);
             }
         }
-        private void timer3_Tick(object sender, EventArgs e)
+        private void timer4_Tick(object sender, EventArgs e)
         {
-
-            // привязка курсора к центру ракетки
-            rocket.Left = Cursor.Position.X - (rocket2.Width / 2);
-
-            // зарпет выхода за границы
-            if (rocket.Location.X > 593)
-            {
-                rocket.Location = new Point(593,531);
-            }
-            if (rocket.Location.X < 3)
-            {
-                rocket.Location = new Point(3, 531);
-            }
-                ball.Left += speed_left;
-                ball.Top += speed_top;
-
-            if (ball.Bottom >= rocket.Top && ball.Bottom <= rocket.Bottom && ball.Left >= rocket.Left && ball.Right <= rocket.Right)
-            {
-                speed_top += 2;
-                speed_left += 2;
-                speed_top = -speed_top;
-                point += 1;
-            }
-            if (ball.Left <= playground.Left)
-            {
-                speed_left = -speed_left;
-            }
-
-            if (ball.Right >= playground.Right)
-            {
-                speed_left = -speed_left;
-            }
-
-            if (ball.Top <= playground.Top)
-            {
-                speed_top = -speed_top;
-            }
-
-            if (ball.Bottom >= playground.Bottom)
-            {
-                speed_top = -speed_top;
-                timer3.Enabled = false;
-                ball.Location = new Point(392, 155);
-                timer3.Enabled = true;
-            }
+            AddBonus();
         }
     }
 }

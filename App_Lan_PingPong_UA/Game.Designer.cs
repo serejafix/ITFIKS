@@ -30,8 +30,8 @@ namespace App_Lan_PingPong_UA
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.player1 = new System.Windows.Forms.Timer(this.components);
+            this.player2 = new System.Windows.Forms.Timer(this.components);
             this.playground = new System.Windows.Forms.Panel();
             this.label_point = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -40,24 +40,19 @@ namespace App_Lan_PingPong_UA
             this.label_playerfirst = new System.Windows.Forms.Label();
             this.label_palyersec = new System.Windows.Forms.Label();
             this.label_SCORE = new System.Windows.Forms.Label();
-            this.ball = new System.Windows.Forms.PictureBox();
             this.rocket2 = new System.Windows.Forms.PictureBox();
             this.rocket = new System.Windows.Forms.PictureBox();
-            this.timer3 = new System.Windows.Forms.Timer(this.components);
+            this.timer_AddBonus = new System.Windows.Forms.Timer(this.components);
+            this.ball = new App_Lan_PingPong_UA.RoundBall();
             this.playground.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ball)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rocket2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rocket)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ball)).BeginInit();
             this.SuspendLayout();
             // 
-            // timer1
+            // player1
             // 
-            this.timer1.Interval = 1;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // timer2
-            // 
-            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            this.player1.Interval = 1;
             // 
             // playground
             // 
@@ -65,6 +60,7 @@ namespace App_Lan_PingPong_UA
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.playground.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.playground.Controls.Add(this.ball);
             this.playground.Controls.Add(this.label_point);
             this.playground.Controls.Add(this.label1);
             this.playground.Controls.Add(this.label_scorefirst);
@@ -72,7 +68,6 @@ namespace App_Lan_PingPong_UA
             this.playground.Controls.Add(this.label_playerfirst);
             this.playground.Controls.Add(this.label_palyersec);
             this.playground.Controls.Add(this.label_SCORE);
-            this.playground.Controls.Add(this.ball);
             this.playground.Controls.Add(this.rocket2);
             this.playground.Controls.Add(this.rocket);
             this.playground.Location = new System.Drawing.Point(0, 0);
@@ -140,15 +135,6 @@ namespace App_Lan_PingPong_UA
             this.label_SCORE.TabIndex = 5;
             this.label_SCORE.Text = "SCORE:";
             // 
-            // ball
-            // 
-            this.ball.BackColor = System.Drawing.Color.OrangeRed;
-            this.ball.Location = new System.Drawing.Point(507, 172);
-            this.ball.Name = "ball";
-            this.ball.Size = new System.Drawing.Size(25, 17);
-            this.ball.TabIndex = 4;
-            this.ball.TabStop = false;
-            // 
             // rocket2
             // 
             this.rocket2.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
@@ -169,10 +155,18 @@ namespace App_Lan_PingPong_UA
             this.rocket.TabIndex = 0;
             this.rocket.TabStop = false;
             // 
-            // timer3
+            // timer_AddBonus
             // 
-            this.timer3.Interval = 1;
-            this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
+            this.timer_AddBonus.Tick += new System.EventHandler(this.timer4_Tick);
+            // 
+            // ball
+            // 
+            this.ball.BackColor = System.Drawing.Color.LightCoral;
+            this.ball.Location = new System.Drawing.Point(261, 274);
+            this.ball.Name = "ball";
+            this.ball.Size = new System.Drawing.Size(27, 23);
+            this.ball.TabIndex = 12;
+            this.ball.TabStop = false;
             // 
             // Game
             // 
@@ -186,9 +180,9 @@ namespace App_Lan_PingPong_UA
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.playground.ResumeLayout(false);
             this.playground.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ball)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rocket2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rocket)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ball)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -197,11 +191,9 @@ namespace App_Lan_PingPong_UA
 
         private System.Windows.Forms.Panel playground;
         public System.Windows.Forms.PictureBox rocket;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer player1;
         public System.Windows.Forms.PictureBox rocket2;
-        private System.Windows.Forms.Timer timer2;
-        private System.Windows.Forms.PictureBox ball;
-        private System.Windows.Forms.Timer timer3;
+        private System.Windows.Forms.Timer player2;
         private System.Windows.Forms.Label label_scorefirst;
         private System.Windows.Forms.Label label_scoreSec;
         private System.Windows.Forms.Label label_playerfirst;
@@ -209,6 +201,8 @@ namespace App_Lan_PingPong_UA
         private System.Windows.Forms.Label label_SCORE;
         private System.Windows.Forms.Label label_point;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Timer timer_AddBonus;
+        private RoundBall ball;
     }
 }
 
