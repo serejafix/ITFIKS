@@ -1,0 +1,19 @@
+﻿<Window x:Class="TZ_Parsing.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TZ_Parsing"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label x:Name="lblforLink" VerticalAlignment="Center" Height="30">Enter link for parsing : </Label>
+        <TextBox x:Name="txbLink" Grid.Row="0" Width="540" Height="20" HorizontalAlignment="Center" Margin="5" Text=""></TextBox>
+        <Button x:Name="getParsing" Grid.Row="0" Content="Parsing" Width="80" Height="20" HorizontalAlignment="Right" Margin="15" Click="getParsing_Click"></Button>
+        <DataGrid x:Name="dgv" Grid.Row="1"></DataGrid>
+    </Grid>
+</Window>

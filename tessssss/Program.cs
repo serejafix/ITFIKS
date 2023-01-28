@@ -8,122 +8,120 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Net;
 using System.Net.Sockets;
+using AngleSharp;
+using AngleSharp.Dom;
+using AngleSharp.Html.Dom;
+using AngleSharp.Html.Parser;
 
 namespace tessssss
 {
     class Program
     {
-        //string pathTo = @"G:\Temp";
-        //static DirectoryInfo[] dirs;
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
 
-            char[] a = { 'J', 'a', 'v', 'a', '!' };
-            con
-        //string input = "a fiks miks a";
-        ////string pattern = @"\bfiks\b";
-        ////string replacement = "miks";
-        ////string result = Regex.Replace(input, pattern, replacement);
 
-        //string[] words = { "fiks", "miks" };
-        //int[] counts;
-        //for (int g = 0; g < words.Length; g++)
-        //{
-        //    int count = Regex.Matches(input, words[g]).Count;               
-        //}
 
-        //Console.WriteLine(result);
+            //var url = txbLink.Text; // ссылка для парсинга
 
-        //var a = new Regex("[0-9]");
-        //Console.WriteLine(a.Matches("1234").Count);
-        //Console.ReadKey();
+            var config = Configuration.Default.WithDefaultLoader(); // стандартные конфигурации AngleSharp ->
 
-        //    string[] Drives = Environment.GetLogicalDrives();//Получаем диски на комьютере
-        //    List<DirectoryInfo> directories = new List<DirectoryInfo>();//Создаем список для путей всех папок
+            var context = BrowsingContext.New(config);
 
-        //    //обход дисков - запись всех путей всех папок на дисках в список
-        //    for (int i = 0; i < Drives.Length; i++)
-        //    {
-        //        DirectoryInfo dinfo = new DirectoryInfo(Drives[i]);//Получаем дерикторию в которой надо обойти папки, в данном случае диск
-        //        try
-        //        {
-        //            dirs = dinfo.GetDirectories();//Получаем поддериктории(папки в папке) из текущей дериктории(в данном случае диск)
-        //        }
-        //        catch (IOException e)
-        //        {
-        //            Console.WriteLine($"Диск: {dinfo} пуст");
-        //            continue;
-        //        }
-        //        foreach (DirectoryInfo current in dirs)
-        //        {
-        //            directories.Add(current);//Добавляем в список дериктории из массива (т.к. может быть больше одного диска на компьютере)
-        //        }
-        //    }
+            //if (!string.IsNullOrEmpty(url)) // если поле не пустой начинаем ->
+            //{
+                var doc = await context.OpenAsync("https://www.ilcats.ru/toyota/?function=getModels&market=EU"); // по первой ссылке отправляем запрос
 
-        //    //обход всех папок и получение файлов в них
-        //    List<FileInfo> filesList = new List<FileInfo>();
+                var parsList = doc.QuerySelectorAll(".List");
 
-        //    for (int i = 0; i < directories.Count; i++)
-        //    {
-        //        try//оборачиваем try catch из за возможности встретить дериктории к которым запрещен доступ
-        //        {
-        //            DirectoryInfo dinfo = new DirectoryInfo(directories[i].FullName);//получаем полный путь каждой папки находящихся на дисках
-        //            FileInfo[] files = dinfo.GetFiles();//получаем файлы из текущей папки
-        //            foreach (FileInfo current in files)
-        //            {
-        //               string a =  GetResourceFileContentAsString(current.ToString());
-        //                filesList.Add(current);//Добавляем в общий список файлов
-        //            }
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //        }
-        //    }
-        //}
-        //public static void test()
-        //{
-        //    using (Stream stream = GetResourceStream("MyApplication.Document1.rtf"))
-        //    {
-        //        stream.Seek(0, SeekOrigin.Begin);
-        //        wordProcessor.LoadDocument(stream);
-        //        stream.Close();
-        //    }
-        //    Stream GetResourceStream(string resourceName)
-        //    {
-        //        return Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName);
-        //    }
-        //}
-        //public static string GetResourceFileContentAsString(string fileName)
-        //{
-        //    var assembly = Assembly.GetExecutingAssembly();
+            //List<int> list = new List<int>() { 1, 2, 2, 3, 2, 4, 1, 4, 5 };
 
-        //    string resource = null;
-        //    using (Stream stream = assembly.GetManifestResourceStream(fileName))
-        //    {
-        //        using (StreamReader reader = new StreamReader(stream))
-        //        {
-        //            resource = reader.ReadToEnd();
-        //        }
-        //    }
-        //    return resource;
-        //}
-        //public static void SearchAllFiles(string path, string pathTo)
-        //{
-        //    //string path = @"D:\files\"; // откуда
-        //    // куда
+            //List<int> distinct = parsList.Union(parsList).ToList();
 
-        //    string[] extensions = { "*.jpg", "*.txt", "*.asp" };
+            foreach (var item in parsList.Skip(1))
+            {
+                try
+                {
+                    Console.WriteLine(item.QuerySelector(".Header").TextContent);
+                    Console.WriteLine(item.QuerySelector(".id").TextContent);
+                    Console.WriteLine(item.QuerySelector(".modelCode").TextContent);
+                    Console.WriteLine(item.QuerySelector(".dateRange").TextContent);
+                }
+                catch (Exception)
+                {
+                    
+                } 
+            }
+         
+            
 
-        //    foreach (string ext in extensions)
-        //    {
-        //        foreach (string file in Directory.GetFiles(path, ext, SearchOption.AllDirectories))
-        //        {
-        //            File.Copy(path + Path.GetFileName(file), pathTo + Path.GetFileName(file));
-        //        }
-        //    }
-        //}
+                
+            // выбираю откуда парсить
+            //string a = "10.2016 -    ...";
+            //string[] words = a.Split(new char[] { '.', '-' }, StringSplitOptions.RemoveEmptyEntries);
+            //string fdf = null;
+            //foreach (var item in words)
+            //{
+            //    fdf = "0" + $"{item}";
+            //}
+            //var url = "https://www.ilcats.ru/toyota/?function=getComplectations&market=EU&model=161230&startDate=197408&endDate=198107"; // сайт для парса
 
-    }
+            //var config = Configuration.Default.WithDefaultLoader();
+
+            //var context = BrowsingContext.New(config);
+
+            //var doc = await context.OpenAsync(url);
+
+            //var parsList = doc.QuerySelectorAll("td"); // выбираю откуда парсить
+
+            //List<string> listConfiguration = new List<string>();
+
+            //List<string> listConfiguration1 = new List<string>();
+
+            //var configurationParse = doc.QuerySelectorAll("th");
+            //foreach (var item in configurationParse.Take((configurationParse.Length) / 2 +1).Skip(2))
+            //{
+            //    listConfiguration.Add(item.TextContent);
+            //}
+
+            //foreach (var par in parsList.Take((configurationParse.Length) / 2 + 1).Skip(2))
+            //{
+            //    if (par.QuerySelector("div") != null)
+            //    {
+            //        listConfiguration1.Add(par.QuerySelector("div").TextContent);
+            //    }
+            //    else
+            //    {
+            //        listConfiguration1.Add(null);
+            //    }
+            //}
+
+            //var keys = listConfiguration.ToArray();
+            //var values = listConfiguration1.ToArray();
+
+            // Dictionary<string, string> ConfigurationParse = keys
+            // .Distinct()
+            // .Select((key, i) => new {
+            //     key,
+            //     value = values[i % values.Length]
+            // })
+            // .ToDictionary(item => item.key, item => item.value);
+
+            //Console.Write(string.Join(Environment.NewLine, result));
+            ////try
+            ////{
+
+            ////}
+            ////catch (Exception)
+            ////{
+            ////}
+
+            //foreach (KeyValuePair<string, string> kvp in result)
+            //{
+            //    Console.WriteLine("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
+            //}
+
+        }
     }
     
 }

@@ -26,7 +26,7 @@ namespace App_Lan_PingPong_UA
         public int pointSecond = 0; // очки второго игрока
 
         static Label lblBonus = new Label();
-        static DialogResult dialogResult; // по забитию трех голов 
+        //static DialogResult dialogResult; // по забитию трех голов 
         static Server server;
         static Client client;
         static List<Exception> exceptions = new List<Exception>(); // поле если нужно проверить о
@@ -76,10 +76,12 @@ namespace App_Lan_PingPong_UA
 
             label_scorefirst.Text = pointFirst.ToString(); // очки 
             label_scoreSec.Text = pointSecond.ToString(); // очки
-            //timer_AddBonus.Enabled = false; // бонус 
+            //timer_AddBonus.Enabled = true; // бонус 
             //timer_AddBonus.Interval = 20000;// интервал появления бонуса
             //rocket.Top = playground.Bottom; // позиция ракетки   1
+
             rocket.Top = playground.Bottom - (playground.Bottom/10);
+
             rocket2.Top = playground.Bottom - (playground.Bottom); // позиция ракетки  2
             this.KeyPreview = true;
         }
@@ -104,11 +106,13 @@ namespace App_Lan_PingPong_UA
                 Invoke(act);
             else
                 act();
-        } // зарпет выхода за границы экрана
+        }
         private void Player1()
         {
+            Thread.Sleep(100);
             while (true)
             {
+                
                 Action act1 = () =>
                 {
                     // привязка курсора к центру ракетки
@@ -118,7 +122,7 @@ namespace App_Lan_PingPong_UA
                     Invoke(act1);
                 else
                     act1();
-                RocketGoingAboard(rocket); // запрет выхода за границу
+                //RocketGoingAboard(rocket); // запрет выхода за границу
                 try
                 {
                     //отправка позиции ракетки и мячика игрока 1
@@ -129,11 +133,17 @@ namespace App_Lan_PingPong_UA
                 catch (Exception)
                 {
                 }
-                try
+                try 
                 {
+                    // попробовать данную проверку
+                    if (client.udpclient.Available > 0) // Only read if we have some data  !!!!!!!!!!!!!!!
+                    {                           // queued in the network buffer. 
+                        var receivedData1 = client.udpclient.Receive(ref client.remoteEP); 
+                    }
                     //принятие позиции ракетки второго игрока
-                    var receivedData = client.udpclient.Receive(ref client.remoteEP);
-                    string rocket2Pos = Encoding.UTF8.GetString(receivedData);
+                    //var receivedData = client.udpclient.Receive(ref client.remoteEP);                   
+                    var receivedData = client.udpclient.ReceiveAsync();                   
+                    string rocket2Pos = Encoding.UTF8.GetString(receivedData.Result.Buffer);
                     string[] bufferBall = rocket2Pos.Split(' ');
                     Action act = () =>
                     {
@@ -162,10 +172,10 @@ namespace App_Lan_PingPong_UA
                     label_point.Text = point.ToString();
                 }
 
-                CheckPoints(); // проверка на забитие гола
+                //CheckPoints(); // проверка на забитие гола
 
-                CheckGetBonusRocket(rocket); // проверка на взятие бонуса
-                CheckGetBonusRocket(rocket2); // проверка на взятие бонуса
+                //CheckGetBonusRocket(rocket); // проверка на взятие бонуса
+                //CheckGetBonusRocket(rocket2); // проверка на взятие бонуса
 
                 if (ball.Bottom >= rocket.Top && ball.Bottom <= rocket.Bottom && ball.Left >= rocket.Left && ball.Right <= rocket.Right)
                 {
@@ -185,18 +195,18 @@ namespace App_Lan_PingPong_UA
                 {
                     speed_left = -speed_left;
                 }
-                if (pointFirst == 3)
-                {
-                    player1.Enabled = false;
-                    dialogResult = MessageBox.Show("Start again?", "YOU WON!", MessageBoxButtons.YesNo);
-                    StartAgain(dialogResult);
-                }
-                if (pointSecond == 3)
-                {
-                    player1.Enabled = false;
-                    dialogResult = MessageBox.Show("Start again?", "YOU LOSE!", MessageBoxButtons.YesNo);
-                    StartAgain(dialogResult);
-                }
+                //if (pointFirst == 3)
+                //{
+                //    player1.Enabled = false;
+                //    dialogResult = MessageBox.Show("Start again?", "YOU WON!", MessageBoxButtons.YesNo);
+                //    StartAgain(dialogResult);
+                //}
+                //if (pointSecond == 3)
+                //{
+                //    player1.Enabled = false;
+                //    dialogResult = MessageBox.Show("Start again?", "YOU LOSE!", MessageBoxButtons.YesNo);
+                //    StartAgain(dialogResult);
+                //}
             }
         }
         private void CheckPoints()
@@ -274,8 +284,10 @@ namespace App_Lan_PingPong_UA
         }
         private void Player2()
         {
+            Thread.Sleep(100);
             while (true)
             {
+                
                 Action act1 = () =>
                 {
                     rocket2.Left = Cursor.Position.X - (rocket2.Width / 2);
@@ -287,21 +299,22 @@ namespace App_Lan_PingPong_UA
                 // привязка курсора к центру ракетки
 
 
-                RocketGoingAboard(rocket2); // запрет выхода за границу
+                //RocketGoingAboard(rocket2); // запрет выхода за границу
 
-                CheckPoints(); // проверка на забитие гола
+                //CheckPoints(); // проверка на забитие гола
 
-                CheckGetBonusRocket(rocket); // проверка на взятие бонуса
+                //CheckGetBonusRocket(rocket); // проверка на взятие бонуса
 
-                CheckGetBonusRocket(rocket2); // проверка на взятие бонуса
+                //CheckGetBonusRocket(rocket2); // проверка на взятие бонуса
                 try
                 {
                     
                     Action act = () =>
                     {
                         //прием позиции мяча и рокетки->
-                        var ballPos = server.udpServer.Receive(ref server.remoteEP);
-                        string ballPosResult = Encoding.UTF8.GetString(ballPos);
+                        //var ballPos = server.udpServer.Receive(ref server.remoteEP);
+                        var ballPos = server.udpServer.ReceiveAsync();
+                        string ballPosResult = Encoding.UTF8.GetString(ballPos.Result.Buffer);
 
                         string[] bufferBall = ballPosResult.Split(' ');
                         ball.Location = new Point(Convert.ToInt32(bufferBall[0]), Convert.ToInt32(bufferBall[1]));
@@ -325,27 +338,29 @@ namespace App_Lan_PingPong_UA
                 catch (Exception)
                 {
                 }
-                if (ball.Top <= playground.Top)
-                {
-                    //speed_top = -speed_top;
-                    pointFirst++;
-                }
-                if (ball.Bottom <= playground.Bottom)
-                {
-                    pointSecond++;
-                }
-                if (pointFirst == 3)
-                {
-                    player1.Enabled = false;
-                    dialogResult = MessageBox.Show("Start again?", "YOU WON!", MessageBoxButtons.YesNo);
-                    StartAgain(dialogResult);
-                }
-                if (pointSecond == 3)
-                {
-                    player1.Enabled = false;
-                    dialogResult = MessageBox.Show("Start again?", "YOU LOSE!", MessageBoxButtons.YesNo);
-                    StartAgain(dialogResult);
-                }
+                //if (ball.Top == playground.Top)
+                //{
+                //    //speed_top = -speed_top;
+                //    pointFirst++;
+                //}
+                //if (ball.Bottom == playground.Bottom)
+                //{
+                //    pointSecond++;
+                //}
+                //if (pointFirst == 3)
+                //{
+                    
+                //    dialogResult = MessageBox.Show("Start again?", "YOU WON!", MessageBoxButtons.YesNo);
+                //    StartAgainEnemy(dialogResult);
+                //    break;
+                //}
+                //if (pointSecond == 3)
+                //{
+                    
+                //    dialogResult = MessageBox.Show("Start again?", "YOU LOSE!", MessageBoxButtons.YesNo);
+                //    StartAgainEnemy(dialogResult);
+                //    break;
+                //}
             }    
         }
         private void StartAgainEnemy(DialogResult won)
