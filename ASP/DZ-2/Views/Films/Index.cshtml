@@ -3,12 +3,48 @@
 @{
     ViewData["Title"] = "Cinema";
 }
+<link rel="stylesheet" href="~/css/FilmsIndex.css" />
 
 <h1>Фильмы кинотеатра города Николаев</h1>
 
 @*<p>
-    <a asp-action="Create">Create New</a>
-</p>*@
+        <a asp-action="Create">Create New</a>
+    </p>*@
+
+<form asp-controller="Films" asp-action="Index">
+    <p>
+        Поиск по названию: <input type="text" name="title" />
+        <input type="submit" value="Поиск" />
+    </p>
+</form>
+
+<form asp-controller="Films" asp-action="Index">
+    <p>
+        Поиск по режисеру: <input type="text" name="director" />
+        <input type="submit" value="поиск" />
+    </p>
+</form>
+
+<form asp-controller="Films" asp-action="Index">
+    <p>
+        Поиск по описанию: <input type="text" name="about" />
+        <input type="submit" value="Поиск" />
+    </p>
+</form>
+
+<form asp-controller="Films" asp-action="Index">
+    <p>
+        Поиск по Жанру: <input type="text" name="genre" />
+        <input type="submit" value="Поиск" />
+    </p>
+</form>
+
+<form asp-controller="Films" asp-action="Index">
+    <p>
+        Поиск по времени: <input type="text" name="time" pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"/>
+        <input type="submit" value="Поиск" />
+    </p>
+</form>
 <table class="table">
     <thead>
         <tr>
@@ -37,35 +73,36 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Director)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Genre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AboutFilm)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Session.Morning)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Session.Day)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Session.Night)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Director)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AboutFilm)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Session.Morning)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Session.Day)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Session.Night)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

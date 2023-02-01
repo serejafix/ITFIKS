@@ -19,10 +19,41 @@ namespace DZ_2.Controllers.DZController
             _context = context;
         }
 
-        // GET: Films
-        public async Task<IActionResult> Index()
+
+        public async Task<IActionResult> Index(string genre,string title,string director,string about,string time)
         {
+            if (_context.Films == null)
+            {
+                return Problem("Films null");
+            }
+
             var applicationDbContext = _context.Films.Include(f => f.Session);
+
+            if (!String.IsNullOrEmpty(title)) // поиск по title
+            {
+                applicationDbContext = applicationDbContext.Where(s => s.Title!.Contains(title)).Include(f => f.Session);
+            }
+
+            if (!String.IsNullOrEmpty(genre)) // поиск по title
+            {
+                applicationDbContext = applicationDbContext.Where(s => s.Genre!.Contains(genre)).Include(f => f.Session);
+            }
+
+            if (!String.IsNullOrEmpty(director))// поиск по режисеру
+            {
+                applicationDbContext = applicationDbContext.Where(s => s.Director!.Contains(director)).Include(f => f.Session);
+            }
+
+            if (!String.IsNullOrEmpty(about))// поиск по описанию
+            {
+                applicationDbContext = applicationDbContext.Where(s => s.AboutFilm!.Contains(about)).Include(f => f.Session);
+            } 
+
+            if (!String.IsNullOrEmpty(time))// поиск по времени
+            {
+                applicationDbContext = applicationDbContext.Where(f => f.Session.Morning!.Contains(time)).Include(f => f.Session);
+            }
+            
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -44,7 +75,6 @@ namespace DZ_2.Controllers.DZController
 
             return View(films);
         }
-
         // GET: Films/Create
         public IActionResult Create()
         {
@@ -123,6 +153,7 @@ namespace DZ_2.Controllers.DZController
             return View(films);
         }
 
+       
         // GET: Films/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {

@@ -1,0 +1,15 @@
+﻿body {
+    background-color:lightgray;
+}
+form {
+    display: flex;
+    justify-content: flex-end;
+    padding: .5em;
+}
+
+input:invalid {
+    background-color: lightpink;
+}
+input:valid {
+    background-color: palegreen;
+}

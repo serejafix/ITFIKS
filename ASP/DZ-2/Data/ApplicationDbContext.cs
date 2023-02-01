@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DZ_2.Data
 {
@@ -14,6 +15,11 @@ namespace DZ_2.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+        }
+
+        internal Task GetFilmsByTitle(string v)
+        {
+            throw new NotImplementedException();
         }
     }
 }
