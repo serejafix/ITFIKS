@@ -1,0 +1,16 @@
+﻿@model DZ_5.Models.Book
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div class="card" style="width: 18rem;">
+    <img src="~/Posters/@Model.Poster" asp-append-version="true"/>
+  <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+        <p class="card-text">@Model.Fio</p>
+        <a asp-action="Index" class="btn btn-primary">Go Home</a>
+  </div>
+</div>
