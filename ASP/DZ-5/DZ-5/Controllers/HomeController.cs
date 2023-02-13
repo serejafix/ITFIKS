@@ -27,13 +27,12 @@ namespace DZ_5.Controllers
         }
         public IActionResult Create()
         {
-
             return View();
         }
         [HttpPost]
         public IActionResult Create(BookViewModel viewModel)
         {
-            string strFileName = UploadFile(viewModel);
+            string strFileName = UploadFile(viewModel.Poster);
             Book book = new Book
             {
                 Name= viewModel.Name,
@@ -48,19 +47,18 @@ namespace DZ_5.Controllers
             return RedirectToAction("Index");
         }
 
-        private string UploadFile(BookViewModel viewModel)
+        private string UploadFile(IFormFile formFile)
         {
             string? fileName = null;
-            if(viewModel != null)
+            if (formFile != null)
             {
                 string uploadDir = Path.Combine(_webHost.WebRootPath, "Posters");
-                fileName = Guid.NewGuid().ToString() + "-" + viewModel.Poster.FileName;
+                fileName = Guid.NewGuid().ToString() + "-" + formFile.FileName;
                 string filePath = Path.Combine(uploadDir, fileName);
                 using (var fs = new FileStream(filePath, FileMode.Create))
                 {
-                    viewModel.Poster.CopyTo(fs);                
+                    formFile.CopyTo(fs);
                 }
-        
             }
             return fileName;
         }
@@ -71,13 +69,35 @@ namespace DZ_5.Controllers
         }
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) { return NotFound(); } 
+
             var forView = await _context.Books.FirstOrDefaultAsync(m => m.Id == id);
+
             return View(forView);
         }
+
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null) { return NotFound(); }
+
+            var book = await _context.Books.FindAsync(id); // Getting member by Id from database
+            return View(new BookViewModelEdit() { Book = book });
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(BookViewModelEdit bookViewModelEdit,int?id)
+        {
+
+            if (id == null) { return NotFound(); }
+            string strFileName = UploadFile(bookViewModelEdit.Poster);
+            bookViewModelEdit.Book.Poster = strFileName;
+            var book = await _context.Books.FirstOrDefaultAsync(m => m.Id == id);
+            if(book == null) { return NotFound(); }
+            _context.Remove(book);
+            _context.Books.Add(bookViewModelEdit.Book);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
