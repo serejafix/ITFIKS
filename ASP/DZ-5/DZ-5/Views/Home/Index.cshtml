@@ -9,6 +9,20 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<p>
+    <a style="background-color:gainsboro">Поиск по Книгам:</a>
+</p>
+<form asp-action="Index">
+    <p>
+        Название: <input type="text" name="name" />
+        Стиль: <input type="text" name="style" />
+        Дата: <input type="datetime-local" id="meeting-time"
+       name="date">
+        ФИО: <input type="text" name="fio" />
+        <input type="submit" value="Поиск" />
+    </p>
+</form>
+
 <table class="table">
     <thead>
         <tr>
@@ -28,7 +42,7 @@
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-               @* <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

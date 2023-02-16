@@ -25,6 +25,17 @@ namespace DZ_5.Controllers
             var books = _context.Books.ToList();
             return View(books);
         }
+
+        [HttpPost]
+        public IActionResult Index(string name,DateTime? date,string style,string fio)
+        {
+            var result = _context.Books.Where(s => s.Name.Contains(name) || name == null)
+                                       .Where(s => s.Style.Contains(style) || style == null)
+                                       .Where(s=> s.PublishYear == date||  date == null)
+                                       .Where(s=> s.Fio == fio || fio == null)
+                                       .ToList();
+            return View(result);
+        }
         public IActionResult Create()
         {
             return View();
@@ -67,6 +78,32 @@ namespace DZ_5.Controllers
         {
             return View();
         }
+
+        public IActionResult Delete(int?id)
+        {
+            if (id == null)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error deleting data");
+            }
+
+            var bookForDelete = _context.Books.FirstOrDefault(i => i.Id == id);
+
+            return View(bookForDelete);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int? id)
+        {
+            if (id == null) { return NotFound(); }
+
+            
+            var forView = await _context.Books.FirstOrDefaultAsync(m => m.Id == id);
+            if (forView != null)
+                _context.Books.Remove(forView);
+                _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null) { return NotFound(); } 
@@ -83,6 +120,7 @@ namespace DZ_5.Controllers
             var book = await _context.Books.FindAsync(id); // Getting member by Id from database
             return View(new BookViewModelEdit() { Book = book });
         }
+
         [HttpPost]
         public async Task<IActionResult> Edit(BookViewModelEdit bookViewModelEdit,int?id)
         {
