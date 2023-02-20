@@ -1,5 +1,6 @@
 ﻿using DZ_5.Models;
 using DZ_5.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
@@ -20,10 +21,12 @@ namespace DZ_5.Controllers
             _webHost = webHost;
         }
 
+       
         public IActionResult Index()
         {
-            var books = _context.Books.ToList();
-            return View(books);
+
+                var books = _context.Books.ToList();
+                return View(books);
         }
 
         [HttpPost]
@@ -36,10 +39,12 @@ namespace DZ_5.Controllers
                                        .ToList();
             return View(result);
         }
+        [Authorize]
         public IActionResult Create()
         {
             return View();
         }
+        [Authorize]
         [HttpPost]
         public IActionResult Create(BookViewModel viewModel)
         {
@@ -78,7 +83,7 @@ namespace DZ_5.Controllers
         {
             return View();
         }
-
+        [Authorize]
         public IActionResult Delete(int?id)
         {
             if (id == null)
@@ -91,7 +96,7 @@ namespace DZ_5.Controllers
 
             return View(bookForDelete);
         }
-
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int? id)
         {
@@ -112,7 +117,7 @@ namespace DZ_5.Controllers
 
             return View(forView);
         }
-
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) { return NotFound(); }
@@ -120,7 +125,7 @@ namespace DZ_5.Controllers
             var book = await _context.Books.FindAsync(id); // Getting member by Id from database
             return View(new BookViewModelEdit() { Book = book });
         }
-
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Edit(BookViewModelEdit bookViewModelEdit,int?id)
         {

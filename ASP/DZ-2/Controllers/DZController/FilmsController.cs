@@ -25,7 +25,7 @@ namespace DZ_2.Controllers.DZController
             if (_context.Films == null)
             {
                 return Problem("Films null");
-            }
+            }   
 
             var applicationDbContext = _context.Films.Include(f => f.Session);
 
@@ -53,7 +53,7 @@ namespace DZ_2.Controllers.DZController
             {
                 applicationDbContext = applicationDbContext.Where(f => f.Session.Morning!.Contains(time)).Include(f => f.Session);
             }
-            
+           
             return View(await applicationDbContext.ToListAsync());
         }
 
