@@ -7,7 +7,7 @@
         public string? Description { get; set; }
         public string? Body { get; set; }
 
-        public DateTime? CreatedDate { get; set; } = DateTime.Now;
+        public DateTime? Created { get; set; } = DateTime.Now;
         public byte[] MainPostImage { get; set; } = default!;
         public bool IsDeleted { get; set; }
 

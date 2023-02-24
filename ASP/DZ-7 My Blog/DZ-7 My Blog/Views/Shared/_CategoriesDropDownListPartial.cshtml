@@ -1,0 +1,38 @@
+﻿@model DZ_7_My_Blog.ViewModels.CategoriesDropDownList
+<button class="btn btn-light dropdown-toggle"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false">
+    @(Model.CategoryId == 0 ?
+        "All Categories" :
+        Model.Categories.First(c => c.Id == Model.CategoryId).Name)
+</button>
+<ul class="dropdown-menu">
+    @{
+        string active = "";
+        bool isActive = false;
+    }
+    @foreach (var category in Model.Categories)
+    {
+        if (category.Id == Model.CategoryId && isActive == false)
+        {
+            active = "active";
+            isActive = true;
+        }
+        <li>
+            <a asp-controller="Posts"
+           asp-action="Index"
+           asp-route-categoryId="@category.Id"
+               class="@active dropdown-item">@category.Name</a>
+        </li>
+        @(active = "")
+    }
+    <li>
+        <hr class="dropdown-divider">
+    </li>
+    <li>
+        <a asp-action="Index"
+           asp-route-categoryId="0"
+           class="dropdown-item @(isActive == false ? "active" : "")">All Categories</a>
+    </li>
+</ul>

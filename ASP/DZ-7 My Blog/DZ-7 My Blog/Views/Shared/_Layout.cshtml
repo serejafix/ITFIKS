@@ -25,42 +25,45 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <vc:categories />
+                        @await Component.InvokeAsync("Categories")
                     </ul>
+
                     <ul class="navbar-nav">
-                    @if (User.Identity!.IsAuthenticated)
-                    {
-                        <li class="nav-item bg-light rounded rounded-1 ">
-                            <div class="nav-link text-primary">@User.Identity.Name</div>
-                        </li>
-                        <li class="nav-item">
-                            <div class="nav-link">
-                                <form method="post"
-                                  asp-controller="Account"
-                                  asp-action="Logout">
-                                    <input class="btn btn-sm btn-outline-secondary"
-                                       type="submit"
-                                       value="Log Out" />
-                                </form>
-                            </div>
-                        </li>
-                    }
-                    else
-                    {
-                        <li class="nav-item nav-item rounded rounded-1 bg-gradient me-3">
-                            <a asp-controller="Account"
-                           asp-action="Login"
-                           class="nav-link text-primary btn btn-sm btn-outline-light">
-                                Log In
-                            </a>
-                        </li>
-                        <li class="nav-item nav-item rounded rounded-1 bg-gradient">
-                            <a asp-controller="Account"
-                           asp-action="Register"
-                           class="nav-link text-primary btn btn-sm btn-outline-light">
-                                Registration
-                            </a>
-                        </li>
-                    }
+                        @if (User.Identity!.IsAuthenticated)
+                        {
+                            <li class="nav-item bg-light rounded rounded-1 ">
+                                <div class="nav-link text-primary">@User.Identity.Name</div>
+                            </li>
+                            <li class="nav-item">
+                                <div class="nav-link">
+                                    <form method="post"
+                                      asp-controller="Account"
+                                      asp-action="Logout">
+                                        <input class="btn btn-sm btn-outline-secondary"
+                                               type="submit"
+                                               value="Log Out" />
+                                    </form>
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item nav-item rounded rounded-1 bg-gradient me-3">
+                                <a asp-controller="Account"
+                               asp-action="Login"
+                                   class="nav-link text-primary btn btn-sm btn-outline-light">
+                                    Log In
+                                </a>
+                            </li>   
+                            <li class="nav-item nav-item rounded rounded-1 bg-gradient">
+                                <a asp-controller="Account"
+                               asp-action="Register"
+                                   class="nav-link text-primary btn btn-sm btn-outline-light">
+                                    Registration
+                                </a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

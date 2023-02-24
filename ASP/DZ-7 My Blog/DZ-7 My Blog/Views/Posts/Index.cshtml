@@ -1,0 +1,23 @@
+﻿@using DZ_7_My_Blog.ViewModels
+@model PostViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+<h1>Posts</h1>
+<hr />
+<div class="text-center">
+    <div class="dropdown-center mb-3">
+        <partial name="_CategoriesDropDownListPartial"
+                 model="new CategoriesDropDownList()
+{
+Categories = Model.Categories,
+CategoryId = Model.CategoryId
+}" />
+    </div>
+</div>
+<div class="row g-3">
+    @foreach (var post in Model.Posts)
+    {
+        <partial name="_PostViewPartial" model="post" />
+    }
+</div>
