@@ -24,9 +24,8 @@ namespace DZ_5.Controllers
        
         public IActionResult Index()
         {
-
                 var books = _context.Books.ToList();
-                return View(books);
+                return View(books!);
         }
 
         [HttpPost]
@@ -48,21 +47,37 @@ namespace DZ_5.Controllers
         [HttpPost]
         public IActionResult Create(BookViewModel viewModel)
         {
-            string strFileName = UploadFile(viewModel.Poster);
+            string strFileName = UploadFile(viewModel.Poster!);
+
+            string BookId = Guid.NewGuid().ToString();
+             
             Book book = new Book
             {
-                Name= viewModel.Name,
+                Id = BookId,
+                Name = viewModel.Name,
                 Fio = viewModel.Fio,
                 Style= viewModel.Style,
                 Poster = strFileName,
-                PublishYear =viewModel.PublishYear
+                PublishYear =viewModel.PublishYear,
+                Tags = new List<Tag>(),
             };
-
+            foreach (var tag in viewModel.Tags)
+            {
+                book.Tags.Add(new Tag
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    T = tag,
+                    BooksId = BookId,
+                });
+            }
             _context.Books.Add(book);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        public PartialViewResult AddTagPartial()
+        {
+            return PartialView("_AddTagPartial");
+        }
         private string UploadFile(IFormFile formFile)
         {
             string? fileName = null;
@@ -76,7 +91,7 @@ namespace DZ_5.Controllers
                     formFile.CopyTo(fs);
                 }
             }
-            return fileName;
+            return fileName!;
         }
 
         public IActionResult Privacy()
@@ -84,39 +99,39 @@ namespace DZ_5.Controllers
             return View();
         }
         [Authorize]
-        public IActionResult Delete(int?id)
-        {
-            if (id == null)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error deleting data");
-            }
+        //public IActionResult Delete(int?id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError,
+        //            "Error deleting data");
+        //    }
 
-            var bookForDelete = _context.Books.FirstOrDefault(i => i.Id == id);
+        //    var bookForDelete = _context.Books.FirstOrDefault(i => i.Id == id);
 
-            return View(bookForDelete);
-        }
-        [Authorize]
-        [HttpPost, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(int? id)
-        {
-            if (id == null) { return NotFound(); }
+        //    return View(bookForDelete);
+        //}
+        //[Authorize]
+        //[HttpPost, ActionName("Delete")]
+        //public async Task<IActionResult> DeleteConfirmed(int? id)
+        //{
+        //    if (id == null) { return NotFound(); }
 
             
-            var forView = await _context.Books.FirstOrDefaultAsync(m => m.Id == id);
-            if (forView != null)
-                _context.Books.Remove(forView);
-                _context.SaveChanges();
-            return RedirectToAction(nameof(Index));
-        }
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null) { return NotFound(); } 
+        //    var forView = await _context.Books.FirstOrDefaultAsync(m => m.Id == id);
+        //    if (forView != null)
+        //        _context.Books.Remove(forView);
+        //        _context.SaveChanges();
+        //    return RedirectToAction(nameof(Index));
+        //}
+        //public async Task<IActionResult> Details(int? id)
+        //{
+        //    if (id == null) { return NotFound(); } 
 
-            var forView = await _context.Books.FirstOrDefaultAsync(m => m.Id == id);
+        //    var forView = await _context.Books.FirstOrDefaultAsync(m => m.Id == id);
 
-            return View(forView);
-        }
+        //    return View(forView);
+        //}
         [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -127,19 +142,19 @@ namespace DZ_5.Controllers
         }
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Edit(BookViewModelEdit bookViewModelEdit,int?id)
-        {
+        //public async Task<IActionResult> Edit(BookViewModelEdit bookViewModelEdit,int?id)
+        //{
 
-            if (id == null) { return NotFound(); }
-            string strFileName = UploadFile(bookViewModelEdit.Poster);
-            bookViewModelEdit.Book.Poster = strFileName;
-            var book = await _context.Books.FirstOrDefaultAsync(m => m.Id == id);
-            if(book == null) { return NotFound(); }
-            _context.Remove(book);
-            _context.Books.Add(bookViewModelEdit.Book);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+        //    if (id == null) { return NotFound(); }
+        //    string strFileName = UploadFile(bookViewModelEdit.Poster!);
+        //    bookViewModelEdit.Book!.Poster = strFileName;
+        //    var book = await _context.Books.FirstOrDefaultAsync(m => m.Id == id);
+        //    if(book == null) { return NotFound(); }
+        //    _context.Remove(book);
+        //    _context.Books.Add(bookViewModelEdit.Book);
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
