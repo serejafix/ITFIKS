@@ -13,6 +13,7 @@
         <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Book!.Name" />
+         @*   <input type="hidden" asp-for="Book!.Id" />*@
             <div class="form-group">
                 <label asp-for="Book!.Fio" class="control-label"></label>
                 <input asp-for="Book!.Fio" class="form-control" />

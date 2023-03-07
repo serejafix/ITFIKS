@@ -1,0 +1,23 @@
+﻿@model DZ_5.Models.Book
+<div class="col col-lg-4 col-md-6 col-12">
+    <div class="card h-100 border-0">
+        <a asp-action="Details"
+           asp-route-id="@Model.Id">
+            <img src="~/Posters/@Model.Poster" style="width:150px;height:150px;" asp-append-version="true" />
+        </a>
+        <div class="card-body">
+        </div>
+        <div class="card-footer bg-white">
+            <h5 class="card-title">
+                <a asp-action="Details"
+                   asp-route-id="@Model.Id"
+                   class="text-decoration-none">@Model.Name</a>
+            </h5>
+            <p class="card-text">
+                <a asp-action="Index"
+                   asp-route-categoryId="@Model.Id!"
+                   class="badge text-bg-warning rounded-pill">@Model.Id!</a>
+            </p>
+        </div>
+    </div>
+</div>

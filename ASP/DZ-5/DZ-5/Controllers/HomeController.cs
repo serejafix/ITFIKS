@@ -1,4 +1,5 @@
-﻿using DZ_5.Models;
+﻿using DZ_5.Extension;
+using DZ_5.Models;
 using DZ_5.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -117,7 +118,7 @@ namespace DZ_5.Controllers
         //{
         //    if (id == null) { return NotFound(); }
 
-            
+
         //    var forView = await _context.Books.FirstOrDefaultAsync(m => m.Id == id);
         //    if (forView != null)
         //        _context.Books.Remove(forView);
@@ -132,24 +133,44 @@ namespace DZ_5.Controllers
 
         //    return View(forView);
         //}
+        public async Task<IActionResult> Details(string? id)
+        {
+            if (id == null || _context.Books == null)
+            {
+                return NotFound();
+            }
+
+            var book = await _context.Books
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (book == null)
+            {
+                return NotFound();
+            }
+            HttpContext.Session.Set<Book>("LastViewedBooks" + book!.Id, book);
+
+            return View(book);
+        }
         [Authorize]
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string? id)
         {
             if (id == null) { return NotFound(); }
 
+            
             var book = await _context.Books.FindAsync(id); // Getting member by Id from database
+
+           
             return View(new BookViewModelEdit() { Book = book });
         }
         [Authorize]
         [HttpPost]
-        //public async Task<IActionResult> Edit(BookViewModelEdit bookViewModelEdit,int?id)
+        //public async Task<IActionResult> Edit(BookViewModelEdit bookViewModelEdit, int? id)
         //{
 
         //    if (id == null) { return NotFound(); }
         //    string strFileName = UploadFile(bookViewModelEdit.Poster!);
         //    bookViewModelEdit.Book!.Poster = strFileName;
         //    var book = await _context.Books.FirstOrDefaultAsync(m => m.Id == id);
-        //    if(book == null) { return NotFound(); }
+        //    if (book == null) { return NotFound(); }
         //    _context.Remove(book);
         //    _context.Books.Add(bookViewModelEdit.Book);
         //    await _context.SaveChangesAsync();
