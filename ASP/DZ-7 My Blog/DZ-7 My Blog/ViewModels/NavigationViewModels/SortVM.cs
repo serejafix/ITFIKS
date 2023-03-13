@@ -1,4 +1,4 @@
-﻿namespace DZ_7_My_Blog.ViewModels.NavigationViewModels
+﻿namespace Blog.ViewModels.NavigationViewModels
 {
     public class SortVM
     {

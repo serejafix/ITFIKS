@@ -1,8 +1,8 @@
-﻿using DZ_7_My_Blog.Models;
+﻿using Blog.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
-namespace DZ_7_My_Blog.ViewModels.NavigationViewModels
+namespace Blog.ViewModels.NavigationViewModels
 {
     public class FilterVM
     {

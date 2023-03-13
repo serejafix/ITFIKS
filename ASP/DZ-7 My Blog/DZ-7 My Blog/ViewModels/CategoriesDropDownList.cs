@@ -1,6 +1,6 @@
-﻿using DZ_7_My_Blog.Models;
+﻿using Blog.Models;
 
-namespace DZ_7_My_Blog.ViewModels
+namespace Blog.ViewModels
 {
     public class CategoriesDropDownList
     {

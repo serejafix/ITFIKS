@@ -1,4 +1,4 @@
-﻿namespace DZ_7_My_Blog.Until
+﻿namespace Blog.Until
 {
     public static class LoremIpsum
     {

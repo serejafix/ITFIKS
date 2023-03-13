@@ -1,11 +1,11 @@
-﻿using DZ_7_My_Blog.ViewModels.NavigationViewModels;
+﻿using Blog.ViewModels.NavigationViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace DZ_7_My_Blog.TagHelpers
+namespace Blog.TagHelpers
 {
         public class PageLinkTagHelper : TagHelper // Наследуем от класса TagHelper
         {

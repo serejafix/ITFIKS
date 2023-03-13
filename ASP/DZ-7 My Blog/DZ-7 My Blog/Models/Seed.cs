@@ -1,10 +1,10 @@
-﻿using DZ_7_My_Blog.Authorization;
-using DZ_7_My_Blog.Until;
+﻿using Blog.Authorization;
+using Blog.Until;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
-namespace DZ_7_My_Blog.Models
+namespace Blog.Models
 {
     public class Seed
     {

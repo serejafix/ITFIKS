@@ -1,4 +1,4 @@
-﻿namespace DZ_7_My_Blog.Authorization
+﻿namespace Blog.Authorization
 {
     public static class MyClaims
     {

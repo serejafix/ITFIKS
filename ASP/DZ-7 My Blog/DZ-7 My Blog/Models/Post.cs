@@ -1,4 +1,4 @@
-﻿namespace DZ_7_My_Blog.Models
+﻿namespace Blog.Models
 {
     public class Post
     {

@@ -1,8 +1,8 @@
-﻿using DZ_7_My_Blog.Models;
+﻿using Blog.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace DZ_7_My_Blog.Controllers
+namespace Blog.Controllers
 {
     public class HomeController : Controller
     {

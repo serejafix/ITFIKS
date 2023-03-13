@@ -1,10 +1,10 @@
-﻿using DZ_7_My_Blog.Models;
-using DZ_7_My_Blog.ViewModels;
+﻿using Blog.Models;
+using Blog.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace DZ_7_My_Blog.Components
+namespace Blog.Components
 {
     public class CategoriesViewComponent :ViewComponent
     {

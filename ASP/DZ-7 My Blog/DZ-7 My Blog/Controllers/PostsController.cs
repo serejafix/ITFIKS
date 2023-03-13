@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using DZ_7_My_Blog.Models;
-using DZ_7_My_Blog.ViewModels;
-using DZ_7_My_Blog.ViewModels.NavigationViewModels;
+using Blog.Models;
+using Blog.ViewModels;
+using Blog.ViewModels.NavigationViewModels;
 
-namespace DZ_7_My_Blog.Controllers
+namespace Blog.Controllers
 {
     public class PostsController : Controller
     {

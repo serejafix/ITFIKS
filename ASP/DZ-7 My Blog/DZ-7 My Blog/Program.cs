@@ -1,6 +1,6 @@
-using DZ_7_My_Blog.Authorization;
-using DZ_7_My_Blog.Models;
-using DZ_7_My_Blog.Services.EmailService;
+using Blog.Authorization;
+using Blog.Models;
+using Blog.Services.EmailService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

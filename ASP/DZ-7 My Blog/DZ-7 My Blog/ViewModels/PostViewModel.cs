@@ -1,7 +1,7 @@
-﻿using DZ_7_My_Blog.Models;
-using DZ_7_My_Blog.ViewModels.NavigationViewModels;
+﻿using Blog.Models;
+using Blog.ViewModels.NavigationViewModels;
 
-namespace DZ_7_My_Blog.ViewModels
+namespace Blog.ViewModels
 {
     public class PostViewModel
     {

@@ -1,4 +1,4 @@
-﻿namespace DZ_7_My_Blog.Services.EmailService
+﻿namespace Blog.Services.EmailService
 {
     public class SmtpHiddenInfo
     {

@@ -3,7 +3,7 @@ using MailKit.Security;
 using MimeKit;
 using MimeKit.Text;
 
-namespace DZ_7_My_Blog.Services.EmailService
+namespace Blog.Services.EmailService
 {
     public class EmailService : IEmailService
     {

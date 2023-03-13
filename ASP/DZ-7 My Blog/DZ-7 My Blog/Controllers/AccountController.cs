@@ -1,11 +1,11 @@
-﻿using DZ_7_My_Blog.Models;
-using DZ_7_My_Blog.Services.EmailService;
-using DZ_7_My_Blog.ViewModels;
+﻿using Blog.Models;
+using Blog.Services.EmailService;
+using Blog.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DZ_7_My_Blog.Controllers
+namespace Blog.Controllers
 {
     public class AccountController : Controller
     {
