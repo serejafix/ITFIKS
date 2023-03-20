@@ -25,6 +25,12 @@
         </dd>
     </dl>
 </div>
+<div class="row g-3">
+    @foreach (var post in Model.News.Comments)
+    {
+        <partial name="_CommentViewPartial" model="post" />
+    }
+</div>
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.News?.Id">Edit</a> |
     <a asp-page="./Index">Back to List</a>
