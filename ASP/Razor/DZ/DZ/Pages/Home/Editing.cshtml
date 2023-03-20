@@ -1,0 +1,32 @@
+﻿@page
+@model DZ.Pages.Home.EditingModel
+@{
+}
+<hr>
+<h2>Новости</h2>
+<p><a href="/Home/Create">Добавить Новость</a></p>
+<table>
+    <tr><th>Название</th><th>Описание</th></tr>
+    @foreach (var news in Model.News)
+    {
+        <tr>
+            <td>@news.Name</td>
+            <td>@news.Description</td>
+            <td>
+                <h5>
+                    <a asp-page="/Home/Edit"
+                    asp-route-id="@news.Id"
+                       class="text-decoration-none">Edit</a>
+                </h5>
+            </td>
+            <td>|</td>
+            <td>
+                <h5>
+                    <a asp-page="/Home/Delete"
+                        asp-route-id="@news.Id"
+                       class="text-decoration-none">Delete</a>
+                </h5>
+            </td>
+        </tr>
+    }
+</table>
