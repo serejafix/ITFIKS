@@ -15,6 +15,7 @@ namespace DZ.Pages.Home
         {
             _context = db;
         }
+        
         public void OnGet()
         {
             News = _context.News.AsNoTracking().ToList();

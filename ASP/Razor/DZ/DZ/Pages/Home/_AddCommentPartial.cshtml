@@ -1,10 +1,27 @@
 ﻿@page
-@model DZ.Pages.Home._AddCommentPartialModel
+@model DZ.Pages.Home.DetailsModel
 @{
 }
+@*<form method="post">
+    <div class="col col-lg-4 col-md-6 col-12">
+        <div class="card h-100 border-0">
+            <div class="card-body">
+            </div>
+            <div class="card-footer bg-white">
+                @Model.DetailsVM.Comments
+            </div>
+            <input type="hidden" name="Id" value="@Model.DetailsVM.News[0].Id" />
+           
+        </div>
+    </div>
+</form>*@
 
-<div class="mb-3">
-    <label class="control-label">New Comment</label>
-    <input name="Comments" class="form-control" />
-    <span class="text-danger"></span>
-</div>
+<form method="post">
+    <div class="mb-3">
+@*        <input type="hidden" name="CommentId" value="@Model.DetailsVM.News[0].Id" />*@
+        <label class="control-label">New Comment</label>
+        <input name="text" class="form-control" style="width:200px" /> 
+        <span class="text-danger"></span>
+        <input type="submit" value="&#9745;&#65039;"/>
+    </div>
+</form>
