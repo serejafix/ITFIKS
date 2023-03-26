@@ -9,6 +9,8 @@ using DZ.Models;
 using DZ.Models.RazorPagesApp.Models;
 using DZ.ViewModels;
 using System.Xml.Linq;
+using System.ComponentModel.DataAnnotations;
+
 namespace DZ.Pages.Home
 {
     public class DetailsModel : PageModel
@@ -19,12 +21,10 @@ namespace DZ.Pages.Home
         {
             _context = context;
         }
-
-        [BindProperty]
-        public DetailsViewModel DetailsVM { get; set; } = new();
-        //public News News { get; set; } = new();
         [BindProperty]
         public Comment Comment { get; set; } = new();
+        [BindProperty]
+        public DetailsViewModel DetailsVM { get; set; } = new();
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null || _context.News == null)
@@ -64,6 +64,7 @@ namespace DZ.Pages.Home
                 };
             }
             return Page();
+            
         }
         public async Task<IActionResult> OnPostAsync(int? Id)
         {
@@ -78,20 +79,18 @@ namespace DZ.Pages.Home
             {
                 return NotFound();
             }
-
             var comment = new Comment()
             {
                 NewsId = news!.Id,
                 Text = Comment.Text
-             };
-
+            };
             if (comment == null)
             {
                 return NotFound();
             }
             _context.Comments.Add(comment);
             await _context.SaveChangesAsync();
-            return Page();
+            return RedirectToPage("./Details", new { id = news.Id });
         }
     }
 }

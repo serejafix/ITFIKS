@@ -1,27 +1,14 @@
-﻿@page
+﻿@using System.Text.RegularExpressions;
 @model DZ.Pages.Home.DetailsModel
-@{
-}
-@*<form method="post">
-    <div class="col col-lg-4 col-md-6 col-12">
-        <div class="card h-100 border-0">
-            <div class="card-body">
-            </div>
-            <div class="card-footer bg-white">
-                @Model.DetailsVM.Comments
-            </div>
-            <input type="hidden" name="Id" value="@Model.DetailsVM.News[0].Id" />
-           
-        </div>
-    </div>
-</form>*@
 
 <form method="post">
-    <div class="mb-3">
-@*        <input type="hidden" name="CommentId" value="@Model.DetailsVM.News[0].Id" />*@
-        <label class="control-label">New Comment</label>
-        <input name="text" class="form-control" style="width:200px" /> 
-        <span class="text-danger"></span>
-        <input type="submit" value="&#9745;&#65039;"/>
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    <div>
+        <label asp-for="@Model.Comment.Text"></label><br />
+        <input type="text" required  pattern="^((?!test).)*$" title="Вы ввели запрещенное слово либо поле пустое" asp-for="@Model.Comment.Text" />
+        <span asp-validation-for="@Model.Comment.Text"></span>
+    </div>
+    <div>
+        <input type="submit" value="Save" />
     </div>
 </form>
