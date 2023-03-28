@@ -10,6 +10,7 @@ using DZ.Models.RazorPagesApp.Models;
 using DZ.ViewModels;
 using System.Xml.Linq;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace DZ.Pages.Home
 {
@@ -66,6 +67,39 @@ namespace DZ.Pages.Home
             return Page();
             
         }
+        public  ActionResult OnPostDelete(int? id)
+        {
+            var commentToDelete =  _context.Comments.FirstOrDefault(s => s.Id == id);
+            if (commentToDelete == null)
+            {
+                return NotFound();
+            }
+            
+            _context.Comments.Remove(commentToDelete);
+             _context.SaveChangesAsync(); 
+            return RedirectToPage("./Details", new { id = commentToDelete.NewsId });
+        }
+
+        public ActionResult OnPostEdit(int? id,string text)     
+        {
+            if (id == null || _context.News == null)
+            {
+                return NotFound();
+            }
+            var commentToUpdate = _context.Comments.FirstOrDefault(s => s.Id == id);
+          
+            if (commentToUpdate == null) { return NotFound(); }
+            commentToUpdate.Text = text;
+            _context.Comments.Update(commentToUpdate);
+            _context.SaveChanges();
+            return RedirectToPage("./Details", new { id = commentToUpdate.NewsId });
+        }
+
+        private bool TryUpdateModel<T>(News model, string name, Func<object, object> value1, Func<object, object> value2)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IActionResult> OnPostAsync(int? Id)
         {
             if (Id == null || _context.News == null)

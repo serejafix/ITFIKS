@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Details";
+    
 }
 
 <h1>Details</h1>
@@ -50,9 +51,22 @@
                 });
             });
         </script>
+        <script>
+            function EditComment(es) {
+                    var id = document.getElementById(es.id);
+                    let prev = id.nextElementSibling;
+                    if (id.style.display == 'none') {
+                        id.style.display = 'block';
+                        prev.style.display = 'none';
+                    }
+                    else
+                    {
+                        var text = id.textContent;
+                        id.style.display = 'none';
+                        prev.text.value = text;
+                        prev.style.display = 'block';
+                    }                 
+            }
+        </script>
     }
-</div>
-<div>
-    @*<a asp-page="./Edit" asp-route-id="@Model.News?.Id">Edit</a> |*@
-    <a asp-page="./Index">Back to List</a>
 </div>

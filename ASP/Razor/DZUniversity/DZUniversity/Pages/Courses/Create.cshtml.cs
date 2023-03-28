@@ -9,7 +9,7 @@ using DZUniversity.Models;
 
 namespace DZUniversity.Pages.Courses
 {
-    public class CreateModel : PageModel
+    public class CreateModel : DepartmentNamePageModelModel
     {
         private readonly SchoolContext _context;
 
@@ -20,7 +20,7 @@ namespace DZUniversity.Pages.Courses
 
         public IActionResult OnGet()
         {
-        ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentID", "DepartmentID");
+            PopulateDepartmentsDropDownList(_context);
             return Page();
         }
 
@@ -31,15 +31,18 @@ namespace DZUniversity.Pages.Courses
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid)
+            var emptyCourse = new Course();
+            if (await TryUpdateModelAsync<Course>(
+                emptyCourse,
+                "course",
+                s => s.CourseID, s => s.DepartmentId, s => s.Title, s => s.Credits))
             {
-                return Page();
+                _context.Courses.Add(emptyCourse);
+                await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
             }
-
-            _context.Courses.Add(Course);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
+            PopulateDepartmentsDropDownList(_context,emptyCourse.DepartmentId);
+            return Page();
         }
     }
 }

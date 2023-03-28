@@ -1,6 +1,7 @@
 ﻿
 @model DZ.ViewModels.DetailsViewModel
 @{
+    int index = 0;
 }
 <div class="col col-lg-4 col-md-6 col-12">
     <div class="card h-100 border-0">
@@ -9,7 +10,21 @@
         <div class="card-footer bg-white">
             @foreach (var comment in Model.Comments)
             {
-                <span>@comment.Text</span><br />
+                string id = "show" + index;
+                <div style="display:flex">
+                    <span id="@id" >@comment.Text</span>
+                    <form id="@id" style="display:none" asp-page-handler="Edit" asp-route-Id="@Model.Comments[index].Id" method="post">
+                            <input name="text">
+                        <button type="submit"><img src="~/icon/icons8-save-16.png"/></button>
+                        </form>
+                    <button id="@id" onclick="EditComment(this)">
+                        <img src="/icon/icons8-pencil-16.png"/>
+                    </button>
+                    <form asp-page-handler="Delete" asp-route-Id="@Model.Comments[index].Id" method="post">
+                        <button><img src="/icon/icons8-close-16.png" /></button>
+                    </form>
+               </div>
+               index++;
             }
         </div>
     </div>
