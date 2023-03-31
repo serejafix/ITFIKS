@@ -38,11 +38,15 @@
     }
 <div id="newCommentId"></div>
 
-        <div class="mb-3">
+@if (User.Identity!.IsAuthenticated)
+{
     <button type="button"
             class="btn btn-primary" id="load">
         Add Comment
-    </button> 
+    </button>
+}
+<div class="mb-3">
+     
     @section scripts{
         <script>
             $(function () {
