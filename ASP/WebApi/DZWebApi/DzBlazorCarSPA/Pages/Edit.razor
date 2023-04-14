@@ -1,0 +1,56 @@
+﻿@page "/edit-car/{id:int}"
+
+@using DzBlazorCarSPA.Models;
+<h3>Edit</h3>
+
+<EditForm Model="@_carDTO" OnSubmit="@HandleSubmit">
+
+    <InputText id="Name" @bind-Value="_carDTO.Name" />
+
+    <InputText id="Model" @bind-Value="_carDTO.Model" />
+
+    <input @bind="_carDTO.DataCreate" @bind:format="@Format" />
+
+    <InputText id="Color" @bind-Value="_carDTO.Color" />
+
+    <InputText @bind-Value="@qtyString" />
+
+    <button type="submit">Submit</button>
+</EditForm>
+@code {
+    public Double qty { get; set; }
+    public string qtyString
+    {
+        get => qty.ToString();
+        set
+        {
+            if (Double.TryParse(value, out double val))
+                _carDTO.Price = val;
+        }
+    }
+    [Parameter]
+    public int id { get; set; }
+
+    public CarDTO _carDTO = new CarDTO();
+
+    [Parameter]
+    public string Format { get; set; } = "yyyy-MM-dd";
+    [Inject]
+    private HttpClient? Http { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (id != 0)
+        { 
+            _carDTO = await Http!.GetFromJsonAsync<CarDTO>($"cars/{id}");
+            qty = _carDTO!.Price;
+        }
+    }
+
+    private async void HandleSubmit()
+    {
+        HttpResponseMessage response = await Http
+                 .PostAsJsonAsync<CarDTO>($"cars/{_carDTO.Id}", _carDTO);
+    }
+   
+}

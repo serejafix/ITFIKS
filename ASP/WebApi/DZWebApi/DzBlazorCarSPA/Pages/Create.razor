@@ -1,0 +1,43 @@
+﻿@page "/Create"
+@using System.Text.Json;
+@using DzBlazorCarSPA.Models;
+
+<h2>Create Product Form</h2>
+
+<EditForm Model="@_carDTO" OnSubmit="@HandleSubmit">
+
+    <InputText id="Name" @bind-Value="_carDTO.Name" />
+
+    <InputText id="Model" @bind-Value="_carDTO.Model" />
+
+    <input @bind="_carDTO.DataCreate" @bind:format="@Format" />
+        
+    <InputText id="Color" @bind-Value="_carDTO.Color" />
+
+    <InputText @bind-Value="@qtyString" />
+
+    <button type="submit">Submit</button>
+</EditForm>
+
+@code {
+    public Double qty { get; set; }
+    public string qtyString
+    {
+        get => qty.ToString();
+        set
+        {
+            if (Double.TryParse(value, out double val))
+                _carDTO.Price = val;
+        }
+    }
+    public CarDTO _carDTO = new CarDTO();
+    [Parameter]
+    public string Format { get; set; } = "yyyy-MM-dd";
+    [Inject]
+    private HttpClient? Http { get; set; }
+
+    private async void HandleSubmit()
+    { 
+         var response = await Http!.PostAsJsonAsync("cars",_carDTO);
+    }
+}

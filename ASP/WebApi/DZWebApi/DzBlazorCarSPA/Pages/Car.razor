@@ -1,0 +1,66 @@
+﻿@page "/Car"
+
+@using static System.Net.WebRequestMethods;
+@using DzBlazorCarSPA.Models
+@using System.Net.Http.Json
+@using System.Text.Json;
+@inject IJSRuntime JS
+@inject NavigationManager NavManager
+<h3>Car</h3>
+
+@if (Cars == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Model</th>
+                <th>Color</th>
+                <th>DataCreated</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var car in Cars)
+            {
+                <tr>
+                    <td>@car.Name</td>
+                    <td>@car.Price</td>
+                    <td>@car.Model</td>
+                    <td>@car.Color</td>
+                    <td>@car.DataCreate</td>
+                    <td>
+                        <a href="/edit-car/@car.Id"
+                           class="btn btn-sm btn-warning">Edit</a>
+                    </td>              
+                    <td>
+                        <input type="submit" value="Delete" @onclick="(async () => await DeleteCar(car.Id))" class="btn btn-danger" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<CarDTO>? Cars = new List<CarDTO>();
+
+    private int Id { get; set; }
+    [Inject]
+    private HttpClient? Http { get; set; }
+
+    private async Task DeleteCar(int id)
+    {
+        await Http.DeleteAsync($"cars/{id}");
+        await OnInitializedAsync();
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        Cars = await Http!.GetFromJsonAsync<List<CarDTO>>("cars");
+    }
+}

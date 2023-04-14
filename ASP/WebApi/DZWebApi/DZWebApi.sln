@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DZWebApi", "DZWebApi\DZWebApi.csproj", "{AC0A94E0-7166-433E-AEA4-DC308AEB8B5F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DzBlazorCarSPA", "DzBlazorCarSPA\DzBlazorCarSPA.csproj", "{14B1A8C8-FAC9-423C-8BB7-9154431B34C3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC0A94E0-7166-433E-AEA4-DC308AEB8B5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC0A94E0-7166-433E-AEA4-DC308AEB8B5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC0A94E0-7166-433E-AEA4-DC308AEB8B5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC0A94E0-7166-433E-AEA4-DC308AEB8B5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14B1A8C8-FAC9-423C-8BB7-9154431B34C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14B1A8C8-FAC9-423C-8BB7-9154431B34C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14B1A8C8-FAC9-423C-8BB7-9154431B34C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14B1A8C8-FAC9-423C-8BB7-9154431B34C3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1D689EAF-3DCB-4E21-A105-E692EEF374D3}
+	EndGlobalSection
+EndGlobal
