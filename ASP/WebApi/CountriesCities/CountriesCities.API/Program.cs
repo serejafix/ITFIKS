@@ -9,6 +9,15 @@ using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddCors(policy =>
+{
+    policy.AddPolicy("BlazorClientPolicy", opt => opt
+            // .AllowAnyOrigin()
+            .WithOrigins("https://localhost:7214") // ваш https на клиенте!!!
+        .AllowAnyHeader()
+        .AllowAnyMethod());
+});
+
 builder.Services.AddScoped<ICityService, CityService>();
 builder.Services.AddScoped<ICityRepository, CityRepository>();
 
@@ -49,6 +58,7 @@ using (IServiceScope scope = app.Services.CreateScope())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("BlazorClientPolicy");
 
 app.UseAuthorization();
 

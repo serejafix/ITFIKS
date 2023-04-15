@@ -65,7 +65,6 @@ namespace CountriesCities.API.Controllers
             {
                 return NotFound();
             }
-
             return city;
         }
 

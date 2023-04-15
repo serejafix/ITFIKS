@@ -1,0 +1,30 @@
+﻿@page "/cities"
+@using CountriesCities.Client.HttpRepositories;
+@using CountyCities.Shared.DTO;
+
+<h3>GetCitiesDetailsPage</h3>
+
+@code {
+    public List<CityDetailsDTO>? Cities { get; set; }
+
+    [Inject]
+    public ICityHttpRepository CityHttpRepository { get; set; } = default!;
+
+    [Inject]
+    public IJSRuntime JS { get; set; } = default!;
+
+    protected async override Task OnInitializedAsync()
+    {
+        // await Task.Delay(3000);
+        Cities = await CityHttpRepository.GetCitiesDetails();
+
+        //just for testing
+        if (Cities is not null)
+        {
+            foreach (var city in Cities)
+            {
+                Console.WriteLine(city.Name);
+            }
+        }
+    }
+}

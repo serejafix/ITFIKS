@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountriesCities.API", "CountriesCities.API\CountriesCities.API.csproj", "{3720BA2C-7CEA-49D4-B46C-9D40EA687250}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CountriesCities.API", "CountriesCities.API\CountriesCities.API.csproj", "{3720BA2C-7CEA-49D4-B46C-9D40EA687250}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountyCities.Shared", "CountyCities.Shared\CountyCities.Shared.csproj", "{73EE653E-2375-4031-91E2-4B83990E313B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CountyCities.Shared", "CountyCities.Shared\CountyCities.Shared.csproj", "{73EE653E-2375-4031-91E2-4B83990E313B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountriesCities.Client", "CountriesCities.Client\CountriesCities.Client.csproj", "{F5E74CD3-4BEC-4562-A578-C2ED0D39F195}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{73EE653E-2375-4031-91E2-4B83990E313B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73EE653E-2375-4031-91E2-4B83990E313B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73EE653E-2375-4031-91E2-4B83990E313B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5E74CD3-4BEC-4562-A578-C2ED0D39F195}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5E74CD3-4BEC-4562-A578-C2ED0D39F195}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5E74CD3-4BEC-4562-A578-C2ED0D39F195}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5E74CD3-4BEC-4562-A578-C2ED0D39F195}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
