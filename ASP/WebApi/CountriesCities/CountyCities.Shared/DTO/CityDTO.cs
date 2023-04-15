@@ -39,6 +39,5 @@ namespace CountyCities.Shared.DTO
         Unhealthy,
         Danger,
     }
+}
 
-}
-}

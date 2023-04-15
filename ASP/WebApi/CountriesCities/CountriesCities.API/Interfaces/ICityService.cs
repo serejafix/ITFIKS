@@ -8,5 +8,9 @@ namespace CountriesCities.API.Interfaces
         Task<IEnumerable<CityDetailsDTO>> GetCitiesDetails();
         Task<CityDTO?> GetCity(int id);
         Task<CityDetailsDTO?> GetCityDetails(int id);
+        Task<CityDTO> PostCity(CityDTO city);
+        Task<CityDTO> PutCity(CityDTO city);
+        Task<CityDTO> DeleteCity(int id);
+        bool CityExists(int id);
     }
 }

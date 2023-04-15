@@ -24,5 +24,3 @@ namespace CountriesCities.API.AutoMapperProfiles
     }
 
 }
-
-}

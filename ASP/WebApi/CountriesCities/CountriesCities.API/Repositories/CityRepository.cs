@@ -2,6 +2,7 @@
 using CountriesCities.API.Data.Entities;
 using CountriesCities.API.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace CountriesCities.API.Repositories
 {
@@ -13,6 +14,8 @@ namespace CountriesCities.API.Repositories
         {
             _context = context;
         }
+
+
 
         public async Task<IEnumerable<City>> GetCities()
         {
@@ -74,6 +77,45 @@ namespace CountriesCities.API.Repositories
 
             return entity;
 
+        }
+
+        public async Task<City> PostCity(City entity)
+        {
+            EntityEntry<City> addedEntity = await _context.Cities.AddAsync(entity);
+            await SaveChangesAsync(); // (!)
+
+            return addedEntity.Entity;
+
+        }
+
+        public async Task<City> PutCity(City entity)
+        {
+            //_context.Entry(entity).State = EntityState.Modified;
+            EntityEntry<City> updatedEntity = _context.Cities.Update(entity);
+            await SaveChangesAsync();
+
+            return updatedEntity.Entity;
+
+        }
+        public async Task<City> DeleteCity(City entity)
+        {
+            //EntityEntry<City> deletedEntity = _context.Cities.Remove(entity);
+            //await SaveChangesAsync();
+            //return deletedEntity.Entity;
+            //2 варианта
+            entity.IsDeleted = true;
+            await SaveChangesAsync();
+            return entity;
+
+        }
+        private async Task SaveChangesAsync() // (!)
+        {
+            await _context.SaveChangesAsync();
+        }
+
+        public bool CityExists(int id)
+        {
+            return _context.Cities.Any(e => e.Id == id);
         }
     }
 }

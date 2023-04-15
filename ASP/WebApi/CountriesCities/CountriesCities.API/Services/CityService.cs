@@ -16,6 +16,7 @@ namespace CountriesCities.API.Services
             _cityRepository = cityRepository;
         }
 
+
         public async Task<IEnumerable<CityDTO>> GetCities()
         {
             IEnumerable<City> entities = await _cityRepository.GetCities();
@@ -62,6 +63,49 @@ namespace CountriesCities.API.Services
 
             return city;
 
+        }
+
+        public async Task<CityDTO> PostCity(CityDTO city)
+        {
+            City entity = _mapper.Map<City>(city);
+            City addedEntity = await _cityRepository.PostCity(entity);
+
+            city = _mapper.Map<CityDTO>(addedEntity);
+            return city;
+
+        }
+
+        public async Task<CityDTO> PutCity(CityDTO city)
+        {
+            City? entity = _mapper.Map<City>(city);
+            if (entity is null)
+            {
+                return null;
+            }
+            City updatedEntity = await _cityRepository.PutCity(entity);
+
+            city = _mapper.Map<CityDTO>(updatedEntity);
+            return city;
+
+        }
+        public async Task<CityDTO> DeleteCity(int id)
+        {
+
+            City? entity = await _cityRepository.GetCity(id);
+            if (entity is null)
+            {
+                return null;
+            }
+
+            City deletedEntity = await _cityRepository.DeleteCity(entity);
+            CityDTO result = _mapper.Map<CityDTO>(deletedEntity);
+            return result;
+
+        }
+
+        public bool CityExists(int id)
+        {
+            return _cityRepository.CityExists(id);
         }
     }
 }
