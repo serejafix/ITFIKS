@@ -1,0 +1,47 @@
+﻿@page "/cities"
+
+@if (Cities == null)
+{
+    <p>Loading the cities...</p>
+}
+else
+{
+    <CitiesComponent Cities="Cities"
+                 DeleteCityCallBack="DeleteCityHandler" />
+}
+
+@code {
+    public List<CityDetailsDTO>? Cities { get; set; }
+
+    [Inject]
+    public ICityHttpRepository CityHttpRepository { get; set; } = default!;
+
+    [Inject]
+
+
+
+    public IJSRuntime JS { get; set; } = default!;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Cities = await CityHttpRepository.GetCitiesDetails();
+    }
+
+    private async Task DeleteCityHandler(int id)
+    {
+        CityDTO? result = await CityHttpRepository.DeleteCity(id);
+        if (result != null)
+        {
+            CityDetailsDTO? city = Cities!.Find(c => c.Id == result.Id);
+            if (city != null)
+            {
+                await JS.InvokeVoidAsync(
+                "actionCityToastHandler",
+                "bg-danger",
+                $"City {city.Name} was deleted!");
+
+                Cities!.Remove(city);
+            }
+        }
+    }
+}

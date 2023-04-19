@@ -1,0 +1,43 @@
+﻿@using CountyCities.Shared.DTO
+
+<tr> 
+<td scope="row">@City.Name</td> 
+<td scope="row">@City.Population</td> 
+<td scope="row">@City.AirPollutionDegree</td> 
+<td scope="row">@City.CountryId</td> 
+<td scope="row">@City.CountryName</td> 
+<td scope="row">@City.CountryCode</td>
+<td scope="row">
+        <a href="/city/@City.Id"
+           class="btn btn-sm btn-success">Details</a>
+</td>
+<td>
+        <a href="/city/@City.Id"
+           class="btn btn-sm btn-success">Details</a>
+       </td>
+<td>
+    <a href="/edit-city/@City.Id" 
+    class="btn btn-sm btn-warning">Edit</a> 
+</td> 
+<td> 
+@*<a href="/edit-city/@City.Id" class="btn btn-sm btn-danger">Delete</a>*@ 
+    <button @onclick="OnDeleteCity" 
+            class="btn btn-sm btn-danger"> 
+            Delete 
+    </button> 
+    </td> 
+</tr> 
+
+@code { 
+    [Parameter] 
+    public CityDetailsDTO City { get; set; } = default!; 
+
+    [Parameter] 
+    [EditorRequired] 
+    public EventCallback<int> DeleteCityCallBack { get; set; } 
+
+    private async Task OnDeleteCity() 
+    { 
+    await DeleteCityCallBack.InvokeAsync(City.Id); 
+    } 
+} 

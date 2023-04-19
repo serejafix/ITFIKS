@@ -1,0 +1,34 @@
+﻿<a href="/add-city" class="btn btn-lg btn-primary mb-3">Add City</a>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Population</th>
+            <th scope="col">Air Pollution</th>
+            <th scope="col">Country Id</th>
+            <th scope="col">Country Name</th>
+            <th scope="col">Country Code</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var city in Cities)
+        {
+            <CityComponent City="city" DeleteCityCallBack="DeleteCityCallBack" />
+        }
+    </tbody>
+</table>
+
+@code {
+    [Parameter]
+    [EditorRequired]
+    public List<CityDetailsDTO> Cities { get; set; } = default!;
+
+    [Parameter]
+    [EditorRequired]
+    public EventCallback<int> DeleteCityCallBack { get; set; }
+
+}

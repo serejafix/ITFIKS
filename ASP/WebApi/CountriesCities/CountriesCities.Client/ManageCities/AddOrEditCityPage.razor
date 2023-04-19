@@ -1,0 +1,164 @@
+﻿@page "/add-city"
+@page "/edit-city/{id:int}"
+<h2>@PageHeader</h2>
+@if (City is null && Id == 0)
+{
+<p>Loading form for add city...</p>
+}
+else if (City is null && Id != 0)
+{
+<p>Loadingform for edit city...</p>
+}
+else
+{
+<EditForm Model="City" OnValidSubmit="HandleValidSubmit">
+<DataAnnotationsValidator />
+<ValidationSummary />
+<div class="form-floating mb-3">
+<InputText @bind-Value="City!.Name" class="form-control"/>
+<label class="form-label">City Name</label>
+<ValidationMessage For="@(() => City.Name)" />
+</div>
+<div class="form-floating mb-3">
+<InputNumber @bind-Value="City.Population" class="form-control" />
+<label class="form-label">City Population</label>
+<ValidationMessage For="@(() => City.Population)" />
+</div>
+<div class="border rounded p-3 mb-3">
+<InputRadioGroup @bind-Value="City.AirPollutionDegree" title="" class="form-control">
+<div class="fw-bold border-bottom border-5 mb-3">Air Pollution</div>
+@foreach (var item in Enum.GetValues(typeof(AirPollutionDegree)))
+{
+<div class="form-check">
+<InputRadio Value="@item" class="form-check-input"/>
+<label class="form-check-label">
+@item
+</label>
+</div>
+}
+</InputRadioGroup>
+<ValidationMessage For="@(() => City.AirPollutionDegree)" />
+</div>
+<div class="mb-3">
+<InputSelect @bind-Value="City.CountryId" class="form-select">
+<option selected value="0">Without Country</option>
+@foreach (var item in Countries!)
+{
+<option value="@item.Id">@item.Name</option>
+}
+</InputSelect>
+@*<ValidationMessage For="@(() => City.CountryId)" />*@
+</div>
+<div class="mb-3">
+@if (Id != 0)
+{
+<input type="submit"
+value="Edit City"
+class="btn btn-warning me-1" />
+<a href="/city/@City.Id"
+class="btn btn-success me-5">Details</a>
+<button type="button"
+@onclick="DeleteCity"
+class="btn btn-danger">Delete City</button>
+}
+else if (Id == 0)
+{
+<input type="submit"
+value="Add City"
+class="btn btn-success" />
+}
+</div>
+<div class="mb-3">
+<a href="/cities"
+class="btn btn-primary">On GetCitiesDetailsPage</a>
+</div>
+</EditForm>
+}
+@code {
+[Parameter]
+public int Id { get; set; }
+public CityDTO? City { get; set; }
+public List<CountryDTO>? Countries { get; set; }
+[Inject]
+ICityHttpRepository CityHttpRepository { get; set; } = default!;
+[Inject]
+ICountryHttpRepository CountryHttpRepository { get; set; } = default!;
+private string PageHeader = "";
+[Inject]
+public NavigationManager NavigationManager { get; set; } = default!;
+[Inject]
+public IJSRuntime JS { get; set; } = default!;
+protected override async Task OnInitializedAsync()
+{
+Countries = await CountryHttpRepository.GetCountries();
+if (Id != 0)
+{
+PageHeader = "Edit City";
+City = await CityHttpRepository.GetCity(Id);
+}
+else
+{
+PageHeader = "Add City";
+City = new CityDTO();
+}
+}
+//protected async Task HandleSubmit()
+//{
+//}
+//protected async Task HandleInValidSubmit()
+//{
+//}
+private async Task HandleValidSubmit()
+{
+if (City?.CountryId == 0)
+{
+City.CountryId = null;
+}
+CityDTO? result = null;
+if (City?.Id == 0)
+{
+result = await CityHttpRepository.PostCity(City);
+if (result != null)
+{
+await JS.InvokeVoidAsync(
+"actionCityToastHandler",
+"bg-success",
+$"City {result.Name} was added!");
+}
+}
+else if (City?.Id > 0)
+{
+result = await CityHttpRepository.PutCity(City);
+if (result != null)
+{
+await JS.InvokeVoidAsync(
+"actionCityToastHandler",
+"bg-warning",
+$"City {result.Name} was edited!");
+}
+}
+if (result != null)
+{
+NavigationManager.NavigateTo("/cities");
+}
+else
+{
+await JS.InvokeVoidAsync(
+"actionCityToastHandler",
+"bg-danger",
+$"There was a problem to {PageHeader} {City?.Name}...");
+}
+}
+private async Task DeleteCity()
+{
+CityDTO? result = await CityHttpRepository.DeleteCity(Id);
+if (result != null)
+{
+await JS.InvokeVoidAsync(
+"actionCityToastHandler",
+"bg-danger",
+$"City {result.Name} was deleted!");
+NavigationManager.NavigateTo("/cities");
+}
+}
+}

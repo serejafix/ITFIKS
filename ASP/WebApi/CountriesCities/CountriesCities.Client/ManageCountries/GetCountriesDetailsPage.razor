@@ -1,0 +1,32 @@
+﻿@page "/countries"
+@if (Countries == null)
+{
+    <p>Loading the countries...</p>
+}
+else
+{
+    <dl class="mb-5">
+        @foreach (var country in Countries)
+        {
+            <dt>@country.Name</dt>
+            if (country.Cities is not null)
+            {
+                foreach (var city in country.Cities)
+                {
+                    <dd class="ms-5">@city.Name</dd>
+                }
+            }
+        }
+    </dl>
+    <a href="/cities"
+       class="btn btn-primary">On GetCitiesDetails</a>
+}
+@code {
+    public List<CountryDetailsDTO>? Countries { get; set; }
+    [Inject]
+    public ICountryHttpRepository CountryHttpRepository { get; set; } = default!;
+    protected override async Task OnInitializedAsync()
+    {
+        Countries = await CountryHttpRepository.GetCountriesDetails();
+    }
+}

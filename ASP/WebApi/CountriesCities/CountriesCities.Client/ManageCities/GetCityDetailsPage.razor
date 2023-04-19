@@ -1,0 +1,58 @@
+﻿@page "/city/{id:int}"
+@using CountriesCities.Client.HttpRepositories
+@using CountyCities.Shared.DTO
+@if (City is null)
+{
+    <p>Loading City...</p>
+}
+else
+{
+    <dl class="row mb-3">
+        <dt class="">Name</dt>
+        <dd class="ms-0">@City.Name</dd>
+        <dt class="">Population</dt>
+        <dd class="ms-0">@City.Population</dd>
+        <dt class="">Air Pollution Degree</dt>
+        <dd class="ms-0">@City.AirPollutionDegree</dd>
+        <dt class="">Country Id</dt>
+        <dd class="ms-0">@City.CountryId</dd>
+        <dt class="">Country Name</dt>
+        <dd class="ms-0">@City.CountryName</dd>
+        <dt class="">Country Code</dt>
+        <dd class="ms-0">@City.CountryCode</dd>
+    </dl>
+    <div>
+        <a href="/edit-city/@City.Id" class="btn btn-warning">Edit</a> |
+        <a href="/cities" class="btn btn-primary">On GetCitiesDetailsPage</a> |
+        <a type="button" @onclick="DeleteCity" class="btn btn-danger">Delete City</a>
+    </div>
+}
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    public CityDetailsDTO? City { get; set; }
+    [Inject]
+    public ICityHttpRepository CityHttpRepository { get; set; } = default!;
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = default!;
+    [Inject]
+    public IJSRuntime JS { get; set; } = default!;
+    protected override async Task OnInitializedAsync()
+    {
+        City = await CityHttpRepository.GetCityDetails(Id);
+    }
+    private async Task DeleteCity()
+    {
+        CityDTO? result = await CityHttpRepository.DeleteCity(Id);
+        if (result != null)
+        {
+            await JS.InvokeVoidAsync(
+            "actionCityToastHandler"
+            ,
+            "bg-danger"
+            ,
+            $"City {result.Name} was deleted!");
+            NavigationManager.NavigateTo("/cities");
+        }
+    }
+}
